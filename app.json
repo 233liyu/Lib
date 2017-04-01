@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/Login/LoginMain",
+    "pages/Login/CellPhone",
+
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "MiniApp",
+    "navigationBarTextStyle":"white"
+  }
+}

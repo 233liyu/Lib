@@ -1,0 +1,15 @@
+<!--LoginMain.wxml-->
+<view class="container">
+    <view class="sub-container">
+        <view class="phone_num">
+            <input type="number" class="number_area" placeholder="请输入手机号码" focus="true"/>
+            <view bindtouchend="confirm_button" class="confirm_button" scroll-y="true">
+                <text>{{button_text}}</text>
+            </view>
+        </view>
+
+        <view class="confirm_code"></view>
+
+
+    </view>
+</view>
