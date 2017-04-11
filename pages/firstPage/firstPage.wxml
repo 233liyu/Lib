@@ -1,0 +1,54 @@
+
+<import src="../templates/bookInfo" />
+<view class="search">
+ <input type="text" placeholder="请输入图书编号或者书名" placeholder-class="placeholder" bindfocus="onBindFocus"
+  bindblur="onBindBlur"/>
+ <image src="/images/icon/xx.png" class="xx-img" bindtap="onCancelImgTap">
+ </image>
+</view>
+<view class = "container">
+<!-- 推荐模块 -->
+  <view class="Reco_BookInfo">
+  <text class="little_title">
+    向你推荐
+  </text>
+  <template is="bookInfo">
+  </template>
+  <template is="bookInfo">
+  </template>
+  <template is="bookInfo">
+  </template>
+  </view>
+<!-- end -->
+
+ <!-- 图书分类 -->
+  <view class="ttt">
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <text class="little_title">
+    图书分类
+  </text>
+  </view>
+  <view class="index-bd">
+    <view class="kind-list">
+      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+        <view class="kind-list-item">
+          <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
+            <view class="kind-list-text">{{item.name}}</view>
+            <!--<image class="kind-list-img" src="../../images/icon/title.png"></image>-->
+          </view>
+          <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+            <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+              <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
+                <navigator url="pages/{{page}}/{{page}}" class="navigator">
+                  <view class="navigator-text">{{page}}</view>
+                  <view class="navigator-arrow"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+

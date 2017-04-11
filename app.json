@@ -1,15 +1,16 @@
 {
   "pages":[
-    "pages/Login/LoginMain",
-    "pages/Login/CellPhone",
-
+    
+    "pages/firstPage/firstPage",
     "pages/index/index",
     "pages/logs/logs"
+ 
   ],
+
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#000000",
-    "navigationBarTitleText": "MiniApp",
-    "navigationBarTextStyle":"white"
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "霍哈图书馆",
+    "navigationBarTextStyle":"black"
   }
 }

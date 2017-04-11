@@ -1,10 +1,9 @@
 //index.js
 //获取应用实例
 var app = getApp()
-
 Page({
   data: {
-    motto: '欢迎回来',
+    motto: 'Hello World！',
     userInfo: {}
   },
   //事件处理函数
@@ -23,17 +22,5 @@ Page({
         userInfo:userInfo
       })
     })
-  },
-
-  usermotto :function(tap){
-    if(this.data['motto'] == '你是帅哥'){
-      this.setData({
-        motto:'欢迎回来'
-      })
-    } else {
-      this.setData({
-        motto:'你是帅哥'
-      })
-    }
   }
 })

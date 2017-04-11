@@ -1,0 +1,10 @@
+
+<template name="bookInfo">
+<view class="book_container" catchtap="onBookTap">
+<image src="{{coverageUrl}}" class="book_image">
+<text class="book_title">
+白夜行
+</text>
+</image>
+</view>
+</template>
