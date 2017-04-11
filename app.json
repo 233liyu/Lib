@@ -1,7 +1,16 @@
 {
   "pages":[
+<<<<<<< Updated upstream
     
     "pages/firstPage/firstPage",
+=======
+    "pages/notification/notice",    
+    "pages/orders/finishedOrder/finishedOrder",
+    "pages/orders/unfinishedOrder/unfinishedOrder",
+    "pages/orders/reservation/reservation",    
+    "pages/Login/LoginMain",
+    "pages/Login/CellPhone",
+>>>>>>> Stashed changes
     "pages/index/index",
     "pages/logs/logs"
  
