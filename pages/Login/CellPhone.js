@@ -10,7 +10,7 @@ function count_down(){
   if(!page.data.on_counting){
     //如果没有在计时状态的话，启动计时
     console.log('counting start')
-    timing = 15
+    timing = 60
     page.setData({
       on_counting : true
     })
