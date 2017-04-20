@@ -1,6 +1,33 @@
 // pages/orders/finishedOrder/finishedOrder.js
 Page({
-  data:{},
+  data:{
+    "orders" : [
+      {
+        "order_tile" : "订单编号",
+        "id" : "1",
+        "order_state" : "finished",
+        "books" : [
+          {
+            "book_title" : "baiyexing",
+            "book_content" : "book_id is 1231234",
+            "book_img_url" : "http://www.baidu.com/img/bd_logo1.png",
+            "book_url" : "12321312"
+          }
+          ,{
+            "book_title" : "baiyexing",
+            "book_content" : "book_id is 1231234",
+            "book_img_url" : "http://www.baidu.com/img/bd_logo1.png",
+            "book_url" : "12321312"
+          }
+        ],
+        "order_info" : [
+          "订单创建时间： 12039102491",
+          "订单编号: 123123123123",
+          "jfkdahfjhaskdfhakjsdfhakjsf"
+        ]
+      }
+    ]
+  },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
   },

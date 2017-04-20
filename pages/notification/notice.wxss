@@ -26,6 +26,7 @@
 .info_title{
     /*text-justify: newspaper;*/
     /*margin: 10rpx;*/
+    width: 600rpx;
     line-height: 23px;
     font-size: 17pt;
 }
