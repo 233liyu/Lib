@@ -12,6 +12,7 @@
                 </view>
                 <view class="control_state_box">
                     <text class="control_state">{{item.order_state}}</text>
+                    
                 </view>
             </view>
             

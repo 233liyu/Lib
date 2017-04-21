@@ -1,1 +1,6 @@
 /* pages/orders/unfinishedOrder/unfinishedOrder.wxss */
+@import "../finishedOrder/finishedOrder.wxss";
+.icon{
+    align-self: flex-end;
+    margin-right: 10rpx;
+}
