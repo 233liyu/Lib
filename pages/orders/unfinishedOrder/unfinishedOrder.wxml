@@ -25,10 +25,10 @@
                 </view>
                 <view class="control_state_box">
                     <!--去付款、去确认、正在进行、已失效-->
-                    <text wx:if="{{item.order_state == 'dn-paid'}}" bindtap="" class="control_text">去付款</text>
-                    <text wx:if="{{item.order_state == 'dn-confirmed'}}" class="control_text">待确认</text>
-                    <text wx:if="{{item.order_state == 'on-going'}}" class="control_text">正在进行...</text>
-                    <text wx:if="{{item.order_state == 'failed'}}" class="control_text">已失效的订单</text>               
+                    <!--<text wx:if="{{item.order_state == 'dn-paid'}}" bindtap="" class="control_text">去付款</text>-->
+                    <text wx:if="{{item.order_state == 'dn-confirmed'}}" class="control_text">请联系图书管理确认</text>
+                    <text wx:if="{{item.order_state == 'on-going'}}" class="control_text">还书请联系管理员</text>
+                    <text wx:if="{{item.order_state == 'failed'}}" class="control_text"></text>               
                 </view>
             </view>
 
@@ -68,6 +68,14 @@
                 </block>       
             </view>
             <!--book info end-->
+
+            <view class="button_area">
+                <view class="button_row">
+                    <button wx:if="{{item.order_state == 'dn-paid'}}" class="code_button pay_button">去支付</button>
+                    <button wx:if="{{item.order_state == 'failed'}}" class="code_button delete_button">删除订单</button>
+                    <button class="code_button qr_code_button">显示二维码</button>
+                </view>
+            </view>
             
             <!--detail info -->
             <view class="info_area">
@@ -78,6 +86,8 @@
                 </block>
             </view>
             <!--info end-->
+
+ 
         </view>
     </block>
 </view>
