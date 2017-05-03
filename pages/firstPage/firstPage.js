@@ -1,11 +1,15 @@
 Page({
   data: {
-    list: [
-      {
+    /*初始控制模块变量 */
+    containerShow: true,
+    searchPanelShow: false,
+    Command:{},
+ list: [
+       {
         id: 'A',
         name: 'A 马克思主义、列宁主义、毛泽东思想、邓小平理论',
         open: false,
-        pages: ['A1马克思、恩格斯著作', 'A2列宁著作', 'A3斯大林著作','A4毛泽东著作','A5邓小平著作','A6马克思、恩格斯、列宁、斯大林、毛泽东、邓小平著作汇编','A7马克思、恩格斯、列宁、斯大林、毛泽东、邓小平生平和传记','A8马克思主义、列宁主义、毛泽东思想、邓小平理论的学习和研究']
+        pages: ['A1 马克思、恩格斯著作', 'A2 列宁著作', 'A3 斯大林著作','A4 毛泽东著作','A5 邓小平著作','A6 马克思、恩格斯、列宁、斯大林、毛泽东、邓小平著作汇编','A7 马克思、恩格斯、列宁、斯大林、毛泽东、邓小平生平和传记','A8 马克思主义、列宁主义、毛泽东思想、邓小平理论的学习和研究']
      }, {
         id: 'B',
         name: 'B 哲学、宗教',
@@ -125,5 +129,73 @@ Page({
     this.setData({
       list: list
     });
-  }
+  },
+
+//推荐信息链接
+onLoad: function(event)
+{
+  var CommandUrl = 'https://www.biulibiuli.cn/osc/';
+  this.getCommBooklist(CommandUrl,"Command");
+  },
+/*-- 控制搜素面板 */
+   
+   onBindFocus: function (event) {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+  onCancelImgTap : function(event){
+    this.setData({
+     containerShow: true,
+    searchPanelShow: false
+    })
+  },
+  onBookTap : function(event)
+  {
+      var bookId = event.currentTarget.dataset.bookid;
+      console.log(bookId);
+      wx.navigateTo({
+      url: "../bookDetail/bookDetail?id="+bookId
+      })
+  },
+getCommBooklist : function(CommandUrl,settedKey){
+  wx.showNavigationBarLoading()
+  var that = this;
+  wx.request({
+    url: CommandUrl,
+    data: {
+      
+    },
+    method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+     header: {
+        "Content-Type": "json"
+      },
+    success: function(res){
+      // success
+      that.processCommandData(res.data,settedKey);
+    },
+    fail: function(error) {
+      // fail
+      console.log(error)
+    },
+    complete: function(res) {
+      // complete
+    }
+  })
+},
+
+processCommandData:function (BookInfo,settedKey)
+{
+  console.log(BookInfo);
+  var books = [];
+  var readyData = {};
+    readyData[settedKey] = {
+      books: BookInfo.message
+    }
+    this.setData(readyData);
+    console.log(readyData)
+    wx.hideNavigationBarLoading();
+}
+  
 })

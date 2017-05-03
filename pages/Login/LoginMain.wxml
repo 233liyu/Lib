@@ -1,4 +1,5 @@
 <!--pages/Login/LoginMain.wxml-->
+
 <view class="container">
 
   <view  bindtap="bindViewTap" class="userinfo">
@@ -19,3 +20,5 @@
     
   </view>
 </view>
+
+<text>pages/Login/LoginMain.wxml</text>

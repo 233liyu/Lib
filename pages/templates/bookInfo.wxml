@@ -1,10 +1,14 @@
 
 <template name="bookInfo">
-<view class="book_container" catchtap="onBookTap">
-<image src="{{coverageUrl}}" class="book_image">
-<text class="book_title">
-白夜行
+<view class="book_container" catchtap="onBookTap" data-bookId="{{bookId}}"
+>
+
+<image src="{{url}}" class="book_image" />
+<view class="book_title">
+<text >
+{{title}}
 </text>
-</image>
+</view>
+
 </view>
 </template>
