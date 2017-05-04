@@ -1,12 +1,14 @@
 {
   "pages":[
-    "pages/firstPage/firstPage",
-    "pages/notification/notice",    
-    "pages/orders/finishedOrder/finishedOrder",
-    "pages/orders/unfinishedOrder/unfinishedOrder",
-    "pages/Login/LoginMain",
     "pages/Login/CellPhone",
+    "pages/settings/userInfo/userInfo",
+    "pages/settings/recommendation/recommendation",
     "pages/orders/reservation/reservation",    
+    "pages/orders/unfinishedOrder/unfinishedOrder",
+    "pages/notification/notice",        
+    "pages/orders/finishedOrder/finishedOrder",
+    "pages/firstPage/firstPage",
+    "pages/Login/LoginMain",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -17,4 +19,5 @@
     "navigationBarTitleText": "霍哈图书馆",
     "navigationBarTextStyle":"black"
   }
+  
 }

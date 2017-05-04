@@ -1,2 +1,22 @@
 <!--pages/settings/userInfo/userInfo.wxml-->
-
+<view class="container">
+    <view class="content_box">
+        <view class="input_title">
+            <text>haha</text>
+        </view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">姓名</text></view>
+            <view class="value_box"><input type="number" /></view>
+        </view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">姓名</text></view>
+            <view class="value_box"><input type="number" /></view>
+        </view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">姓名</text></view>
+            <view class="value_box"><input type="number" /></view>
+        </view>
+        <view class="input_content"></view>
+        <view class="input_content"></view>        
+    </view>
+</view>

@@ -1,1 +1,43 @@
 /* pages/settings/userInfo/userInfo.wxss */
+.container{
+    background-color: aliceblue;
+    padding-top: 40rpx;
+}
+
+.content_box{
+    background-color: antiquewhite;
+    margin-bottom: 40rpx;
+}
+
+.input_title{
+    padding: 20rpx;
+    background-color: aqua;
+}
+
+.input_content{
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    /*height: 130rpx;*/
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    width: 710rpx;
+}
+
+.key_name{
+    width: 200rpx;
+    background-color: bisque;
+}
+
+.value_box{
+    background-color: blue;
+    /*width: 500rpx;*/
+    padding: 15rpx;
+}
+
+.line_text{
+    line-height: 30pt;
+}
+
+
+
