@@ -57,7 +57,7 @@
   </form>
   </view>
  <view class="ttt " >
-  <image class="title_pic " src="../../images/icon/title.png "></image>
+  <image class="title_pic " src="../../images/icon/title.png"></image>
   <view class="little_title ">
     精彩导读
   </view>
@@ -66,8 +66,8 @@
   {{guide_read}}
   </view>
 
-  <view class="ttt " >
-  <image class="title_pic " src="../../images/icon/title.png "></image>
+  <view class="ttt" >
+  <image class="title_pic " src="../../images/icon/title.png"></image>
   <view class="little_title ">
     书籍信息
   </view>
@@ -83,7 +83,7 @@
   </view>
 
   <view class="ttt " >
-  <image class="title_pic " src="../../images/icon/title.png "></image>
+  <image class="title_pic " src="../../images/icon/title.png"></image>
   <view class="little_title">
     相关推荐
   </view>
@@ -93,7 +93,7 @@
   </view>
 
   <view class="ttt " >
-    <image class="title_pic " src="../../images/icon/title.png "></image>
+    <image class="title_pic " src="../../images/icon/title.png"></image>
     <view class="little_title">
     书籍评论
     </view>

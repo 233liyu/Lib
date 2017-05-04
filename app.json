@@ -2,6 +2,7 @@
   "pages":[
     "pages/firstPage/firstPage",
     "pages/bookDetail/bookDetail",
+    "pages/sortDetail/sortDetail",
     "pages/notification/notice",    
     "pages/orders/finishedOrder/finishedOrder",
     "pages/orders/unfinishedOrder/unfinishedOrder",
