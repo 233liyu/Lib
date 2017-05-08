@@ -8,8 +8,8 @@ Page({
    onLoad: function(options) {
     var bookId = options.id;
     var InfoUrl ='https://www.biulibiuli.cn/book_test/bookInfo';
-   var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
-   this.getReCommBooklist(ReCommandUrl,bookId);
+    var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
+    this.getReCommBooklist(ReCommandUrl,bookId);
     this.getBookInfo(InfoUrl , bookId);
     },
 
@@ -127,13 +127,20 @@ Page({
       })
     }
     else{
-      
        this.setData({
       Storagevisible : 0
        })
     }
      
    
+  },
+   onBookTap : function(event)
+  {
+      var bookId = event.currentTarget.dataset.bookid;
+      console.log(bookId);
+      wx.navigateTo({
+      url: "../bookDetail/bookDetail?id="+bookId
+      })
   },
  
  onShareAppMessage: function() {

@@ -36,7 +36,7 @@
     <view class="th ">书刊状态</view>
   </view>
   <block wx:for="{{storage_books}}" wx:for-item="sbook" wx:key="{{index}} ">
-    <view class="tr bg-g " wx:if="{{index % 2==0 }} ">
+    <view class="tr bg-g " wx:if="{{index%2==0}}">
       <view class="td">{{bookId}}</view>
       <view class="td">{{sbook.book_id}}</view>
       <view class="td">{{title}}</view>
@@ -50,25 +50,25 @@
       <view class="td">{{title}}</view>
       <view class="td">{{sbook.book_location}}</view>
       <view class="td" wx:if="{{sbook.book_state=='available'}}"> 可借</view>
-     <view class="td" wx:if="{{sbook.book_state !='available'}}"> 还书时间{{sbook.return_time}}       </view>
+     <view class="td" wx:if="{{sbook.book_state!='available'}}"> 还书时间{{sbook.return_time}}       </view>
     </view>
   </block>
  </view>
   </form>
   </view>
- <view class="ttt " >
-  <image class="title_pic " src="../../images/icon/title.png"></image>
-  <view class="little_title ">
+ <view class="ttt" >
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
     精彩导读
   </view>
   </view>
-  <view class="guideRead ">
+  <view class="guideRead">
   {{guide_read}}
   </view>
 
   <view class="ttt" >
-  <image class="title_pic " src="../../images/icon/title.png"></image>
-  <view class="little_title ">
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
     书籍信息
   </view>
   </view>
@@ -99,7 +99,7 @@
     </view>
   </view>
   <view class="comments">
-      <block wx:for="{{comments}}" wx:for-item="comment"        wx:key="index">
+      <block wx:for="{{comments}}" wx:for-item="comment"  wx:key="index">
       <view class="bookInfo">
        <text>{{comment.content}} </text>
        <text>{{comment.rate}} </text>
