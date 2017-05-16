@@ -32,10 +32,9 @@
 
 }
 
-<<<<<<< HEAD
+
 
 /*--end--*/
-=======
 .CancelBtn{
   width: 105rpx;
   height: 60rpx;
@@ -49,7 +48,6 @@
    width: 40rpx;
    margin:auto 0rpx auto 30rpx;
 }
->>>>>>> master
 
 
 /*--end--*/

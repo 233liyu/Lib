@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/settings/recommendation/recommendation",
     "pages/firstPage/firstPage",
     "pages/bookDetail/bookDetail",
     "pages/sortDetail/sortDetail",
@@ -12,6 +11,7 @@
     "pages/orders/reservation/reservation",
     "pages/orders/finishedOrder/finishedOrder",
     "pages/settings/userInfo/userInfo",
+    "pages/settings/recommendation/recommendation",    
     "pages/Login/CellPhone",
     "pages/notification/notice",
     "pages/firstPage/firstPage",

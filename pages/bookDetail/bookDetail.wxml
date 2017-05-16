@@ -1,7 +1,7 @@
 <import src="../templates/bookInfo.wxml" />
 <import src="../templates/bookList.wxml" />
 <view class="container">
-  <!--head -->
+ <!--head -->
   <image class="head-img" src="{{ImageUrl}}" mode="aspectFill" />
   <view class="head-img-hover" data-src="{{ImageUrl}}" catchtap="viewBookPostImg">
     <text class="main-title">{{title}}</text>
@@ -25,113 +25,88 @@
       加入借书栏
     </button>
   </view>
-  <view class="Storage" wx:if="{{Storagevisible}}">
-    <form>
-      <view class=" table ">
-        <view class="tr bg-w ">
-          <view class="th ">索书号</view>
-          <view class="th ">条码号</view>
-          <view class="th ">书名</view>
-          <view class="th ">馆藏地</view>
-          <view class="th ">书刊状态</view>
-        </view>
-        <block wx:for="{{storage_books}}" wx:for-item="sbook" wx:key="{{index}} ">
-
-          <view class="tr bg-g " wx:if="{{index % 2==0 }} ">
-            <view class="tr bg-g " wx:if="{{index%2==0}}">
-              <view class="td">{{bookId}}</view>
-              <view class="td">{{sbook.book_id}}</view>
-              <view class="td">{{title}}</view>
-              <view class="td">{{sbook.book_location}}</view>
-              <view class="td" wx:if="{{sbook.book_state=='available'}}">可借</view>
-              <view class="td" wx:if="{{sbook.book_state !='available'}}">还书时间{{sbook.return_time}} </view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{bookId}}</view>
-              <view class="td">{{sbook.book_id}}</view>
-              <view class="td">{{title}}</view>
-              <view class="td">{{sbook.book_location}}</view>
-              <view class="td" wx:if="{{sbook.book_state=='available'}}"> 可借</view>
-              <view class="td" wx:if="{{sbook.book_state !='available'}}"> 还书时间{{sbook.return_time}} </view>
-              <view class="td" wx:if="{{sbook.book_state!='available'}}"> 还书时间{{sbook.return_time}}</view>
-            </view>
-            </view>            
-        </block>
-        
-        </view>
-    </form>
+  <view class="Storage" wx:if="{{Storagevisible}}" >
+  <form>
+  <view class=" table ">
+  <view class="tr bg-w ">
+    <view class="th ">索书号</view>
+    <view class="th ">条码号</view>
+    <view class="th ">书名</view>
+    <view class="th ">馆藏地</view>
+    <view class="th ">书刊状态</view>
+  </view>
+  <block wx:for="{{storage_books}}" wx:for-item="sbook" wx:key="{{index}} ">
+    <view class="tr bg-g " wx:if="{{index%2==0}}">
+      <view class="td">{{bookId}}</view>
+      <view class="td">{{sbook.book_id}}</view>
+      <view class="td">{{title}}</view>
+      <view class="td">{{sbook.book_location}}</view>
+      <view class="td" wx:if="{{sbook.book_state=='available'}}">可借</view>
+      <view class="td" wx:if="{{sbook.book_state !='available'}}">还书时间{{sbook.return_time}}       </view>
     </view>
-    <view class="ttt ">
-      <image class="title_pic " src="../../images/icon/title.png "></image>
-      <view class="little_title ">
-        精彩导读
-      </view>
+    <view class="tr" wx:else>
+      <view class="td">{{bookId}}</view>
+      <view class="td">{{sbook.book_id}}</view>
+      <view class="td">{{title}}</view>
+      <view class="td">{{sbook.book_location}}</view>
+      <view class="td" wx:if="{{sbook.book_state=='available'}}"> 可借</view>
+     <view class="td" wx:if="{{sbook.book_state!='available'}}"> 还书时间{{sbook.return_time}}       </view>
     </view>
-    <view class="guideRead ">
-      {{guide_read}}
-    </view>
+  </block>
+ </view>
+  </form>
+  </view>
+ <view class="ttt" >
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
+    精彩导读
+  </view>
+  </view>
+  <view class="guideRead">
+  {{guide_read}}
+  </view>
 
-    <view class="ttt ">
-      <image class="title_pic " src="../../images/icon/title.png "></image>
-      <view class="little_title ">
-        <view class="ttt">
-          <image class="title_pic" src="../../images/icon/title.png"></image>
-          <view class="little_title">
-            精彩导读
-          </view>
-        </view>
-        <view class="guideRead">
-          {{guide_read}}
-        </view>
+  <view class="ttt" >
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
+    书籍信息
+  </view>
+  </view>
+  <view class="bookInfo ">
+  <text>书名: {{title+'\n'}}</text>
+  <block wx:for="{{authors}}" wx:for-item="author" wx:key="index"> 
+ <view><text>作者：{{author}} </text></view>
+  </block>
+  <text>出版社: {{publisher+'\n'}}</text>
+  <text>ISBN: {{isbn10 +'\n'}}</text>
+  <text>中图法分类号: A1111</text>
+  </view>
 
-        <view class="ttt">
-          <image class="title_pic" src="../../images/icon/title.png"></image>
-          <view class="little_title">
-            书籍信息
-          </view>
-        </view>
-        <view class="bookInfo ">
-          <text>书名: {{title+'\n'}}</text>
-          <block wx:for="{{authors}}" wx:for-item="author" wx:key="index">
-            <view>
-              <text>作者：{{author}} </text>
-            </view>
-          </block>
-          <text>出版社: {{publisher+'\n'}}</text>
-          <text>ISBN: {{isbn10 +'\n'}}</text>
-          <text>中图法分类号: A1111</text>
-        </view>
+  <view class="ttt " >
+  <image class="title_pic " src="../../images/icon/title.png"></image>
+  <view class="little_title">
+    相关推荐
+  </view>
+  </view>
+   <view class="bookList">
+   <template is="bookListTemplate" data="{{...RealtiveReCommand}}"></template>
+  </view>
 
-        <view class="ttt ">
-          <image class="title_pic " src="../../images/icon/title.png "></image>
-          <image class="title_pic " src="../../images/icon/title.png"></image>
-          <view class="little_title">
-            相关推荐
-          </view>
-        </view>
-        <view class="bookList">
-          <template is="bookListTemplate" data="{{...RealtiveReCommand}}"></template>
-        </view>
-
-        <view class="ttt ">
-          <image class="title_pic " src="../../images/icon/title.png "></image>
-          <image class="title_pic " src="../../images/icon/title.png"></image>
-          <view class="little_title">
-            书籍评论
-          </view>
-        </view>
-        <view class="comments">
-          <block wx:for="{{comments}}" wx:for-item="comment" wx:key="index">
-            <block wx:for="{{comments}}" wx:for-item="comment" wx:key="index">
-              <view class="bookInfo">
-                <text>{{comment.content}} </text>
-                <text>{{comment.rate}} </text>
-                <text>{{comment.user_name}} </text>
-              </view>
-            </block>
-            </block>            
-        </view>
-      </view>
+  <view class="ttt " >
+    <image class="title_pic " src="../../images/icon/title.png"></image>
+    <view class="little_title">
+    书籍评论
     </view>
   </view>
-      
+  <view class="comments">
+      <block wx:for="{{comments}}" wx:for-item="comment"  wx:key="index">
+      <view class="bookInfo">
+       <text>{{comment.content}} </text>
+       <text>{{comment.rate}} </text>
+       <text>{{comment.user_name}} </text>
+      </view>
+      </block>
+  </view>
+
+  
+</view>
