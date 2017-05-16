@@ -10,6 +10,9 @@ Page({
     var InfoUrl ='https://www.biulibiuli.cn/book_test/bookInfo';
    var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
    this.getReCommBooklist(ReCommandUrl,bookId);
+    var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
+    this.getReCommBooklist(ReCommandUrl,bookId);
+>>>>>>> master
     this.getBookInfo(InfoUrl , bookId);
     },
 
@@ -20,7 +23,7 @@ Page({
       wx.request({
          url: InfoUrl ,
     data: {},
-          method: 'GET', 
+          method: 'GET',
      header: {
         "Content-Type": "json"
       },
@@ -40,7 +43,7 @@ Page({
  },
 
     processBookData(data , bookId)
-    {   
+    {
         var rating = [];
         var authors = [];
         var ImageUrl;
@@ -79,7 +82,7 @@ Page({
       wx.request({
          url: ReCommandUrl ,
     data: {},
-          method: 'GET', 
+          method: 'GET',
      header: {
         "Content-Type": "json"
       },
@@ -121,21 +124,29 @@ Page({
     },
 
   StorageInfo : function(e){
-     if(e.currentTarget.dataset.vis == 0){ 
+     if(e.currentTarget.dataset.vis == 0){
       this.setData({
       Storagevisible : 1
       })
     }
     else{
-      
+
        this.setData({
       Storagevisible : 0
        })
     }
-     
-   
+
+
   },
- 
+   onBookTap : function(event)
+  {
+      var bookId = event.currentTarget.dataset.bookid;
+      console.log(bookId);
+      wx.navigateTo({
+      url: "../bookDetail/bookDetail?id="+bookId
+      })
+  },
+
  onShareAppMessage: function() {
     // 用户点击右上角分享
     return {

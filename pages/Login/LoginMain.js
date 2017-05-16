@@ -65,7 +65,8 @@ Page({
   },
 
 // onLoad get user data
-  onLoad: function () {
+  onLoad: function (res) {
+    console.log(res)
     console.log('onLoad')
     //调用应用实例的方法获取全局数据
     typeof pp == Object
@@ -84,22 +85,25 @@ Page({
 // tap the log with wechat button
   Log_WeChat: function(){
     if(isUserLogged()){
-      // if we have the user data, then send the request
-      wx.request({
-        url: 'https://URL',
-        data: {},
-        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-        // header: {}, // 设置请求的 header
-        success: function(res){
-          // success
-        },
-        fail: function(res) {
-          // fail
-        },
-        complete: function(res) {
-          // complete
-        }
+      wx.navigateBack({
+        
       })
+      // if we have the user data, then send the request
+      // wx.request({
+      //   url: 'https://URL',
+      //   data: {},
+      //   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      //   // header: {}, // 设置请求的 header
+      //   success: function(res){
+      //     // success
+      //   },
+      //   fail: function(res) {
+      //     // fail
+      //   },
+      //   complete: function(res) {
+      //     // complete
+      //   }
+      // })
     } else{
       // we don't have the user data, ask to have the authorization
       wx.redirectTo({
