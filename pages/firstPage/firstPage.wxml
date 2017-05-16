@@ -12,11 +12,8 @@
 <view class = "container" wx:if="{{containerShow}}">
 <!-- 推荐模块 -->
 <view class="Reco_BookInfo">
-<<<<<<< HEAD
  <view class="ttt">
-=======
  <view class="ttt" style="overflow-x:hidden;">
->>>>>>> master
   <image class="title_pic" src="../../images/icon/title.png"></image>
   <view class="little_title">
    向你推荐
@@ -58,4 +55,4 @@
  <view class="searchPanel" wx:if="{{searchPanel}}">
  
  </view>
-
+ </view>

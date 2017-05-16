@@ -2,10 +2,6 @@
 <template name="bookInfo">
 <view class="book_container" catchtap="onBookTap" data-bookId="{{bookId}}"
 >
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 <image src="{{url}}" class="book_image" />
 <view class="book_title">
 <text >
