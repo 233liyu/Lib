@@ -38,7 +38,7 @@
   font-size: 24rpx;
   color: #fff;
   background-color: #fecd50;
-  margin:-70rpx 0 0 550rpx;
+  margin:-50rpx 0 0 550rpx;
 }
 .Search_img{
    height: 40rpx;

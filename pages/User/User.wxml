@@ -45,8 +45,8 @@
     </navigator>
   </view>
   <view class="navigator-box-show">
-     <navigator url="../notification/notice" class="navigator">
-      <view class="navigator-text">通知</view>
+     <navigator url=" " class="navigator">
+      <view class="navigator-text">设置</view>
       <view class="navigator-arrow"></view>
     </navigator>
  </view>
