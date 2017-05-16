@@ -1,23 +1,19 @@
 {
   "pages":[
-<<<<<<< HEAD
     "pages/settings/recommendation/recommendation",
-=======
->>>>>>> master
+    "pages/firstPage/firstPage",
+    "pages/bookDetail/bookDetail",
+    "pages/notification/notice",    
+    "pages/orders/finishedOrder/finishedOrder",
     "pages/orders/unfinishedOrder/unfinishedOrder",
     "pages/orders/reservation/reservation",
     "pages/orders/finishedOrder/finishedOrder",
     "pages/settings/userInfo/userInfo",
     "pages/Login/CellPhone",
-<<<<<<< HEAD
     "pages/notification/notice",        
     "pages/firstPage/firstPage",
     "pages/Login/LoginMain",
-=======
-
-
-
->>>>>>> master
+    "pages/orders/reservation/reservation",    
     "pages/index/index",
     "pages/logs/logs"
   ],
