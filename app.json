@@ -10,7 +10,6 @@
     "pages/orders/unfinishedOrder/unfinishedOrder",
     "pages/Login/LoginMain",
     "pages/Login/CellPhone",
-  
     "pages/orders/reservation/reservation",    
     "pages/index/index",
     "pages/logs/logs"
