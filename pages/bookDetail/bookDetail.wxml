@@ -36,11 +36,7 @@
     <view class="th ">书刊状态</view>
   </view>
   <block wx:for="{{storage_books}}" wx:for-item="sbook" wx:key="{{index}} ">
-<<<<<<< HEAD
     <view class="tr bg-g " wx:if="{{index % 2==0 }} ">
-=======
-    <view class="tr bg-g " wx:if="{{index%2==0}}">
->>>>>>> master
       <view class="td">{{bookId}}</view>
       <view class="td">{{sbook.book_id}}</view>
       <view class="td">{{title}}</view>
@@ -54,17 +50,12 @@
       <view class="td">{{title}}</view>
       <view class="td">{{sbook.book_location}}</view>
       <view class="td" wx:if="{{sbook.book_state=='available'}}"> 可借</view>
-<<<<<<< HEAD
      <view class="td" wx:if="{{sbook.book_state !='available'}}"> 还书时间{{sbook.return_time}}       </view>
-=======
-     <view class="td" wx:if="{{sbook.book_state!='available'}}"> 还书时间{{sbook.return_time}}       </view>
->>>>>>> master
     </view>
   </block>
  </view>
   </form>
   </view>
-<<<<<<< HEAD
  <view class="ttt " >
   <image class="title_pic " src="../../images/icon/title.png "></image>
   <view class="little_title ">
@@ -78,21 +69,6 @@
   <view class="ttt " >
   <image class="title_pic " src="../../images/icon/title.png "></image>
   <view class="little_title ">
-=======
- <view class="ttt" >
-  <image class="title_pic" src="../../images/icon/title.png"></image>
-  <view class="little_title">
-    精彩导读
-  </view>
-  </view>
-  <view class="guideRead">
-  {{guide_read}}
-  </view>
-
-  <view class="ttt" >
-  <image class="title_pic" src="../../images/icon/title.png"></image>
-  <view class="little_title">
->>>>>>> master
     书籍信息
   </view>
   </view>
@@ -107,11 +83,7 @@
   </view>
 
   <view class="ttt " >
-<<<<<<< HEAD
   <image class="title_pic " src="../../images/icon/title.png "></image>
-=======
-  <image class="title_pic " src="../../images/icon/title.png"></image>
->>>>>>> master
   <view class="little_title">
     相关推荐
   </view>
@@ -121,21 +93,13 @@
   </view>
 
   <view class="ttt " >
-<<<<<<< HEAD
     <image class="title_pic " src="../../images/icon/title.png "></image>
-=======
-    <image class="title_pic " src="../../images/icon/title.png"></image>
->>>>>>> master
     <view class="little_title">
     书籍评论
     </view>
   </view>
   <view class="comments">
-<<<<<<< HEAD
       <block wx:for="{{comments}}" wx:for-item="comment"        wx:key="index">
-=======
-      <block wx:for="{{comments}}" wx:for-item="comment"  wx:key="index">
->>>>>>> master
       <view class="bookInfo">
        <text>{{comment.content}} </text>
        <text>{{comment.rate}} </text>

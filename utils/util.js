@@ -1,21 +1,3 @@
-
-function http(url, callBack){
-  wx.request({
-    url: url,
-    method: 'GET',
-    header: {
-      "Content-Type": "json"
-    },
-    success: function (res) {
-      callBack(res.data);
-    },
-    fail: function (error) {
-      console.log(error)
-    }
-  })
-}
-
-
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -35,7 +17,5 @@ function formatNumber(n) {
 }
 
 module.exports = {
-  formatTime: formatTime,
-  http :http
+  formatTime: formatTime
 }
-
