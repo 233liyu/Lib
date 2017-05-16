@@ -23,7 +23,7 @@ Page({
         "order_info" : [
           "订单创建时间： 12039102491",
           "订单编号: 123123123123",
-          "jfkdahfjhaskdfhakjsdfhakjsf"
+          "12131231321"
         ]
       }
     ]
