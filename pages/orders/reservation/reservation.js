@@ -39,7 +39,7 @@ Page({
         },{
           "id" : "12312312",
           "order_state" : "out_of_time",
-          "reserve_time": "2017-2-3 6:30",
+          // "reserve_time": "2017-2-3 6:30",
           "books" : 
             {
               "book_title" : "白夜行",

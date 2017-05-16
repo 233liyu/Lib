@@ -4,30 +4,6 @@ Page({
     // dn-paid  dn-confirmed  on-going  failed
       "orders" : [
       {
-        "order_tile" : "待支付",
-        "id" : "12312311",
-        "order_state" : "dn-paid",
-        "books" : [
-          {
-            "book_title" : "baiyexing",
-            "book_content" : "book_id is 1231234",
-            "book_img_url" : "http://www.baidu.com/img/bd_logo1.png",
-            "book_url" : "12321312"
-          }
-          ,{
-            "book_title" : "baiyexing",
-            "book_content" : "book_id is 1231234",
-            "book_img_url" : "http://www.baidu.com/img/bd_logo1.png",
-            "book_url" : "12321312"
-          }
-        ],
-        "order_info" : [
-          "订单创建时间： 12039102491",
-          "订单编号: 123123123123",
-          "12131231321"
-        ]
-      },
-      {
         "order_tile" : "待确认",
         "id" : "12312311",
         "order_state" : "dn-confirmed",
@@ -50,7 +26,30 @@ Page({
           "订单编号: 123123123123",
           "12131231321"
         ]
-      },
+        }, {
+          "order_tile": "待支付",
+          "id": "12312311",
+          "order_state": "dn-paid",
+          "books": [
+            {
+              "book_title": "baiyexing",
+              "book_content": "book_id is 1231234",
+              "book_img_url": "http://www.baidu.com/img/bd_logo1.png",
+              "book_url": "12321312"
+            }
+            , {
+              "book_title": "baiyexing",
+              "book_content": "book_id is 1231234",
+              "book_img_url": "http://www.baidu.com/img/bd_logo1.png",
+              "book_url": "12321312"
+            }
+          ],
+          "order_info": [
+            "订单创建时间： 12039102491",
+            "订单编号: 123123123123",
+            "12131231321"
+          ]
+        },
       {
         "order_tile" : "正在进行",
         "id" : "12312311",

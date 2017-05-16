@@ -1,12 +1,12 @@
 {
   "pages":[
-    "pages/Login/CellPhone",
-    "pages/settings/userInfo/userInfo",
     "pages/settings/recommendation/recommendation",
-    "pages/orders/reservation/reservation",    
     "pages/orders/unfinishedOrder/unfinishedOrder",
-    "pages/notification/notice",        
+    "pages/orders/reservation/reservation",
     "pages/orders/finishedOrder/finishedOrder",
+    "pages/settings/userInfo/userInfo",
+    "pages/Login/CellPhone",
+    "pages/notification/notice",        
     "pages/firstPage/firstPage",
     "pages/Login/LoginMain",
     "pages/index/index",

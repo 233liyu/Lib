@@ -1,22 +1,113 @@
 <!--pages/settings/userInfo/userInfo.wxml-->
+
 <view class="container">
-    <view class="content_box">
-        <view class="input_title">
-            <text>haha</text>
-        </view>
-        <view class="input_content">
-            <view class="key_name"><text class="line_text">姓名</text></view>
-            <view class="value_box"><input type="number" /></view>
-        </view>
-        <view class="input_content">
-            <view class="key_name"><text class="line_text">姓名</text></view>
-            <view class="value_box"><input type="number" /></view>
-        </view>
-        <view class="input_content">
-            <view class="key_name"><text class="line_text">姓名</text></view>
-            <view class="value_box"><input type="number" /></view>
-        </view>
-        <view class="input_content"></view>
-        <view class="input_content"></view>        
+<form catchsubmit="submits">
+    <!--个人信息-->
+    <view class="input_title">
+        <image class="icon_image" src="../../../images/icon/title.png"></image>
+        <text class="title_text">个人信息</text>
     </view>
+    <view class="content_box">
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">姓名</text></view>
+            <view class="value_box"><input name="name" placeholder-class="placeholder" value="{{user_detail.user_name}}" placeholder="请输入您的姓名" type="text" /></view>
+        </view>
+        <view class="divider"></view>
+
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">生日</text></view>
+            <view class="value_box" style="padding : 0px;">
+                <picker bindchange="birthday_change" name="birthday" value="{{user_detail.birthday}}" mode="date">
+                    <text wx:if="{{user_detail.birthday}}" class="line_text" style="padding-left:5rpx;" >{{user_detail.birthday}}</text>
+                    <text wx:if="{{!user_detail.birthday}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的生日</text>
+                </picker>
+            </view>
+        </view>
+        <view class="divider"></view>
+
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">学历</text></view>
+             <view class="value_box" style="padding : 0px;">
+                <picker bindchange="deploma_change" value="{{user_detail.diploma}}" range="{{deploma}}"  mode="selector">
+                    <text wx:if="{{user_detail.diploma}}" class="line_text" >{{deploma[user_detail.diploma]}}</text>
+                    <text wx:if="{{!user_detail.diploma}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的学历</text>
+                </picker>
+            </view>
+        </view>
+        <view class="divider"></view>
+
+    </view>
+
+
+    <view class="input_title">
+        <image class="icon_image" src="../../../images/icon/title.png"></image>
+        <text  class="title_text">联系方式</text>
+    </view>
+    <view class="content_box">
+    <!--通讯地址-->
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">电子邮箱</text></view>
+            <view class="value_box"><input name="email" placeholder-class="placeholder" type="text" placeholder="请输入您的电子邮箱"/></view>
+        </view>
+        <view class="divider"></view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">手机号</text></view>
+            <view class="value_box"><input name="phone_num" placeholder-class="placeholder" placeholder="请输入您的手机号" type="number" /></view>
+        </view>  
+        <view class="divider"></view>        
+    </view>
+
+
+    <view class="input_title">
+        <image class="icon_image" src="../../../images/icon/title.png"></image>
+        <text  class="title_text">身份信息</text>
+    </view>
+    <view class="content_box">
+    <!--身份信息-->
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">证件类型</text></view>
+            <view class="value_box" style="padding : 0px;">
+                <picker bindchange="id_type_change" name="id_type" range="{{id_type}}" value="{{user_detail.id_type}}" mode="selector">
+                    <text wx:if="{{!user_detail.id_type}}" class="placeholder line_text" style="padding-left:5rpx;">请选择证件类型</text>
+                    <text wx:if="{{user_detail.id_type}}" class=" line_text" style="padding-left:5rpx;">{{id_type[user_detail.id_type]}}</text>
+                </picker>   
+            </view>
+        </view>
+        <view class="divider"></view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">证件号</text></view>
+            <view class="value_box">
+                <input data-da="value" name="id" placeholder-class="placeholder" placeholder="请输入您的证件号" type="text" />
+            </view>
+        </view>  
+    </view>
+
+
+
+    <view class="input_title">
+        <image class="icon_image" src="../../../images/icon/title.png"></image>
+        <text  class="title_text">通信地址</text>
+    </view>
+    <view class="content_box">
+    <!--通讯地址-->
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">邮寄地址</text></view>
+            <view class="value_box"><input name="address" placeholder-class="placeholder" type="text" placeholder="请输入您的邮寄地址"/></view>
+        </view>
+        <view class="divider"></view>
+        <view class="input_content">
+            <view class="key_name"><text class="line_text">邮政编号</text></view>
+            <view class="value_box"><input name="mail_codew" placeholder-class="placeholder" placeholder="邮政编号" type="number" /></view>
+        </view>  
+    </view>
+
+
+        <button class="opts" form-type="submit" style=" border-color:#fdc441; background-color: #ffb936; color: #ffffff">提交</button>
+
+    <view class="content_box">
+
+    </view>
+
+</form>
+
 </view>
