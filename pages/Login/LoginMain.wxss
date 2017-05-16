@@ -47,3 +47,5 @@
     font-style: normal;
     color: #bbbbbb;
 }
+
+/* pages/Login/LoginMain.wxss */

@@ -1,14 +1,23 @@
 {
   "pages":[
+<<<<<<< HEAD
     "pages/settings/recommendation/recommendation",
+=======
+>>>>>>> master
     "pages/orders/unfinishedOrder/unfinishedOrder",
     "pages/orders/reservation/reservation",
     "pages/orders/finishedOrder/finishedOrder",
     "pages/settings/userInfo/userInfo",
     "pages/Login/CellPhone",
+<<<<<<< HEAD
     "pages/notification/notice",        
     "pages/firstPage/firstPage",
     "pages/Login/LoginMain",
+=======
+
+
+
+>>>>>>> master
     "pages/index/index",
     "pages/logs/logs"
   ],

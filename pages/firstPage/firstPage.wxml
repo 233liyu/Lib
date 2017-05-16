@@ -1,32 +1,31 @@
 
-<import src="../templates/bookInfo" />
+<import src="../templates/bookInfo.wxml" />
+<import src = "../templates/bookList.wxml"/>
 <view class="search">
  <input type="text" placeholder="请输入图书编号或者书名" placeholder-class="placeholder" bindfocus="onBindFocus"
   bindblur="onBindBlur"/>
  <image src="/images/icon/xx.png" class="xx-img" bindtap="onCancelImgTap">
  </image>
 </view>
-<view class = "container">
+<view class = "container" wx:if="{{containerShow}}">
 <!-- 推荐模块 -->
-  <view class="Reco_BookInfo">
-  <text class="little_title">
-    向你推荐
-  </text>
-  <template is="bookInfo">
-  </template>
-  <template is="bookInfo">
-  </template>
-  <template is="bookInfo">
-  </template>
+<view class="Reco_BookInfo">
+ <view class="ttt">
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
+   向你推荐
+  </view>
+   <template is="bookListTemplate" data="{{...Command}}"></template>
+    </view>
   </view>
 <!-- end -->
 
  <!-- 图书分类 -->
   <view class="ttt">
   <image class="title_pic" src="../../images/icon/title.png"></image>
-  <text class="little_title">
+  <view class="little_title">
     图书分类
-  </text>
+  </view>
   </view>
   <view class="index-bd">
     <view class="kind-list">
@@ -34,7 +33,6 @@
         <view class="kind-list-item">
           <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
             <view class="kind-list-text">{{item.name}}</view>
-            <!--<image class="kind-list-img" src="../../images/icon/title.png"></image>-->
           </view>
           <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
             <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
@@ -50,5 +48,8 @@
       </block>
     </view>
   </view>
-</view>
+ </view>
+ <view class="searchPanel" wx:if="{{searchPanel}}">
+ 
+ </view>
 
