@@ -6,7 +6,7 @@ Page({
       {
         "order_tile" : "待确认",
         "id" : "12312311",
-        "order_state" : "dn-confirmed",
+        "order_state" : "dn-paid",
         "books" : [
           {
             "book_title" : "baiyexing",

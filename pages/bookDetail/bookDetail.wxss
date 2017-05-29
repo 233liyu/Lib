@@ -115,8 +115,8 @@
  width: 90%;
  margin: auto;
  background: #fff;
- border-left: 1px solid black;
- border-right: 1px solid black;
+ /*border-left: 1px solid black;
+ border-right: 1px solid black;*/
  padding: 15rpx 25rpx 15rpx 25rpx;
  font-size: 25rpx;
  margin-bottom: 5rpx;
@@ -128,8 +128,8 @@
  width: 90%;
  margin: auto;
  background: #fff;
- border-left: 1px solid black;
- border-right: 1px solid black;
+ /*border-left: 1px solid black;
+ border-right: 1px solid black;*/
  padding: 15rpx 25rpx 15rpx 25rpx;
  font-size: 25rpx;
  margin-bottom: 10rpx;
@@ -137,8 +137,8 @@
 .bookList{
  width: 90%;
  margin: auto;
- border-top: 1px solid black;
- border-bottom: 1px solid black;
+ /*border-top: 1px solid black;
+ border-bottom: 1px solid black;*/
  padding: 15rpx 25rpx 15rpx 25rpx;
  font-size: 25rpx;
  margin-bottom: 5rpx;

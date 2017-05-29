@@ -82,18 +82,18 @@
   <text>中图法分类号: A1111</text>
   </view>
 
-  <view class="ttt " >
-  <image class="title_pic " src="../../images/icon/title.png"></image>
+  <view class="ttt" >
+  <image class="title_pic" src="../../images/icon/title.png"></image>
   <view class="little_title">
     相关推荐
   </view>
   </view>
-   <view class="bookList">
+   <view class="bookInfo">
    <template is="bookListTemplate" data="{{...RealtiveReCommand}}"></template>
   </view>
 
-  <view class="ttt " >
-    <image class="title_pic " src="../../images/icon/title.png"></image>
+  <view class="ttt" >
+    <image class="title_pic" src="../../images/icon/title.png"></image>
     <view class="little_title">
     书籍评论
     </view>

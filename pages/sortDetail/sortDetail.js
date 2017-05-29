@@ -14,7 +14,7 @@ Page({
     // 生命周期函数--监听页面加载
       var sortId = options.sid;
       var sortTitle = options.tt;
-      var dataUrl = "https://www.biulibiuli.cn/osc/"
+      var dataUrl = "https://www.biulibiuli.cn/osc/";
       this.data.navigateTitle = sortTitle;
       wx.setNavigationBarTitle({
       title: sortTitle,

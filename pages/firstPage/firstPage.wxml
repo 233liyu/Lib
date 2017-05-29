@@ -1,14 +1,6 @@
 <import src="../templates/bookInfo.wxml" />
 <import src="../templates/bookList.wxml" />
 <view class="search">
-<<<<<<< Updated upstream
-  <image src="/images/icon/search.png" class="Search_img" bindtap="onSearchTap"> </image>
-  <form bindreset="cleanMessag">
-    <input type="text" placeholder="请输入图书编号或者书名" placeholder-class="placeholder" bindfocus="onBindFocus" bindblur="onBindBlur" name="search" />
-    <button wx:if="{{searchCancel}}" form-type="reset" bindtap="onCancelImgTap" class="CancelBtn">取消</button>
-  </form>
-
-=======
  <image src="/images/icon/search.png" class="Search_img" bindtap="onSearchTap"> </image>
  <view style= "margin-top: 15rpx;" >
  <form bindreset="cleanMessag">
@@ -16,22 +8,20 @@
  <button wx:if="{{searchCancel}}"  form-type="reset" bindtap="onCancelImgTap"  class="CancelBtn">取消</button>
 </form>
 </view>
->>>>>>> Stashed changes
 </view>
 
 <view class="container" wx:if="{{containerShow}}">
   <!-- 推荐模块 -->
   <view class="Reco_BookInfo">
 
-    <view class="ttt" style="overflow-x:hidden;">
-      <view class="ttt" style="  overflow-x: hidden;">
+    <view class="ttt" style="  overflow-x: hidden;">
         <image class="title_pic" src="../../images/icon/title.png"></image>
         <view class="little_title">
           向你推荐
         </view>
         <template is="bookListTemplate" data="{{...Command}}"></template>
-      </view>
     </view>
+    
     <!-- end -->
 
     <!-- 图书分类 -->
@@ -41,6 +31,7 @@
         图书分类
       </view>
     </view>
+    
     <view class="index-bd">
       <view class="kind-list">
         <block wx:for-items="{{list}}" wx:key="{{item.id}}">

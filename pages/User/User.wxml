@@ -45,8 +45,9 @@
     </navigator>
   </view>
   <view class="navigator-box-show">
-     <navigator url=" " class="navigator">
-      <view class="navigator-text">设置</view>
+     <navigator url="../settings/recommendation/recommendation" class="navigator">
+      <view class="navigator-text">个人设置</view>
       <view class="navigator-arrow"></view>
     </navigator>
- </view>
+  </view>
+ 

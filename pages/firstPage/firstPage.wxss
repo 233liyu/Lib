@@ -2,8 +2,8 @@
 @import "../templates/bookList.wxss";
 
 .container {
-  background-color: #fff;
   padding-top: 20rpx;
+  background-color: #fff;
 }
 
 .search {
@@ -12,16 +12,19 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  /*border:1px solid black;*/
 }
 
 .search-img {
   margin: auto 0 auto 20rpx;
+  /*border:1px solid black;*/
 }
 
 .search input {
   height: 100%;
+  /*border:1px solid black;*/
   width: 520rpx;
-  margin-left: 10px;
+  margin-left: 20px;
   font-size: 28rpx;
 }
 
@@ -38,7 +41,7 @@
   font-size: 24rpx;
   color: #fff;
   background-color: #fecd50;
-  margin:-50rpx 0 0 550rpx;
+  margin:-50rpx 0 0 570rpx;
 }
 .Search_img{
    height: 40rpx;
@@ -49,30 +52,11 @@
 
 /*--end--*/
 
-/*界面功能模块小标题*/
-.ttt
-{
-  flex-direction: col;
-  margin-top: 30rpx;
-  margin-left: 20rpx;
-}
-.little_title{
- margin-left: 30rpx;
- margin-top: -55rpx;
- font-size: 35rpx;
-}
-.title_pic
-{
-  height: 30rpx;
-  width:20rpx;
-
-}
-
-
 /*图书分类*/
 .index-hd {
   padding: 80rpx;
   text-align: center;
+  background-color: #fff;
 }
 .index-bd {
   padding: 0 30rpx 40rpx;

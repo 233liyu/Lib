@@ -7,7 +7,7 @@ Page({
     },
    onLoad: function(options) {
     var bookId = options.id;
-    var InfoUrl ='https://www.biulibiuli.cn/book_test/bookInfo';
+    var InfoUrl ='http://www.biulibiuli.cn/hhlab/book_details?isbn13=9787544826440';
     var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
     this.getReCommBooklist(ReCommandUrl,bookId);
     this.getBookInfo(InfoUrl , bookId);

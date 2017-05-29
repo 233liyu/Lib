@@ -1,0 +1,35 @@
+<view class="booklist">
+<view class="cart-box">
+    <!-- wx:for 渲染购物车列表 -->
+    <view wx:for="{{books}}" class="cart-list" wx:key="{{index}}">
+       <!-- wx:if 是否选择显示不同图标 -->
+        <icon wx:if="{{item.selected}}" type="success" color="orange" bindtap="selectList" data-index="{{index}}"  class="cart-pro-select"/>
+        <icon wx:else type="circle" class="cart-pro-select" bindtap="selectList" data-index="{{index}}"/>
+        
+        <!-- 点击商品图片可跳转到商品详情 -->
+        <navigator url="../bookDetail/bookDetail?id={{item.bookId}}">
+            <image class="cart-thumb" src="{{item.url}}"></image>
+        </navigator>
+        <view class="cart-pro-name">
+        <text>{{item.title}}</text>
+        </view>
+        
+        <!-- 删除按钮 -->
+        <text class="cart-del" bindtap="deleteList" data-index="{{index}}"> × </text>
+    </view>
+</view>
+</view>
+		
+ 	<!-- cart -->
+<view class="cart">
+	<text class="total">已加入：{{cartTotal}}本书</text>
+  <text style="font-size:20rpx" class="notice" wx:if="{{cartTotal>2}}">(每次借书最多两本)</text>
+  <view class="buttonMenu">
+    <button plain="true" class="opts" style="color: #fdc441; border-color:#fdc441;" bindtap="CreateOrder">
+      生成订单
+    </button>
+    </view>
+</view>
+
+
+

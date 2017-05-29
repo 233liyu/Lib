@@ -16,6 +16,7 @@ page {
   white-space: nowrap;
   margin-left: 0rpx;
   height: 350rpx;
+  /*border: 1rpx solid black;*/
 }
 .scroll-view-item{
   height: 400rpx;

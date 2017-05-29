@@ -5,18 +5,23 @@
     "pages/sortDetail/sortDetail",
     "pages/borrowBook/borrowBook",
     "pages/User/User",
-    "pages/notification/notice",
+ 
     "pages/orders/finishedOrder/finishedOrder",
     "pages/orders/unfinishedOrder/unfinishedOrder",
-    "pages/orders/reservation/reservation",
-    "pages/orders/finishedOrder/finishedOrder",
+<<<<<<< HEAD
+    
+=======
+    "pages/orders/reservation/reservation",    
+>>>>>>> origin/master
     "pages/settings/userInfo/userInfo",
-    "pages/Login/CellPhone",
     "pages/settings/recommendation/recommendation",
+<<<<<<< HEAD
     "pages/notification/notice",
-    "pages/firstPage/firstPage",
+  
+=======
+    "pages/Login/CellPhone",
+>>>>>>> origin/master
     "pages/Login/LoginMain",
-    "pages/orders/reservation/reservation",
     "pages/index/index",
     "pages/logs/logs"
   ],
