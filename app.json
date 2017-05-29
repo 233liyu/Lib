@@ -5,22 +5,18 @@
     "pages/sortDetail/sortDetail",
     "pages/borrowBook/borrowBook",
     "pages/User/User",
- 
     "pages/orders/finishedOrder/finishedOrder",
     "pages/orders/unfinishedOrder/unfinishedOrder",
-<<<<<<< HEAD
-    
-=======
     "pages/orders/reservation/reservation",    
->>>>>>> origin/master
     "pages/settings/userInfo/userInfo",
     "pages/settings/recommendation/recommendation",
-<<<<<<< HEAD
     "pages/notification/notice",
-  
-=======
     "pages/Login/CellPhone",
->>>>>>> origin/master
+    "pages/orders/reservation/reservation",    
+    "pages/settings/userInfo/userInfo",
+    "pages/settings/recommendation/recommendation",
+    "pages/Login/CellPhone",
+
     "pages/Login/LoginMain",
     "pages/index/index",
     "pages/logs/logs"
