@@ -57,5 +57,4 @@
   <view class="searchPanel" wx:if="{{searchPanel}}">
 
   </view>
-  </view>
-  
+</view>
