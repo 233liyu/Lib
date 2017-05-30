@@ -1,7 +1,6 @@
 // pages/orders/reservation/reservation.js
 Page({
-  data:{
-    
+  data:{ 
     "reservation_orders" : {
       "valid_orders" :[
         {
