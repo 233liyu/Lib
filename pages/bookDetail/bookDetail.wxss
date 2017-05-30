@@ -117,7 +117,7 @@
  background: #fff;
  /*border-left: 1px solid black;
  border-right: 1px solid black;*/
- padding: 15rpx 25rpx 15rpx 25rpx;
+ padding: 15rpx 25rpx 5rpx 25rpx;
  font-size: 25rpx;
  margin-bottom: 5rpx;
 }
@@ -142,4 +142,17 @@
  padding: 15rpx 25rpx 15rpx 25rpx;
  font-size: 25rpx;
  margin-bottom: 5rpx;
+}
+/* 精彩导读*/
+.dra{
+ margin-top: 10px;
+ font-size: 10pt;
+ display: -webkit-box;
+ overflow: hidden;
+ -webkit-box-orient: vertical;
+ text-overflow: ellipsis;
+}
+
+.down{
+    transform: rotate(180deg);
 }

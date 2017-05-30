@@ -2,7 +2,7 @@
 <template name="bookInfo">
 <view class="book_container" catchtap="onBookTap" data-bookId="{{bookId}}"
 >
-<image src="{{url}}" class="book_image" />
+<image src="{{image}}" class="book_image" />
 <view class="book_title">
 <text >
 {{title}}

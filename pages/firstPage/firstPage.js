@@ -362,7 +362,7 @@ Page({
 //推荐信息链接
 onLoad: function(event)
 {
-  var CommandUrl = 'https://www.biulibiuli.cn/osc/';
+  var CommandUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
   this.getCommBooklist(CommandUrl,"Command");
   },
 /*-- 控制搜素面板 */
@@ -391,11 +391,11 @@ onLoad: function(event)
   },
   onBookTap : function(event)
   {
-      var bookId = event.currentTarget.dataset.bookid;
-      console.log(bookId);
-      wx.navigateTo({
-      url: "../bookDetail/bookDetail?id="+bookId
-      })
+    var bookId = event.currentTarget.dataset.bookid;
+    console.log(bookId);
+    wx.navigateTo({
+      url: "../bookDetail/bookDetail?id=" + bookId,
+    })
   },
 getCommBooklist : function(CommandUrl,settedKey){
   wx.showNavigationBarLoading()
@@ -428,9 +428,26 @@ processCommandData:function (BookInfo,settedKey)
   console.log(BookInfo);
   var books = [];
   var readyData = {};
-    readyData[settedKey] = {
-      books: BookInfo.message
+
+  for (var idx in BookInfo.message) {
+    var subject = BookInfo.message[idx];
+    var title = subject.title;
+    if (title.length >= 6) {
+      title = title.substring(0, 6) + "...";
     }
+    // [1,1,1,1,1] [1,1,1,0,0]
+    var temp = {
+      // stars: util.convertToStarsArray(subject.rating.stars),
+      title: subject.title,
+      bookId: subject.isbn13,
+      image: subject.image,
+    }
+    books.push(temp)
+  }
+    readyData[settedKey] = {
+      books: books
+    }
+    
     this.setData(readyData);
     console.log(readyData)
     wx.hideNavigationBarLoading();

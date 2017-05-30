@@ -2,13 +2,16 @@ var app = getApp();
 Page({
   data:{
     Storagevisible : 0,
+    localover: '../../images/icon/icon_d_arrow_down.png',
+    hideText: true,
+    hideClass: 'up',
     RealtiveReCommand:{},
 
     },
    onLoad: function(options) {
     var bookId = options.id;
-    var InfoUrl ='http://www.biulibiuli.cn/hhlab/book_details?isbn13=9787544826440';
-    var ReCommandUrl = 'https://www.biulibiuli.cn/osc/';
+    var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details?isbn13=' + bookId;
+    var ReCommandUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
     this.getReCommBooklist(ReCommandUrl,bookId);
     this.getBookInfo(InfoUrl , bookId);
     },
@@ -48,7 +51,7 @@ Page({
         var publisher;
         var isbn10;
         var title;
-        var guide_read;
+        var guide_read = '';
         var comments = [];
         var storage;
         var storage_books=[];
@@ -61,17 +64,30 @@ Page({
         ImageUrl : data.image,
         bookid : data.bookid,
         publisher:data.publisher,
-        isbn10: data.isbn10,
+        isbn13: data.isbn13,
         title: data.title,
         guide_read:data.guide_read,
         comments :data.comments,
         storage : data.storage,
         storage_books : data.storage_books,
+        
     };
      this.setData(readyData);
+     var text = guide_read;
+     var subtext = text.substring(3, text.length-4);
+     that.setData({ guide_read: text });
      console.log(readyData)
      wx.hideNavigationBarLoading();
    },
+    showall: function () {
+      var that = this;
+      var hide = that.data.hideText;
+      var hideClass = that.data.hideClass == 'up' ? 'down' : 'up';
+      that.setData({
+        hideText: !hide,
+        hideClass: hideClass
+      })
+    },
     getReCommBooklist(ReCommandUrl,bookId)
     {
       wx.showNavigationBarLoading()
@@ -98,19 +114,33 @@ Page({
 
     },
     //处理相关推荐书籍信息
-    processReCommanBook(data,settedkey)
+    processReCommanBook(BookInfo,settedkey)
     {
-         var books = [];
-         var reData = {};
-     reData[settedkey] = {
-      books: data.message
-    }
-    this.setData(reData);
-    console.log(reData)
-    wx.hideNavigationBarLoading();
+      var books = [];
+      var readyData = {};
+      for (var idx in BookInfo.message) {
+      var subject = BookInfo.message[idx];
+      var title = subject.title;
+      if (title.length >= 6) {
+          title = title.substring(0, 6) + "...";
+        }
+        var temp = {
+          title: subject.title,
+          bookId: subject.isbn13,
+          image: subject.image,
+        }
+        books.push(temp)
+      }
+      readyData[settedkey] = {
+        books: books
+      }
+
+      this.setData(readyData);
+      console.log(readyData)
+      wx.hideNavigationBarLoading();
 
     },
-
+   
 
       viewBookPostImg: function(e) {
         var src = e.currentTarget.dataset.src;
