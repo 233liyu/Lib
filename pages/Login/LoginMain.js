@@ -6,13 +6,14 @@ var pp = null
 
 function requestUserInfo(that){
     // 拉起获取用户信息的请求
-    console.log(that)
   wx.login({
-      success: function () {
+      success: function (res) {
+        console.log(res);
         wx.getUserInfo({
           success: function (res) {
-            console.log('成功拉起授权')
-            app.globalData.userInfo = res.userInfo
+            console.log('成功拉起授权');
+            console.log(res);
+            // app.globalData.userInfo = res.userInfo
             that.setData({
               userInfo: res.userInfo
             })
@@ -31,7 +32,6 @@ function requestUserInfo(that){
                 // complete
               }
             })    
-                 
           }
         })
       },
@@ -43,17 +43,15 @@ function requestUserInfo(that){
 
 function isUserLogged(){
   // check if the user have authorised the User data
-  var result = false;
-  app.getUserInfo(function(userInfo){
-    if(userInfo){
-      console.log('logged')      
-      result = true;
-    } else{
-      console.log('did not log')            
-      result = false;
-    }
-  })
-  return result
+
+  var userInfo = app.globalData.userInfo;
+
+  if(userInfo){
+    return true;
+  } else {
+    return false;
+  }
+
 }
 
 //-------------- end of static functions ------------------
@@ -73,8 +71,10 @@ Page({
     pp = this
     if(isUserLogged()){
       console.log('aready loaded')
-    } else{
-      console.log('拉起授权')            
+      wx.navigateBack({
+        
+      })
+    } else{        
       requestUserInfo(this)
       // that.data.userInfo = app.getUserInfo()
     }
@@ -84,26 +84,46 @@ Page({
 
 // tap the log with wechat button
   Log_WeChat: function(){
-    if(isUserLogged()){
-      wx.navigateBack({
-        
-      })
+    if(this.data.userInfo != null){
+
       // if we have the user data, then send the request
-      // wx.request({
-      //   url: 'https://URL',
-      //   data: {},
-      //   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      //   // header: {}, // 设置请求的 header
-      //   success: function(res){
-      //     // success
-      //   },
-      //   fail: function(res) {
-      //     // fail
-      //   },
-      //   complete: function(res) {
-      //     // complete
-      //   }
-      // })
+      wx.request({
+        url: 'https://www.biulibiuli.cn/hhlab/login',
+        data: {
+          unionID: this.data.userInfo.unionId
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function(res){
+          // success
+          var reciveData = res.data;
+          console.log(reciveData)
+          if(reciveData == 'success'){
+
+            // mark user have logged
+            app.globalData.userInfo = pp.data.userInfo;
+
+            wx.showToast({
+              title: '登录成功',
+              icon: 'success',
+              duration: 2000
+            })
+
+            wx.navigateBack({
+
+            })
+          } else {
+            console.log('登录失败')
+          }
+
+        },
+        fail: function(res) {
+          // fail
+        },
+        complete: function(res) {
+          // complete
+        }
+      })
     } else{
       // we don't have the user data, ask to have the authorization
       wx.redirectTo({

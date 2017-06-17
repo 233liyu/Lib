@@ -47,7 +47,12 @@ Page({
     timing: '50',
     on_counting: false,
     is_phoneNumOk : false,
-    loading_logo: false
+    loading_logo: false,
+    tel_num : 0,
+    cellPhoneUser : {
+      avatarUrl : '../../images/index/avantar.png',
+      nickName : '手机用户'
+    }
   },
   onLoad:function(options){
     // 生命周期函数--监听页面加载
@@ -62,10 +67,17 @@ Page({
     // 监听用户的手机号码输入，是否达到有效的11位，否则不亮起发送按钮
     // console.log(e.detail.value.length)
     if(e.detail.value.length == 11){
-      this.setData({
-        tap_color:'#449617',
-        is_phoneNumOk : true
-      })
+
+      var pattern = /^1[3|5|7|8][0-9]\d{8}$/;
+      
+      if (pattern.test(e.detail.value)) {
+        this.setData({
+          tap_color: '#449617',
+          is_phoneNumOk: true,
+          tel_num : e.detail.value
+        })
+      }
+
     } else {
       this.setData({
         tap_color:'#9ccb8c',
@@ -98,27 +110,48 @@ Page({
       console.log('is counting ')
       return;
     } else {
-      console.log(this.data.is_phoneNumOk)
+      // console.log(this.data.is_phoneNumOk)
       if(this.data.is_phoneNumOk == false){
         // 如果没有输入有效的电话号码，不触发发送按钮
         return
       }
-      // wx.request({
-      //   url: 'https://URL',
-      //   data: {},
-      //   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      //   // header: {}, // 设置请求的 header
-      //   success: function(res){
-      //     // success
-      //   },
-      //   fail: function(res) {
-      //     // fail
-      //   },
-      //   complete: function(res) {
-      //     // complete
-      //      count_down();
-      //   }
-      // })
+      // console.log(touchend)
+      var url_new = 'mode=' + 1 + '&TEL=';
+      url_new += encodeURIComponent(this.data.tel_num);
+      url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
+      console.log(url_new);
+
+      wx.request({
+        url: url_new,
+        data: {
+          mode : 1,
+          TEL: this.data.tel_num
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function(res){
+          // success
+          if(res.data == 'success'){
+            wx.showToast({
+              title: '验证码已发送',
+            })
+          } else {
+            wx.showToast({
+              title: '发送失败，请重试',
+            })
+          }
+        },
+        fail: function(res) {
+          // fail
+          wx.showToast({
+            title: '网络连接异常',
+          })
+        },
+        complete: function(res) {
+          // complete
+           count_down();
+        }
+      })
       this.setData({
         focus_cell:false,
         check_code:true
@@ -133,28 +166,44 @@ Page({
       loading_logo : true,
       submit_button : true
     })
+    console.log(e)
+    var url_new = 'mode=2&TEL=' + e.detail.value.phone_num + '&captchare=' + e.detail.value.check_code;
+    url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
+    url_new = encodeURI(url_new);
     wx.request({
-      url: 'https://www.biulibiuli.cn',
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      url: url_new,
+      data: {
+        mode : '2',
+        TEL: e.detail.value.phone_num,
+        captchare: e.detail.value.check_code
+      },
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res){
         // success
+        if(res.data = 'success'){
+          var User = this.data.cellPhoneUser;
+          User.nickName += ' ' + e.detail.value.phone_num;
+          this.setData({
+            cellPhoneUser : User
+          })
+          app.globalData.userInfo = User;
+        }
       },
       fail: function(res) {
         // fail
       },
       complete: function(res) {
         // complete
-        this.setData({
-          loading_logo : false,
-          submit_button : false
-          
-        })
+
       }
+
     })
-    console.log(e.detail.value.phone_num)
-    console.log(e.detail.value.check_code)
+
+    this.setData({
+      loading_logo: false,
+      submit_button: false
+    })
 
     // e.phone_num
     // e.check_code
