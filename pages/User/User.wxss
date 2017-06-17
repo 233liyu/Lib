@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
 }
-
+ 
 .userinfo-avatar {
   width: 180rpx;
   height: 180rpx;
@@ -19,7 +19,6 @@
   border-width: 3rpx;
   border-color: #ffffff;
 }
-
 .userinfo-nickname {
     color: #ffffff;
 }
@@ -87,4 +86,19 @@
   position: absolute;
   right: 28rpx;
   margin-top: -35rpx;
+}
+
+.before_login{
+  margin:400rpx 0 0 200rpx;
+}
+
+.l_btn{
+  width: 120rpx;
+  height:70rpx;
+  background-color: #464646;
+  margin-left: 100rpx;
+  font-size: 25rpx;
+  color: #fdbc39;
+  border: 1px solid #D8D8D8;
+  border-radius: 3rpx;
 }

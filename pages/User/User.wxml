@@ -7,7 +7,7 @@
   </view>
 </view>
 
-
+<view class="after_login" wx:if="{{afterLogin}}">
  <view class="ttt" >
   <image class="title_pic" src="../../images/icon/title.png"></image>
   <view class="little_title">
@@ -50,4 +50,13 @@
       <view class="navigator-arrow"></view>
     </navigator>
   </view>
+
+</view>
+
+<view class="before_login" wx:if="{{!afterLogin}}">
+<text> 您目前还没有登录哦～～ </text>
+<view class="Tologin">
+<button catchtap="toLogin" class="l_btn"> 登录 </button>
+</view>
+</view>
  

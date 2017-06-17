@@ -1,4 +1,5 @@
 <view class="booklist">
+<view class="after_login" wx:if="{{afterLogin}}">
 <view class="cart-box">
     <!-- wx:for 渲染购物车列表 -->
     <view wx:for="{{books}}" class="cart-list" wx:key="{{index}}">
@@ -25,10 +26,19 @@
 	<text class="total">已加入：{{cartTotal}}本书</text>
   <text style="font-size:20rpx" class="notice" wx:if="{{cartTotal>2}}">(每次借书最多两本)</text>
   <view class="buttonMenu">
-    <button plain="true" class="opts" style="color: #fdc441; border-color:#fdc441;" bindtap="CreateOrder">
+    <button  class="opts"  bindtap="CreateOrder">
       生成订单
     </button>
     </view>
+</view>
+
+</view>
+
+<view class="before_login" wx:if="{{beforeLogin}}">
+<text> 您目前还没有登录哦～～ </text>
+<view class="Tologin">
+<button catchtap="toLogin" class="l_btn"> 登录 </button>
+</view>
 </view>
 
 

@@ -39,6 +39,7 @@ function requestUserInfo(that) {
 Page({
   data:{
    userInfo:null,
+   afterLogin:false,
   },
   
   onLoad:function(options){
@@ -55,6 +56,7 @@ Page({
       var user = app.globalData.userInfo;
       this.setData({
         userInfo: user,
+        afterLogin:true,
       })
       console.log("user:")
       console.log(user)
@@ -68,20 +70,14 @@ Page({
   },
   onShow:function(){
     // 生命周期函数--监听页面显示
-    if (app.globalData.userInfo == null) {
-      console.log("user:is not logged")
-      wx.navigateTo({
-        url: '/pages/Login/LoginMain',
-      })
-
-    } else {
-      console.log("user:is logged")
+    if (app.globalData.userInfo != null) {
       var user = app.globalData.userInfo;
       this.setData({
         userInfo: user,
+        afterLogin: true,
+        beforeLogin: false,
       })
-      console.log("user:")
-      console.log(user)
+
     }
   },
   ToFailed:function(that){
@@ -94,6 +90,14 @@ Page({
     wx.navigateTo({
       url: '../orders/finishedOrder/finishedOrder',
     })
+  },
+
+  //去往登录页面
+  toLogin:function(){
+
+     wx.navigateTo({
+       url: '/pages/Login/LoginMain',
+     })
   },
   onShareAppMessage: function() {
     // 用户点击右上角分享

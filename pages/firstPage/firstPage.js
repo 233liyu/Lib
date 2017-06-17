@@ -427,8 +427,20 @@ cancel_rec:function(){
     }
   })
 
-
 },
+
+//scan code
+  scanCode:function(){
+    var that = this
+    wx.scanCode({
+      success: function (res) {
+        //扫描出isbn13
+        res.result
+      },
+      fail: function (res) {
+      }
+    })
+  },
 
 
 processCommandData:function (BookInfo,settedKey)

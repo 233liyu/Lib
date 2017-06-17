@@ -72,10 +72,9 @@ Page({
       if (title.length >= 6) {
         title = title.substring(0, 6) + "...";
       }
-      // [1,1,1,1,1] [1,1,1,0,0]
       var temp = {
        // stars: util.convertToStarsArray(subject.rating.stars),
-        title: subject.title,
+        title:title,
         bookId: subject.isbn13,
         image: subject.image,
       }

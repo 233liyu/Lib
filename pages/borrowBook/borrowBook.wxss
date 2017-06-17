@@ -44,7 +44,7 @@
   position: absolute;
   top: 55rpx;
   right: 130rpx;
-  color: #fdc441;
+  color: #464646;
    
 }
 .cart{
@@ -64,4 +64,21 @@
   width: 160rpx;
   height: 60rpx;
   font-size: 25rpx;
+  color: #fff;
+  background-color: #fdc441;
+}
+
+.before_login{
+  margin:400rpx 0 0 200rpx;
+}
+
+.l_btn{
+  width: 120rpx;
+  height:70rpx;
+  background-color: #464646;
+  margin-left: 100rpx;
+  font-size: 30rpx;
+  color: #fdbc39;
+  border: 1px solid #D8D8D8;
+  border-radius: 3rpx;
 }

@@ -78,7 +78,7 @@
 /*储存信息表格 */
 .table {
   border: 0px solid darkgray;
-  font-size: 25rpx;
+  font-size: 30rpx;
   margin-top: 20rpx;
 }
 .tr {
@@ -86,10 +86,10 @@
   width: 95%;
   margin: auto;
   justify-content: center;
-  
   align-items: center;
 }
 .td {
+    padding: 2rpx;
     width:40%;
     justify-content: center;
     text-align: center;
@@ -118,7 +118,7 @@
  /*border-left: 1px solid black;
  border-right: 1px solid black;*/
  padding: 15rpx 25rpx 5rpx 25rpx;
- font-size: 25rpx;
+ font-size: 30rpx;
  margin-bottom: 5rpx;
 }
 
@@ -131,7 +131,7 @@
  /*border-left: 1px solid black;
  border-right: 1px solid black;*/
  padding: 15rpx 25rpx 15rpx 25rpx;
- font-size: 25rpx;
+ font-size: 30rpx;
  margin-bottom: 10rpx;
 }
 .bookList{
@@ -156,3 +156,33 @@
 .down{
     transform: rotate(180deg);
 }
+
+/*用户评论*/
+.rate{
+ color: #777777;
+ float: right;
+}
+
+/*用户添加评论*/
+.add_comments{
+    width:90%;
+    margin: auto;
+    background: #fff;
+    padding: 15rpx 25rpx 15rpx 25rpx;
+    font-size: 25rpx;
+    margin-bottom: 10rpx;
+}
+#comment{
+  width: 638rpx;
+  max-height: 200rpx;
+  margin-bottom: 5rpx;
+  border: 1rpx solid #fdc441;
+  padding: 15rpx;
+}
+#commit{
+  width: 100%;
+  border: 1rpx solid #fdc441;
+  background-color: #fff;
+  color: #464646;
+}
+

@@ -1,7 +1,47 @@
 var app = getApp()
+var pp = null
+function requestUserInfo(that) {
+  // 拉起获取用户信息的请求
+  console.log(that)
+  wx.login({
+    success: function () {
+      wx.getUserInfo({
+        success: function (res) {
+          console.log('成功拉起授权')
+          app.globalData.userInfo = res.userInfo
+          that.setData({
+            userInfo: res.userInfo
+          })
+        },
+        fail: function () {
+          console.log('获取用户信息失败')
+          wx.redirectTo({
+            url: '/pages/Login/CellPhone',
+            success: function (res) {
+              // success
+            },
+            fail: function (res) {
+              // fail
+            },
+            complete: function (res) {
+              // complete
+            }
+          })
+
+        }
+      })
+    },
+    fail: function () {
+      console.log('log in failed')
+    }
+  })
+}
 var util = require('../../utils/util.js')
 Page({
   data:{
+    userInfo: null,
+    afterLogin: false,
+    beforeLogin: true,
     books:[],
     curNav: 1,
     curIndex: 0,
@@ -12,6 +52,24 @@ Page({
     wx.setNavigationBarTitle({
       title: "借书栏",
     })
+    if (app.globalData.userInfo == null) {
+      console.log("user:is not logged")
+      wx.navigateTo({
+        url: '/pages/Login/LoginMain',
+      })
+
+    } else {
+      console.log("user:is logged")
+      var user = app.globalData.userInfo;
+      this.setData({
+        userInfo: user,
+        afterLogin: true,
+        beforeLogin: false,
+      })
+      console.log("user:")
+      console.log(user)
+    }
+
    
   },
   onReady:function(){
@@ -22,7 +80,15 @@ Page({
   },
   onShow:function(){
     // 生命周期函数--监听页面显示
-    
+    if (app.globalData.userInfo != null) {
+      var user = app.globalData.userInfo;
+      this.setData({
+        userInfo: user,
+        afterLogin: true,
+        beforeLogin: false,
+      })
+
+    }
   },
   onPullDownRefresh: function() {
     // 页面相关事件处理函数--监听用户下拉动作
@@ -108,6 +174,14 @@ Page({
       cartTotal : cartTotal
     });
 
+  },
+
+
+  //去往登录页面
+  toLogin: function () {
+   wx.navigateTo({
+      url: '/pages/Login/LoginMain',
+    })
   },
 
   onShareAppMessage: function() {
