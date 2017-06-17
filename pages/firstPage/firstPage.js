@@ -2,9 +2,6 @@ Page({
   data: {
     /*初始控制模块变量 */
     containerShow: true,
-    searchPanelShow: false,
-    searchCancel: false,
-    inputValue:"",
     Command:{},
  list: [
        {
@@ -367,27 +364,11 @@ onLoad: function(event)
   },
 /*-- 控制搜素面板 */
    
-   onBindFocus: function (event) {
-    this.setData({
-      containerShow: false,
-      searchPanelShow: true,
-      inputValue : event.detail.value,
-      searchCancel:true,
-    })
-  },
-  onCancelImgTap : function(event){
-    this.setData({
-     containerShow: true,
-     searchPanelShow: false,
-     searchCancel:false,
-    })
-  },
-  onSearchTap:function(e)
-  { 
-
-  },
-  formReset: function() {
-    console.log('form发生了reset事件')
+  toSearch:function(){
+   wx.navigateTo({
+     url: '../search/search',
+    
+   })
   },
   onBookTap : function(event)
   {
@@ -423,6 +404,33 @@ getCommBooklist : function(CommandUrl,settedKey){
   })
 },
 
+//关闭推荐
+cancel_rec:function(){
+  //弹出提醒
+  var containerShow ='';
+  var page = this;
+  wx.showModal({
+    content: "你确定关闭“向你推荐”吗？ 可在个人设置里进行更改",
+    confirmText: "确定",
+    cancelText: "取消",
+    success: function (res) {
+      //点击确定
+      if (res.confirm == true){
+        containerShow = false; 
+      }
+      else{
+        containerShow = true;
+      }
+      page.setData({
+        containerShow: containerShow,
+      })
+    }
+  })
+
+
+},
+
+
 processCommandData:function (BookInfo,settedKey)
 {
   console.log(BookInfo);
@@ -435,10 +443,9 @@ processCommandData:function (BookInfo,settedKey)
     if (title.length >= 6) {
       title = title.substring(0, 6) + "...";
     }
-    // [1,1,1,1,1] [1,1,1,0,0]
     var temp = {
       // stars: util.convertToStarsArray(subject.rating.stars),
-      title: subject.title,
+      title: title,
       bookId: subject.isbn13,
       image: subject.image,
     }

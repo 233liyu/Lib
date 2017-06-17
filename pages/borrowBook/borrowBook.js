@@ -58,7 +58,7 @@ Page({
       // [1,1,1,1,1] [1,1,1,0,0]
       var temp = {
         // stars: util.convertToStarsArray(subject.rating.stars),
-        title: subject.title,
+        title: title,
         bookId: subject.bookId,
         url: subject.url,
         selected : false,

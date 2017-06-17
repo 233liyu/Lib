@@ -4,10 +4,7 @@
 >
 <image src="{{image}}" class="book_image" />
 <view class="book_title">
-<text >
-{{title}}
-</text>
+<text>{{title}}</text>
 </view>
 </view>
-
 </template>
