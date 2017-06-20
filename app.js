@@ -5,42 +5,62 @@ App({
 
     //初始化是否开启推荐的数据
     this.globalData.open_recommendation = wx.getStorageSync('open_recommendation');
-    this.globalData.selected_frequence = wx.getStorageSync('selected_frequence');    
-  
-    if(this.globalData.open_recommendation.length == 0){
+    this.globalData.selected_frequence = wx.getStorageSync('selected_frequence');
+
+    if (this.globalData.open_recommendation.length == 0) {
       wx.setStorageSync('open_recommendation', true);
     }
-    if(this.globalData.selected_frequence.length == 0){
-      wx.setStorageSync('selected_frequence', "1");      
+    if (this.globalData.selected_frequence.length == 0) {
+      wx.setStorageSync('selected_frequence', "1");
     }
     this.globalData.open_recommendation = wx.getStorageSync('open_recommendation');
-    this.globalData.selected_frequence = wx.getStorageSync('selected_frequence');    
+    this.globalData.selected_frequence = wx.getStorageSync('selected_frequence');
 
     // 调用微信登录，建立第三方session
     wx.login({
       success: function (res) {
         console.log(res);
-        if(res.errMsg == 'login:ok'){
+
+        if (res.errMsg == 'login:ok') {
           // 如果登录成功，发送到服务器换取session key
-
-
+          wx.request({
+            url: 'https://www.biulibiuli.cn/hhlab/login/create_session',
+            method: 'POST',
+            data: {
+              code: res.code
+            },
+            success: function (res) {
+              console.log(res);
+              // 将结果写入到微信本地保存
+              if (res.data.state == 'success') {
+                wx.setStorageSync('sessionID', res.data.sessionID);
+                wx.setStorageSync('openID', res.data.openID);
+              } else {
+                wx.clearStorageSync('sessionID');
+              }
+            },
+            failed: function () {
+              wx.clearStorageSync('sessionID');
+            }
+          })
         }
       },
       fail: function () {
+        wx.clearStorageSync('sessionID');
         console.log('log in failed')
       }
     })
-
-
   },
 
 
 
-  getUserInfo:function(cb){
+
+
+  getUserInfo: function (cb) {
     var that = this
-    if(this.globalData.userInfo){
+    if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
+    } else {
       //调用登录接口
       // wx.login({
       //   success: function () {
@@ -57,9 +77,10 @@ App({
       })
     }
   },
-  globalData:{
-    userInfo:null,
-    open_recommendation : null,
-    selected_frequence : null
+  globalData: {
+    userInfo: null,
+    open_recommendation: null,
+    selected_frequence: null
   }
 })
+

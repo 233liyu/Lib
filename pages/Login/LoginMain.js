@@ -31,7 +31,7 @@ function requestUserInfo(that){
               complete: function(res) {
                 // complete
               }
-            })    
+            })
           }
         })
       },
@@ -87,10 +87,18 @@ Page({
     if(this.data.userInfo != null){
 
       // if we have the user data, then send the request
+      var session = wx.getStorageSync('sessionID');
+      session = encodeURIComponent(session);
+
+      var openid = wx.getStorageSync('openID');
+      openid = encodeURIComponent(openid);
+
+      var url_new = 'unionID=' + openid + '&session_id=' + session;
+
       wx.request({
-        url: 'https://www.biulibiuli.cn/hhlab/login',
+        url: 'https://www.biulibiuli.cn/hhlab/login?' + url_new,
         data: {
-          unionID: this.data.userInfo.unionId
+
         },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
@@ -99,7 +107,6 @@ Page({
           var reciveData = res.data;
           console.log(reciveData)
           if(reciveData == 'success'){
-
             // mark user have logged
             app.globalData.userInfo = pp.data.userInfo;
 

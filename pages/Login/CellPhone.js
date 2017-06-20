@@ -166,8 +166,12 @@ Page({
       loading_logo : true,
       submit_button : true
     })
-    console.log(e)
-    var url_new = 'mode=2&TEL=' + e.detail.value.phone_num + '&captchare=' + e.detail.value.check_code;
+    console.log(e);
+
+    var session = wx.getStorageSync('sessionID');
+    session = encodeURIComponent(session);
+
+    var url_new = 'mode=2&TEL=' + encodeURIComponent(e.detail.value.phone_num) + '&captchare=' + encodeURIComponent(e.detail.value.check_code) + '%session_id=' + session;
     url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
     url_new = encodeURI(url_new);
     wx.request({
@@ -175,7 +179,8 @@ Page({
       data: {
         mode : '2',
         TEL: e.detail.value.phone_num,
-        captchare: e.detail.value.check_code
+        captchare: e.detail.value.check_code,
+        session_id : session
       },
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
