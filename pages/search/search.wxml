@@ -41,5 +41,5 @@
 <!-- no result  -->
 <view class="no_result" wx:if="{{no_result}}">
  <text style="margin-left:170rpx;">没有找到相关内容{{char_gt}}_{{char_lt}} </text>
- <view style="margin-left:100rpx;"><image src="../../images/icon/no_result.png" style="width:450rpx; height:460rpx;"></image> </view>
+ <view style="margin-left:140rpx; margin-top:20rpx;"><image src="../../images/icon/no_result.png" style="width:360rpx; height:260rpx;"></image> </view>
 </view>

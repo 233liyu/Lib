@@ -42,10 +42,16 @@ Page({
     userInfo: null,
     afterLogin: false,
     beforeLogin: true,
+    t: '\n',
+    char_lt: "<",
+    char_gt: ">",
     books:[],
     curNav: 1,
     curIndex: 0,
     cartTotal: 0,
+    session_id: null,
+    no_more:false,
+
   },
   onLoad:function(options){
     // 生命周期函数--监听页面加载
@@ -74,12 +80,11 @@ Page({
   },
   onReady:function(){
     // 生命周期函数--监听页面初次渲染完成
-    var dataUrl = "https://www.biulibiuli.cn/osc/";
-    this.data.requestUrl = dataUrl;
-    util.http(dataUrl, this.processData)
+   
   },
   onShow:function(){
     // 生命周期函数--监听页面显示
+   
     if (app.globalData.userInfo != null) {
       var user = app.globalData.userInfo;
       this.setData({
@@ -87,7 +92,26 @@ Page({
         afterLogin: true,
         beforeLogin: false,
       })
-
+      var session = wx.getStorageSync('sessionID');
+      var that = this;
+      var dataUrl =         "https://www.biulibiuli.cn/hhlab/cartHandler";
+      wx.request({
+        url: dataUrl,
+        data: {
+          "operation": "show",
+          "session_id": session,
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+        success: function (res) {
+          console.log(res)
+          that.processData(res.data)
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
     }
   },
   onPullDownRefresh: function() {
@@ -100,33 +124,41 @@ Page({
   },
  
   processData: function (BookInfo) {
-    //处理信息 并加载数据
-    var books = []
-    if (BookInfo.message.length <= 0) {
-      var _this = this;
+    var that = this;
+    if (BookInfo.length <= 0) {
       if (!_this.data.disabledRemind) {
-        _this.setData({
+        that.setData({
           disabledRemind: true
         });
         setTimeout(function () {
-          _this.setData({
+         that.setData({
             disabledRemind: false
           });
         }, 2000);
       }
     }
-    for (var idx in BookInfo.message) {
-      var subject = BookInfo.message[idx];
-      var title = subject.title;
-      if (title.length >= 6) {
-        title = title.substring(0, 6) + "...";
+   if(BookInfo.length > 0)
+   {
+     this.setData({
+       no_more: false,
+     })
+     //处理信息 并加载数据
+     var books = [];
+     var bookId, url, authors, storage, storage_b, subject, title, selected;
+     console.log(BookInfo);
+     for (var idx in BookInfo) {
+      var subject = BookInfo[idx];
+      title = subject.title;
+      if (title.length >= 20) {
+        title = title.substring(0, 20) + "...";
       }
-      // [1,1,1,1,1] [1,1,1,0,0]
       var temp = {
-        // stars: util.convertToStarsArray(subject.rating.stars),
         title: title,
-        bookId: subject.bookId,
-        url: subject.url,
+        bookId: subject.isbn13,
+        url: subject.image,
+        authors: subject.author,
+        storage: subject.storage,
+        storage_cb: subject.storage_cb,
         selected : false,
       }
       books.push(temp)
@@ -136,6 +168,13 @@ Page({
     });
     console.log(books)
     wx.hideNavigationBarLoading();
+   }
+    else{
+     this.setData({
+       no_more: true,
+     })
+    }
+   
   },
  
   selectList(e) {
@@ -163,19 +202,57 @@ Page({
     const index = e.currentTarget.dataset.index;
     let books = this.data.books;
     const selected = books[index].selected;         // 获取当前商品的选中状态
-    if (selected == true)
+        const isbn13 = books[index].bookId;
+        this.deletfromDatabase(isbn13);
+        if (selected == true && cartTotal)
      {
       cartTotal -= 1;
     }
-   
-    books.splice(index, 1);              // 删除购物车列表里这个商品
+   books.splice(index, 1);  // 删除购物车列表里这个商品
     this.setData({
       books: books,
       cartTotal : cartTotal
     });
 
   },
+  deletfromDatabase : function(isbn13){
+  var session = wx.getStorageSync('sessionID');
+  var that = this;
+  var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
+  wx.request({
+    url: dataUrl,
+    data: {
+      "operation": "delete",
+      "session_id": session,
+      "isbn13": isbn13,
+    },
+    header: {
+      'content-type': 'application/json'
+    },
+    method: 'POST',
+    success: function (res) {
+      var content;
+      if (res.data != 'success') {
+        content = "加入失败，请稍后尝试～";
+        wx.showToast({
+          title: content,
+          icon: '',
+          image: '',
+          duration: 1500,
+          mask: true,
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      }
+      console.log(res)
+    
+    },
+    fail: function (res) { },
+    complete: function (res) { },
+  })
 
+},
 
   //去往登录页面
   toLogin: function () {

@@ -21,7 +21,7 @@
     <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx;" bindtap="StorageInfo" data-vis="{{Storagevisible}}">
       馆藏信息: {{storage}}本
     </button>
-    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" bindtap="AddBorrow">
+    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" bindtap="AddBorrow" data-bookId="{{isbn13}}">
       加入借书栏
     </button>
   </view>

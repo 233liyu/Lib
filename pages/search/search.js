@@ -120,7 +120,7 @@ Page({
      }
      //处理查询结果
      else{
-        var bookID, url, authors, storage, storage_b ,subject, title;
+        var bookId, url, authors, storage, storage_b ,subject, title;
            for (var idx in res.data) {
            subject = res.data[idx];
            title = subject.title;

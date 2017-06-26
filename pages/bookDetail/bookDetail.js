@@ -1,4 +1,5 @@
-var app = getApp();
+var app = getApp()
+var pp = null
 Page({
   data:{
     Storagevisible : 0,
@@ -18,6 +19,7 @@ Page({
 
     getBookInfo :function(InfoUrl , bookId)
     {
+      
       wx.showNavigationBarLoading()
       var that = this;
       wx.request({
@@ -28,8 +30,6 @@ Page({
         "Content-Type": "json"
       },
     success: function(res){
-      // success
-      //console.log(res.data);
       that.processBookData(res.data,bookId);
     },
     fail: function(error) {
@@ -43,8 +43,8 @@ Page({
  },
 
     processBookData(data , bookId)
-    {   
-        var rating = [];
+    {
+       var rating = [];
         var authors = [];
         var ImageUrl;
         var bookid;
@@ -66,19 +66,17 @@ Page({
         publisher:data.publisher,
         isbn13: data.isbn13,
         title: data.title,
-        guide_read:data.guide_read,
+        guide_read: data.guide_read,
         comments :data.comments,
         storage : data.storage,
         storage_books : data.storage_books,
-        
-    };
+        };
      this.setData(readyData);
-     var text = guide_read;
-     var subtext = text.substring(3, text.length-4);
-     that.setData({ guide_read: text });
      console.log(readyData)
      wx.hideNavigationBarLoading();
    },
+    
+    
     showall: function () {
       var that = this;
       var hide = that.data.hideText;
@@ -150,6 +148,7 @@ Page({
         })
     },
 
+//查看馆藏信息
   StorageInfo : function(e){
      if(e.currentTarget.dataset.vis == 0){ 
       this.setData({
@@ -161,9 +160,67 @@ Page({
       Storagevisible : 0
        })
     }
+  },
+
+//加入借书栏
+  AddBorrow : function(event){
+    //先判断用户是否登录
+    if (app.globalData.userInfo == null) {
+      console.log("user:is not logged")
+      wx.navigateTo({
+        url: '/pages/Login/LoginMain',
+      })
+
+    } else {
      
+      var Isbn13 = event.currentTarget.dataset.bookid;
+      //console.log(Isbn13);
+      if (Isbn13) {
+        var session = wx.getStorageSync('sessionID');
+        var that = this;
+        var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
+        wx.request({
+          url: dataUrl,
+          data: {
+            "operation": "add",
+            "session_id": session,
+            "isbn13": Isbn13,
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          method: 'POST',
+          success: function (res) {
+            var content;
+            if(res.data == 'success'){
+                 content = "加入借书栏成功";
+            }else{
+              content="加入失败，请稍后尝试～";
+            }
+            console.log(res)
+            wx.showToast({
+              title: content,
+              icon: 'success',
+              image: '',
+              duration: 1500,
+              mask: true,
+              success: function(res) {},
+              fail: function(res) {},
+              complete: function(res) {},
+            })
+          },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      }
+      
+    
+    }
+   
    
   },
+
+  //推荐部分点击封面到书籍到详情页
    onBookTap : function(event)
   {
       var bookId = event.currentTarget.dataset.bookid;
