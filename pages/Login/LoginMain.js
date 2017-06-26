@@ -93,12 +93,11 @@ Page({
       var openid = wx.getStorageSync('openID');
       openid = encodeURIComponent(openid);
 
-      var url_new = 'unionID=' + openid + '&session_id=' + session;
-
       wx.request({
-        url: 'https://www.biulibiuli.cn/hhlab/login?' + url_new,
+        url: 'https://www.biulibiuli.cn/hhlab/login',
         data: {
-
+          session_id : session,
+          open_id : openid
         },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
@@ -121,6 +120,10 @@ Page({
             })
           } else {
             console.log('登录失败')
+            wx.showToast({
+              title: '登录失败',
+              duration: 2000
+            })
           }
 
         },

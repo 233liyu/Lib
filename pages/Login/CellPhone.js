@@ -120,12 +120,14 @@ Page({
       url_new += encodeURIComponent(this.data.tel_num);
       url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
       console.log(url_new);
-
+      var session = wx.getStorageSync('sessionID');
+      session = encodeURIComponent(session);
       wx.request({
         url: url_new,
         data: {
           mode : 1,
-          TEL: this.data.tel_num
+          TEL: this.data.tel_num,
+          session_id: session
         },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
@@ -171,9 +173,9 @@ Page({
     var session = wx.getStorageSync('sessionID');
     session = encodeURIComponent(session);
 
-    var url_new = 'mode=2&TEL=' + encodeURIComponent(e.detail.value.phone_num) + '&captchare=' + encodeURIComponent(e.detail.value.check_code) + '%session_id=' + session;
-    url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
-    url_new = encodeURI(url_new);
+    var that = this;
+
+    url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel';
     wx.request({
       url: url_new,
       data: {
@@ -186,13 +188,23 @@ Page({
       // header: {}, // 设置请求的 header
       success: function(res){
         // success
-        if(res.data = 'success'){
+        if(res.data == 'success'){
+          // 验证码验证成功后
           var User = this.data.cellPhoneUser;
-          User.nickName += ' ' + e.detail.value.phone_num;
+          User.nickName += '手机用户' + e.detail.value.phone_num;
           this.setData({
             cellPhoneUser : User
           })
+          
           app.globalData.userInfo = User;
+
+          wx.showToast({
+            title: '登录成功',
+          });
+
+          wx.navigateBack({
+            
+          })
         }
       },
       fail: function(res) {
@@ -200,15 +212,17 @@ Page({
       },
       complete: function(res) {
         // complete
-
+        that.setData({
+          loading_logo: false,
+          submit_button: false
+        })
       }
 
     })
 
-    this.setData({
-      loading_logo: false,
-      submit_button: false
-    })
+
+
+
 
     // e.phone_num
     // e.check_code

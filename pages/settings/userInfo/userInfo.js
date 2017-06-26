@@ -17,31 +17,82 @@ Page({
       "护照"
     ],
 
+    'tem_user' : null,
+
+    "birthday" : "",
+    "cert_type" : 0,
+    "diploma" : 0,
+
     "user_detail":{
       "user_name":"",
-      "birthday":"",
-      "diploma":null,
       "email":"",
       "phone_num":"",
-      "id_type":null,
       "id_num":"",
       "mail_address":"",
       "mail_code":""
     },
   },
-  onLoad:function(options){
-    console.log(options)
-    // 页面初始化 options为页面跳转所带来的参数
-    // wx.request({
-    //   url: 'www.biulibiuli.cn',
-    //   success:function(res){
-        
-    //   },
 
-    // })
+  onLoad:function(options){
+
+    // 页面初始化 options为页面跳转所带来的参数
+    var session = wx.getStorageSync('sessionID');
+    var that = this;
+    wx.request({
+      url: 'https://www.biulibiuli.cn/hhlab/user/info',
+      method: 'POST',
+      data : {
+        session_id : session
+      },
+      success:function(res){
+        console.log(res.data);
+        if(res.data.state){
+          // success 
+          console.log('update user info success')
+          var net_user = JSON.parse(res.data.user_detail);
+          that.setData({
+            tem_user: net_user,
+          })
+          console.log(net_user);
+
+        } else {
+          wx.showToast({
+            title: '获取用户信息失败',
+          })
+        }
+      },
+      fail: function(res){
+        console.log('连接失败')
+
+      }
+
+    })
   },
   onReady:function(){
     // 页面渲染完成
+
+    var net_user = this.data.tem_user;
+    var tem_user = this.data.user_detail;
+    
+    tem_user.user_name = net_user.user_name;
+    tem_user.email = net_user.email;
+    tem_user.phone_num = net_user.phone_num;
+    tem_user.id_num = net_user.id_num;
+    tem_user.mail_address = net_user.mail_address;
+    tem_user.mail_code = net_user.mail_code;
+
+    var cet = net_user.id_type;
+    var dep = net_user.diploma;
+    var bit = net_user.birthday;
+
+    // "{"user_name":null,"diploma":0,"email":null,"phone_num":"15624952046","id_type":0,"id_num":null,"mail_address":null,"mail_code":null,"state":true}"
+
+    this.setData({
+      user_detail: tem_user,
+      cert_type: cet,
+      birthday: bit,
+      diploma: dep
+    })
   },
   onShow:function(){
     // 页面显示
@@ -54,27 +105,25 @@ Page({
   },
 
   birthday_change:function(e){
-    // console.log(e);
-    var user = this.data.user_detail;
-    user.birthday = e.detail.value;
+    console.log(e.detail.value);
+    var birthday_new = e.detail.value;
     this.setData({
-      user_detail : user
+      birthday : birthday_new
     })
   },
 
   deploma_change:function(e){
-    var user = this.data.user_detail;
-    user.diploma = parseInt(e.detail.value);
+    // var user = this.data.user_detail;
+    var diploma = parseInt(e.detail.value);
     this.setData({
-      user_detail: user
+      diploma: diploma
     })
   },
 
-  id_type_change:function(e){
-    var user = this.data.user_detail;    
-    user.id_type = parseInt(e.detail.value);
+  id_type_change:function(e){  
+    var cet = parseInt(e.detail.value);
     this.setData({
-      user_detail: user
+      cert_type: cet
     })
   },
 
@@ -83,14 +132,7 @@ Page({
     wx.navigateBack({
       
     })
-    // address
-    // birthday
-    // email
-    // id
-    // id_type
-    // mail_code
-    // name
-    // phone_num
+
     res.detail.value
   }
 })

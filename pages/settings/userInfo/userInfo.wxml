@@ -17,9 +17,9 @@
         <view class="input_content">
             <view class="key_name"><text class="line_text">生日</text></view>
             <view class="value_box" style="padding : 0px;">
-                <picker bindchange="birthday_change" name="birthday" value="{{user_detail.birthday}}" mode="date">
-                    <text wx:if="{{user_detail.birthday}}" class="line_text" style="padding-left:5rpx;" >{{user_detail.birthday}}</text>
-                    <text wx:if="{{!user_detail.birthday}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的生日</text>
+                <picker bindchange="birthday_change" name="birthday" value="{{birthday}}" mode="date">
+                    <text wx:if="{{birthday}}" class="line_text" style="padding-left:5rpx;" >{{birthday}}</text>
+                    <text wx:if="{{!birthday}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的生日</text>
                 </picker>
             </view>
         </view>
@@ -28,9 +28,9 @@
         <view class="input_content">
             <view class="key_name"><text class="line_text">学历</text></view>
              <view class="value_box" style="padding : 0px;">
-                <picker bindchange="deploma_change" value="{{user_detail.diploma}}" range="{{deploma}}"  mode="selector">
-                    <text wx:if="{{user_detail.diploma}}" class="line_text" >{{deploma[user_detail.diploma]}}</text>
-                    <text wx:if="{{!user_detail.diploma}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的学历</text>
+                <picker bindchange="deploma_change" value="{{diploma}}" range="{{deploma}}"  mode="selector">
+                    <text wx:if="{{diploma}}" class="line_text" >{{deploma[diploma]}}</text>
+                    <text wx:if="{{!diploma}}" class="placeholder line_text" style="padding-left:5rpx;">请选择您的学历</text>
                 </picker>
             </view>
         </view>
@@ -67,9 +67,9 @@
         <view class="input_content">
             <view class="key_name"><text class="line_text">证件类型</text></view>
             <view class="value_box" style="padding : 0px;">
-                <picker bindchange="id_type_change" name="id_type" range="{{id_type}}" value="{{user_detail.id_type}}" mode="selector">
-                    <text wx:if="{{!user_detail.id_type}}" class="placeholder line_text" style="padding-left:5rpx;">请选择证件类型</text>
-                    <text wx:if="{{user_detail.id_type}}" class=" line_text" style="padding-left:5rpx;">{{id_type[user_detail.id_type]}}</text>
+                <picker bindchange="id_type_change" name="cert_type" range="{{id_type}}" value="{{cert_type}}" mode="selector">
+                    <text wx:if="{{!cert_type}}" class="placeholder line_text" style="padding-left:5rpx;">请选择证件类型</text>
+                    <text wx:if="{{cert_type}}" class=" line_text" style="padding-left:5rpx;">{{id_type[cert_type]}}</text>
                 </picker>   
             </view>
         </view>
