@@ -39,3 +39,40 @@ module.exports = {
   http :http
 }
 
+function updateUserInfo(){
+  var session = wx.getStorageSync('sessionID');
+  wx.request({
+    url: 'https://www.biulibiuli.cn/hhlab/user/info',
+    method : 'POST',
+    data:{
+      session_id : session,
+    },
+
+    success:function (res) {
+      if (res.data.message == 'success') {
+        // success 
+        console.log('get info success')
+        var net_user = JSON.parse(res.data.user_detail);
+
+        wx.setStorageSync('ableToBorrow', false);
+
+        if (net_user.phone_num != null){
+          if (net_user.id_num != null && net_user.id_type != 0){
+            wx.setStorageSync('ableToBorrow', true);
+          }
+        }
+        
+      } else {
+        wx.setStorageSync('ableToBorrow', false);
+      }
+    },
+    fail: function (res) {
+      console.log('连接失败')
+    }
+  })
+}
+
+module.exports = {
+  updateUserInfo: updateUserInfo,
+}
+

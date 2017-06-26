@@ -115,15 +115,10 @@ Page({
         // 如果没有输入有效的电话号码，不触发发送按钮
         return
       }
-      // console.log(touchend)
-      var url_new = 'mode=' + 1 + '&TEL=';
-      url_new += encodeURIComponent(this.data.tel_num);
-      url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel?' + url_new;
-      console.log(url_new);
+
       var session = wx.getStorageSync('sessionID');
-      session = encodeURIComponent(session);
       wx.request({
-        url: url_new,
+        url: 'https://www.biulibiuli.cn/hhlab/login_bytel',
         data: {
           mode : 1,
           TEL: this.data.tel_num,
@@ -175,9 +170,8 @@ Page({
 
     var that = this;
 
-    url_new = 'https://www.biulibiuli.cn/hhlab/login_bytel';
     wx.request({
-      url: url_new,
+      url: 'https://www.biulibiuli.cn/hhlab/login_bytel',
       data: {
         mode : '2',
         TEL: e.detail.value.phone_num,
@@ -188,15 +182,16 @@ Page({
       // header: {}, // 设置请求的 header
       success: function(res){
         // success
-        if(res.data == 'success'){
+        if (res.data == 'success'){
           // 验证码验证成功后
-          var User = this.data.cellPhoneUser;
-          User.nickName += '手机用户' + e.detail.value.phone_num;
-          this.setData({
-            cellPhoneUser : User
-          })
-          
-          app.globalData.userInfo = User;
+          if (app.globalData.userInfo == null){
+            var User = that.data.cellPhoneUser;
+            User.nickName +=  e.detail.value.phone_num;
+            that.setData({
+              cellPhoneUser: User
+            })
+            app.globalData.userInfo = User;
+          }
 
           wx.showToast({
             title: '登录成功',
@@ -205,6 +200,8 @@ Page({
           wx.navigateBack({
             
           })
+        } else {
+          console.log(res.data)
         }
       },
       fail: function(res) {

@@ -46,7 +46,8 @@ Page({
       },
       success:function(res){
         console.log(res.data);
-        if(res.data.state){
+
+        if(res.data.message == 'success'){
           // success 
           console.log('update user info success')
           var net_user = JSON.parse(res.data.user_detail);
@@ -54,7 +55,6 @@ Page({
             tem_user: net_user,
           })
           console.log(net_user);
-
         } else {
           wx.showToast({
             title: '获取用户信息失败',
@@ -70,10 +70,9 @@ Page({
   },
   onReady:function(){
     // 页面渲染完成
-
     var net_user = this.data.tem_user;
     var tem_user = this.data.user_detail;
-    
+
     tem_user.user_name = net_user.user_name;
     tem_user.email = net_user.email;
     tem_user.phone_num = net_user.phone_num;
@@ -96,6 +95,8 @@ Page({
   },
   onShow:function(){
     // 页面显示
+
+
   },
   onHide:function(){
     // 页面隐藏
@@ -127,12 +128,73 @@ Page({
     })
   },
 
-  submits:function(res){
-    console.log(res);
-    wx.navigateBack({
-      
+  phone_note : function(e){
+    wx.showModal({
+      title: '提示',
+      content: '若需要修改当期绑定的手机号，请通过手机验证,是否修改',
+      success: function (res) {
+        if (res.confirm) {
+          // console.log('用户点击确定')
+          wx.navigateTo({
+            url: '/pages/Login/CellPhone',
+          })
+        } else if (res.cancel) {
+          // console.log('用户点击取消')
+          
+        }
+      }
     })
+  },
 
-    res.detail.value
+
+  submits:function(res){
+    console.log(res.detail.value);
+    // user.setAddress(jsonObject.get("address").getAsString());
+    // user.setDegree(jsonObject.get("degree").getAsInt());
+    // user.setEmail(jsonObject.get("email").getAsString());
+    // user.setName(jsonObject.get("name").getAsString());
+    // user.setCertificate(jsonObject.get("cert").getAsInt());
+    // user.setCertificateid(jsonObject.get("cert_id").getAsString());
+    // user.setBirthday(jsonObject.get("birthday").getAsString());
+    var form = res.detail.value;
+
+    // address    birthday    cert_type  email    id    mail_codew    name    phone_num
+    var user = {
+      address: form.address,
+      degree: form.deploma,
+      email: form.email,
+      name : form.name,
+      cert : form.cert_type,
+      cert_id : form.id,
+      birthday : form.birthday,
+      post_code : form.mail_codew
+    };
+
+    var session = wx.getStorageSync('sessionID');
+    wx.request({
+      url: 'https://www.biulibiuli.cn/hhlab/user/info_modify',
+      method: 'POST',
+      data: {
+        session_id: session,
+        form : user
+      },
+      success: function (res) {
+        console.log(res.data);
+        if(res.data.state){
+          console.log("update success");
+          wx.showToast({
+            title: '保存成功',
+          });
+          wx.navigateBack({
+            
+          });
+        } else{
+          console.log(res.data.message);
+          wx.showToast({
+            title: '保存失败',
+          });
+        }
+      }
+    })
   }
 })

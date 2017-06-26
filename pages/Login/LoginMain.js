@@ -3,6 +3,8 @@
 //获取应用实例
 var app = getApp()
 var pp = null
+var util = require("../../utils/util.js")
+
 
 function requestUserInfo(that){
     // 拉起获取用户信息的请求
@@ -78,6 +80,7 @@ Page({
       requestUserInfo(this)
       // that.data.userInfo = app.getUserInfo()
     }
+    util.updateUserInfo();
   },
 
 
