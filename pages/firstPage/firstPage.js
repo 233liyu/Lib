@@ -387,7 +387,7 @@ getCommBooklist : function(CommandUrl,settedKey){
       
     },
     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-     header: {
+    header: {
         "Content-Type": "json"
       },
     success: function(res){

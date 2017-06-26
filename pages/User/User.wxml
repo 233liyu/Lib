@@ -1,5 +1,5 @@
 <view class="Info">
-  <view  bindtap="bindViewTap" class="userinfo" style="background-image: url(https://www.biulibiuli.cn/book_test/bg.jpeg);">
+  <view  bindtap="bindViewTap" class="userinfo" style="background-image: url(https://www.biulibiuli.cn/hhlab/images/bg.jpeg);">
     <view>
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>  
     </view>

@@ -89,15 +89,15 @@
 }
 
 .before_login{
-  margin:400rpx 0 0 200rpx;
+  margin:200rpx 0 0 200rpx;
 }
 
 .l_btn{
-  width: 120rpx;
+  width: 180rpx;
   height:70rpx;
   background-color: #464646;
-  margin-left: 100rpx;
-  font-size: 25rpx;
+  margin-left: 50rpx;
+  font-size: 30rpx;
   color: #fdbc39;
   border: 1px solid #D8D8D8;
   border-radius: 3rpx;

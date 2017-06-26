@@ -73,10 +73,10 @@
 }
 
 .l_btn{
-  width: 120rpx;
+ width: 180rpx;
   height:70rpx;
   background-color: #464646;
-  margin-left: 100rpx;
+  margin-left: 50rpx;
   font-size: 30rpx;
   color: #fdbc39;
   border: 1px solid #D8D8D8;

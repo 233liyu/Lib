@@ -1,13 +1,13 @@
 <view class="booklist">
 <view class="after_login" wx:if="{{afterLogin}}">
 <view class="cart-box">
-    <!-- wx:for 渲染购物车列表 -->
+    <!-- wx:for 渲染列表 -->
     <view wx:for="{{books}}" class="cart-list" wx:key="{{index}}">
        <!-- wx:if 是否选择显示不同图标 -->
         <icon wx:if="{{item.selected}}" type="success" color="orange" bindtap="selectList" data-index="{{index}}"  class="cart-pro-select"/>
         <icon wx:else type="circle" class="cart-pro-select" bindtap="selectList" data-index="{{index}}"/>
         
-        <!-- 点击商品图片可跳转到商品详情 -->
+        <!-- 点击图片可跳转到详情 -->
         <navigator url="../bookDetail/bookDetail?id={{item.bookId}}">
             <image class="cart-thumb" src="{{item.url}}"></image>
         </navigator>
