@@ -94,7 +94,8 @@ Page({
   },
   onShow:function(){
     // 页面显示
-
+    this.onLoad(this.data.id_type);
+    this.onReady();
 
   },
   onHide:function(){
