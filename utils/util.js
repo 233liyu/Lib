@@ -34,10 +34,6 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-module.exports = {
-  formatTime: formatTime,
-  http :http
-}
 
 function updateUserInfo(){
   var session = wx.getStorageSync('sessionID');
@@ -74,5 +70,7 @@ function updateUserInfo(){
 
 module.exports = {
   updateUserInfo: updateUserInfo,
+  formatTime: formatTime,
+  http: http
 }
 

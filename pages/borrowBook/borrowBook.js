@@ -94,7 +94,43 @@ Page({
       })
       var session = wx.getStorageSync('sessionID');
       var that = this;
-      var dataUrl =         "https://www.biulibiuli.cn/hhlab/cartHandler";
+      var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
+      wx.request({
+        url: dataUrl,
+        data: {
+          "operation": "show",
+          "session_id": session,
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+        success: function (res) {
+          console.log(res)
+          that.processData(res.data)
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+         //清除cartTotal
+        var cartTotal = 0;
+         this.setData({
+           cartTotal: cartTotal
+         });
+    }
+  },
+  onPullDownRefresh: function() {
+    // 页面相关事件处理函数--监听用户下拉动作
+    if (app.globalData.userInfo != null) {
+      var user = app.globalData.userInfo;
+      this.setData({
+        userInfo: user,
+        afterLogin: true,
+        beforeLogin: false,
+      })
+      var session = wx.getStorageSync('sessionID');
+      var that = this;
+      var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
       wx.request({
         url: dataUrl,
         data: {
@@ -114,10 +150,6 @@ Page({
       })
     }
   },
-  onPullDownRefresh: function() {
-    // 页面相关事件处理函数--监听用户下拉动作
-    
-  },
   onReachBottom: function() {
     // 页面上拉触底事件的处理函数
   
@@ -125,18 +157,6 @@ Page({
  
   processData: function (BookInfo) {
     var that = this;
-    if (BookInfo.length <= 0) {
-      if (!_this.data.disabledRemind) {
-        that.setData({
-          disabledRemind: true
-        });
-        setTimeout(function () {
-         that.setData({
-            disabledRemind: false
-          });
-        }, 2000);
-      }
-    }
    if(BookInfo.length > 0)
    {
      this.setData({
@@ -144,16 +164,17 @@ Page({
      })
      //处理信息 并加载数据
      var books = [];
-     var bookId, url, authors, storage, storage_b, subject, title, selected;
-     console.log(BookInfo);
+     var bookId, url, authors, storage, storage_b, subject, title, selected, unid ;
      for (var idx in BookInfo) {
       var subject = BookInfo[idx];
       title = subject.title;
       if (title.length >= 20) {
         title = title.substring(0, 20) + "...";
       }
+     
       var temp = {
         title: title,
+        unid: subject.barcode,//图书的唯一编号
         bookId: subject.isbn13,
         url: subject.image,
         authors: subject.author,
@@ -166,7 +187,6 @@ Page({
     this.setData({
       books: books
     });
-    console.log(books)
     wx.hideNavigationBarLoading();
    }
     else{
@@ -202,20 +222,20 @@ Page({
     const index = e.currentTarget.dataset.index;
     let books = this.data.books;
     const selected = books[index].selected;         // 获取当前商品的选中状态
-        const isbn13 = books[index].bookId;
-        this.deletfromDatabase(isbn13);
-        if (selected == true && cartTotal)
+        const unid = books[index].unid;
+        this.deletfromDatabase(unid);
+        if (selected == true)
      {
       cartTotal -= 1;
     }
    books.splice(index, 1);  // 删除购物车列表里这个商品
     this.setData({
       books: books,
-      cartTotal : cartTotal
+      cartTotal : cartTotal,
     });
 
   },
-  deletfromDatabase : function(isbn13){
+  deletfromDatabase : function(unid){
   var session = wx.getStorageSync('sessionID');
   var that = this;
   var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
@@ -224,7 +244,7 @@ Page({
     data: {
       "operation": "delete",
       "session_id": session,
-      "isbn13": isbn13,
+      "barcode": unid,
     },
     header: {
       'content-type': 'application/json'
@@ -232,8 +252,8 @@ Page({
     method: 'POST',
     success: function (res) {
       var content;
-      if (res.data != 'success') {
-        content = "加入失败，请稍后尝试～";
+      if (res.data != 'delete success') {
+        content = "此书不在借书栏里了～,下拉页面刷新看看";
         wx.showToast({
           title: content,
           icon: '',
@@ -260,7 +280,6 @@ Page({
       url: '/pages/Login/LoginMain',
     })
   },
-
   onShareAppMessage: function() {
     // 用户点击右上角分享
     return {

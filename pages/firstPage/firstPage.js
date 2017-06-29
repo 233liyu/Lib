@@ -1,3 +1,5 @@
+var app = getApp()
+var pp = null
 Page({
   data: {
     /*初始控制模块变量 */
@@ -359,8 +361,43 @@ Page({
 //推荐信息链接
 onLoad: function(event)
 {
+  //用户已登录
+  if (app.globalData.userInfo != null) {
+    var open_recommendation = wx.getStorageSync('open_recommendation');
+   //开启
+    if (open_recommendation){
+      this.data({
+        containerShow: true,       
+      });
+    }
+    //关闭
+    else{
+      this.data({
+        containerShow: false,
+      });
+    }
+  } 
   var CommandUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
   this.getCommBooklist(CommandUrl,"Command");
+  },
+
+  onShow: function(){
+    //在用户登录时，都判断一下用户的选择
+    if (app.globalData.userInfo != null) {
+      var open_recommendation = wx.getStorageSync('open_recommendation');
+      //开启
+      if (open_recommendation) {
+        this.data({
+          containerShow: true,
+        });
+      }
+      //关闭
+      else {
+        this.data({
+          containerShow: false,
+        });
+      }
+    }  
   },
 /*-- 控制搜素面板 */
    
@@ -375,7 +412,7 @@ onLoad: function(event)
     var bookId = event.currentTarget.dataset.bookid;
     console.log(bookId);
     wx.navigateTo({
-      url: "../bookDetail/bookDetail?id=" + bookId,
+      url: "../bookDetail/bookDetail?isbn=" + bookId + "&&unid=null",
     })
   },
 getCommBooklist : function(CommandUrl,settedKey){
@@ -409,23 +446,53 @@ cancel_rec:function(){
   //弹出提醒
   var containerShow ='';
   var page = this;
-  wx.showModal({
-    content: "你确定关闭“向你推荐”吗？ 可在个人设置里进行更改",
-    confirmText: "确定",
-    cancelText: "取消",
-    success: function (res) {
-      //点击确定
-      if (res.confirm == true){
-        containerShow = false; 
+  //用户已登录
+  if (app.globalData.userInfo != null){
+    //获取用户身份
+    var sessionID = wx.getStorageSync('sessionID');
+    wx.showModal({
+      content: "你确定关闭 “向你推荐” 吗？ 可在个人设置里重新开启。",
+      confirmText: "确定",
+      cancelText: "取消",
+      success: function (res) {
+        //点击确定
+        if (res.confirm == true) {
+          containerShow = false;
+          //更改本地状态
+          wx.setStorageSync('open_recommendation', 'false'); 
+          //并同时向服务器端发送数据
+          wx.request({
+            url: '',
+            data: '',
+            header: {},
+            method: '',
+            dataType: '',
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        }
+        else {
+          containerShow = true;
+        }
+        page.setData({
+          containerShow: containerShow,
+        })
       }
-      else{
-        containerShow = true;
-      }
-      page.setData({
-        containerShow: containerShow,
-      })
-    }
-  })
+    })
+  }
+
+ //用户没有登录
+  else{
+    wx.showModal({
+      content: "您目前还没有登录，请登录之后才能 关闭",
+      confirmText: "确定",
+      showCancel:false,
+      
+    })
+  }
+  
+ 
 
 },
 
@@ -456,7 +523,7 @@ processCommandData:function (BookInfo,settedKey)
       title = title.substring(0, 6) + "...";
     }
     var temp = {
-      // stars: util.convertToStarsArray(subject.rating.stars),
+
       title: title,
       bookId: subject.isbn13,
       image: subject.image,

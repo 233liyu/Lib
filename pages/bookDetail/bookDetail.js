@@ -6,11 +6,22 @@ Page({
     localover: '../../images/icon/icon_d_arrow_down.png',
     hideText: true,
     hideClass: 'up',
+    ifAdd:false,
     RealtiveReCommand:{},
-
     },
    onLoad: function(options) {
-    var bookId = options.id;
+    var bookId = options.isbn;
+    var unid = options.unid;
+    if(unid.length == 0){
+     this.setData({
+       ifAdd : true
+     })
+     }
+     else{
+     this.setData({
+       ifAdd: false
+     })
+     }
     var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details?isbn13=' + bookId;
     var ReCommandUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
     this.getReCommBooklist(ReCommandUrl,bookId);
@@ -19,7 +30,6 @@ Page({
 
     getBookInfo :function(InfoUrl , bookId)
     {
-      
       wx.showNavigationBarLoading()
       var that = this;
       wx.request({
@@ -43,8 +53,8 @@ Page({
  },
 
     processBookData(data , bookId)
-    {
-       var rating = [];
+    {  console.log("返回"+data);
+        var rating = [];
         var authors = [];
         var ImageUrl;
         var bookid;
@@ -56,6 +66,29 @@ Page({
         var storage;
         var storage_books=[];
         var Storagevisible;
+        
+        //馆藏信息的预处理修改
+        for (var idx in data.storage_books){
+          var subject = data.storage_books[idx];
+          var book_id = subject.book_id;
+          var book_location;
+          var info = '';//书刊状态显示
+          var option ='';//操作选择
+          switch (subject.book_state){
+            case '1': info = "暂无此书", option =""; break;
+            case '2': info = "已借出", option = "预定"; break;
+            case '3': info = "已预订", option = "预定"; break;
+            case '4': info = "可借", option = "借阅"; break;
+          }
+          var temp = {
+            book_id: subject.book_id,
+            book_location: subject.book_location,
+            info : info,
+            option : option,
+          }
+          storage_books.push(temp)
+        }
+   
         var readyData = {
         bookId : bookId,
         Storagevisible : 0,
@@ -69,7 +102,7 @@ Page({
         guide_read: data.guide_read,
         comments :data.comments,
         storage : data.storage,
-        storage_books : data.storage_books,
+        storage_books : storage_books,
         };
      this.setData(readyData);
      console.log(readyData)
@@ -123,7 +156,7 @@ Page({
           title = title.substring(0, 6) + "...";
         }
         var temp = {
-          title: subject.title,
+          title: title,
           bookId: subject.isbn13,
           image: subject.image,
         }
@@ -140,14 +173,14 @@ Page({
     },
    
 
-      viewBookPostImg: function(e) {
+     viewBookPostImg: function(e) {
         var src = e.currentTarget.dataset.src;
         wx.previewImage({
             current: src, // 当前显示图片的http链接
             urls: [src] // 需要预览的图片http链接列表
         })
     },
-
+ 
 //查看馆藏信息
   StorageInfo : function(e){
      if(e.currentTarget.dataset.vis == 0){ 
@@ -162,8 +195,8 @@ Page({
     }
   },
 
-//加入借书栏
-  AddBorrow : function(event){
+  //判断当前操作是预定 还是 借阅
+  book_option:function(event){
     //先判断用户是否登录
     if (app.globalData.userInfo == null) {
       console.log("user:is not logged")
@@ -171,11 +204,39 @@ Page({
         url: '/pages/Login/LoginMain',
       })
 
-    } else {
-     
-      var Isbn13 = event.currentTarget.dataset.bookid;
+    } 
+    else 
+    {
+        //在判断用户是否完善个人信息
+          var addBorrow = wx.getStorageSync('ableToBorrow');
+          if(addBorrow){
+            var op = event.currentTarget.dataset.op;
+            var unid = event.currentTarget.dataset.unid;
+            switch (op) {
+              case "借阅": this.AddBorrow(unid); break;
+            }
+          }
+          //没有权限，需完善个人信息
+          else{
+            //弹出提醒
+            var containerShow = '';
+            var page = this;
+            wx.showModal({
+              content: "您目前还没有完善个人信息，尚不能借书。请在 “我的” -> “个人设置” 中完善个人信息。",     
+              showCancel: false,
+              confirmText: "确定",
+            
+            })
+
+          }     
+     }
+  },
+
+//加入借书栏
+  AddBorrow : function(unid){
+      var barcode = unid;
       //console.log(Isbn13);
-      if (Isbn13) {
+      if (barcode) {
         var session = wx.getStorageSync('sessionID');
         var that = this;
         var dataUrl = "https://www.biulibiuli.cn/hhlab/cartHandler";
@@ -184,7 +245,7 @@ Page({
           data: {
             "operation": "add",
             "session_id": session,
-            "isbn13": Isbn13,
+            "barcode": barcode,
           },
           header: {
             'content-type': 'application/json'
@@ -192,10 +253,18 @@ Page({
           method: 'POST',
           success: function (res) {
             var content;
-            if(res.data == 'success'){
+            if(res.data == 'add success'){
                  content = "加入借书栏成功";
             }else{
-              content="加入失败，请稍后尝试～";
+              switch(res.data){
+                case "The book is in your cart!":
+                      content = "该书已加入借书栏";
+                      break;
+                case "The book has been borrowed!":
+                  content = "下手慢了，书已被借走";
+                  break;
+              }
+              
             }
             console.log(res)
             wx.showToast({
@@ -213,10 +282,6 @@ Page({
           complete: function (res) { },
         })
       }
-      
-    
-    }
-   
    
   },
 
@@ -226,7 +291,7 @@ Page({
       var bookId = event.currentTarget.dataset.bookid;
       console.log(bookId);
       wx.navigateTo({
-      url: "../bookDetail/bookDetail?id="+bookId
+        url: "../bookDetail/bookDetail?isbn=" + bookId + "&&unid=" + null,
       })
   },
  

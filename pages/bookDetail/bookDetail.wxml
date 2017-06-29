@@ -21,7 +21,7 @@
     <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx;" bindtap="StorageInfo" data-vis="{{Storagevisible}}">
       馆藏信息: {{storage}}本
     </button>
-    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" bindtap="AddBorrow" data-bookId="{{isbn13}}">
+    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" catchtap="AddBorrow" data-bookId="{{isbn13}}"  wx:if="{{ifAdd}}" >
       加入借书栏
     </button>
   </view>
@@ -30,28 +30,24 @@
   <view class=" table ">
   <view class="tr bg-w ">
     <view class="th " >条码号</view>
-    <view class="th ">书名</view>
     <view class="th ">馆藏地</view>
     <view class="th ">书刊状态</view>
+    <view class="th ">操作</view>
   </view>
   <block wx:for="{{storage_books}}" wx:for-item="sbook" wx:key="{{index}} ">
     <view class="tr bg-g " wx:if="{{index%2==0}}">
       <view class="td" style="font-size:20rpx;">{{sbook.book_id}}</view>
-      <view class="td">{{title}}</view>
       <view class="td">{{sbook.book_location}}</view>
-      <view class="td" wx:if="{{sbook.book_state=='1'}}"> 暂无此书</view>
-     <view class="td" wx:if="{{sbook.book_state=='2'}}"> 此书已借出</view>
-     <view class="td" wx:if="{{sbook.book_state=='3'}}"> 此书已预定</view>
-     <view class="td" wx:if="{{sbook.book_state=='4'}}"> 可借</view>
+      <view class="td"> {{sbook.info}}</view>
+      <view class="td" wx:if="{{sbook.option.length > 0}}"><button class="book_option" catchtap="book_option" data-op="{{sbook.option}}" data-unid="{{sbook.book_id}}">{{sbook.option}}</button></view>
+      <view class="td" wx:if="{{sbook.option.length==0}}" style="width: 40%;"></view>
     </view>
     <view class="tr" wx:else>
-      <view class="td" style="font-size:20rpx;">{{sbook.book_id}}</view>
-      <view class="td">{{title}}</view>
+       <view class="td" style="font-size:20rpx;">{{sbook.book_id}}</view>
       <view class="td">{{sbook.book_location}}</view>
-      <view class="td" wx:if="{{sbook.book_state=='1'}}"> 暂无此书</view>
-     <view class="td" wx:if="{{sbook.book_state=='2'}}"> 此书已借出</view>
-     <view class="td" wx:if="{{sbook.book_state=='3'}}"> 此书已预定</view>
-     <view class="td" wx:if="{{sbook.book_state=='4'}}"> 可借</view>
+      <view class="td"> {{sbook.info}}</view>
+      <view class="td" wx:if="{{sbook.option.length>0}}"><button class="book_option" catchtap="book_option" data-op="{{sbook.option}}" data-unid="{{sbook.book_id}}">{{sbook.option}}</button></view>
+      <view class="td" wx:if="{{sbook.option.length==0}}" style="width: 40%;"></view>
     </view>
   </block>
  </view>

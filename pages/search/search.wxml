@@ -25,7 +25,7 @@
     <!-- wx:for 渲染列表 -->
     <view wx:for="{{books}}" class="cart-list" wx:key="{{index}}">
         <!-- 点击图片可跳转到详情 -->
-        <navigator url="../bookDetail/bookDetail?id={{item.bookId}}">
+        <navigator url="../bookDetail/bookDetail?isbn={{item.bookId}}&&unid=null">
             <image class="cart-thumb" src="{{item.url}}"></image>
         </navigator>
         <view class="cart-pro-name">

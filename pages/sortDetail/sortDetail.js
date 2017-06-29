@@ -14,7 +14,7 @@ Page({
     // 生命周期函数--监听页面加载
       var sortId = options.sid;
       var sortTitle = options.tt;
-      var dataUrl = "https://www.biulibiuli.cn/hhlab/indexre";
+      var dataUrl = 'https://www.biulibiuli.cn/hhlab/search_book?mode=1&key=' + sortId;
       this.data.navigateTitle = sortTitle;
       wx.setNavigationBarTitle({
       title: sortTitle,
@@ -44,39 +44,43 @@ Page({
     // 页面上拉触底事件的处理函数
 
     //之后在和后台交互的时候连接加参数
-    //this.data.totalCount 当前加载的数量
-     var nextUrl = this.data.requestUrl;
+     var totalCount = this.data.totalCount //当前加载的数量
+     var nextUrl = this.data.requestUrl + "beginindex=" + totalCount;
      util.http(nextUrl, this.processData);
      wx.showNavigationBarLoading(); 
   },
   processData:function(BookInfo)
   { 
-     var books=[];
+    console.log(BookInfo);
+    var books = [];
     //没有更多啦
-    if(BookInfo.message.length<=0){
+    if (BookInfo.length <= 0) {
       var _this = this;
-      if(!_this.data.disabledRemind){
+      if (!_this.data.disabledRemind) {
         _this.setData({
           disabledRemind: true
         });
-        setTimeout(function(){
+        setTimeout(function () {
           _this.setData({
             disabledRemind: false
           });
         }, 2000);
       }
     }
-   for (var idx in BookInfo.message) {
-      var subject = BookInfo.message[idx];
-      var title = subject.title;
+    for (var idx in BookInfo) {
+      var subject = BookInfo[idx];
+      var bookId, url, authors, storage, storage_b, subject, title;
+      title = subject.title;
       if (title.length >= 6) {
         title = title.substring(0, 6) + "...";
       }
       var temp = {
-       // stars: util.convertToStarsArray(subject.rating.stars),
-        title:title,
+        title: title,
         bookId: subject.isbn13,
         image: subject.image,
+        authors: subject.author,
+        storage: subject.storage,
+        storage_cb: subject.storage_cb,
       }
       books.push(temp)
     }
@@ -105,7 +109,7 @@ Page({
       var bookId = event.currentTarget.dataset.bookid;
       console.log(bookId);
       wx.navigateTo({
-      url: "../bookDetail/bookDetail?id="+bookId,
+        url: "../bookDetail/bookDetail?isbn=" + bookId + "&&unid=" + null,
       })
   },
   onShareAppMessage: function() {
