@@ -459,7 +459,7 @@ cancel_rec:function(){
         if (res.confirm == true) {
           containerShow = false;
           //更改本地状态
-          wx.setStorageSync('open_recommendation', 'false'); 
+          wx.setStorageSync('open_recommendation', false); 
           //并同时向服务器端发送数据
           wx.request({
             url: 'https://www.biulibiuli.cn/hhlab/user/recommend',
@@ -531,7 +531,24 @@ cancel_rec:function(){
     wx.scanCode({
       success: function (res) {
         //扫描出isbn13
-        res.result
+        switch (res.scanType){
+          case "EAN_13":
+            wx.navigateTo({
+              url: '../bookDetail/bookDetail?unid=null&isbn='+res.result,
+
+            })
+          ;break;
+          case "QR_CODE":
+          console.log(res.result);
+          var json = JSON.parse(res.result);
+          var isbn = json.isbn13;
+          var unid = json.bar_code;
+            wx.navigateTo({
+              url: '../bookDetail/bookDetail?unid='+unid+'&isbn='+isbn,
+
+            })
+          ;break;
+        }
       },
       fail: function (res) {
       }

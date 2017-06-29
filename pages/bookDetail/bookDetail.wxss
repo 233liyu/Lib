@@ -178,10 +178,17 @@
 }
 #comment{
   width: 638rpx;
-  max-height: 200rpx;
+  min-height: 150rpx;
+  font-size: 30rpx;
   margin-bottom: 5rpx;
   border: 1rpx solid #fdc441;
   padding: 15rpx;
+}
+#rate{
+  text-align: center;
+  font-size: 35rpx;
+  border: 1rpx solid #fdc441;
+  margin-bottom: 10rpx;
 }
 #commit{
   width: 100%;

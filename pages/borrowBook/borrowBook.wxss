@@ -57,7 +57,7 @@
   height: 60rpx;
   font-size: 25rpx;
   color: #fff;
-  background-color: #fdc441;
+  
 }
 
 .before_login{

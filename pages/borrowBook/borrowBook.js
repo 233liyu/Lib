@@ -51,6 +51,7 @@ Page({
     cartTotal: 0,
     session_id: null,
     no_more:false,
+    color: "#fdc441",
 
   },
   onLoad:function(options){
@@ -198,6 +199,7 @@ Page({
   },
  
   selectList(e) {
+    var color;
     var cartTotal= this.data.cartTotal;
     const index = e.currentTarget.dataset.index;    // 获取data- 传进来的index
     let books = this.data.books;                    // 获取购物车列表
@@ -209,15 +211,23 @@ Page({
     else{
       cartTotal-=1;
     }
+    if(cartTotal > 2 || cartTotal ==0){
+       color = "#ddd";
+    }
+    else {
+      color = "#fdc441";
+    }
     books[index].selected = !selected;              // 改变状态
     this.setData({
-      books: books,
-       cartTotal : cartTotal
+       books: books,
+       cartTotal : cartTotal,
+       color : color
     });
 
   },
 
   deleteList(e) {
+    var color;
     var cartTotal = this.data.cartTotal;
     const index = e.currentTarget.dataset.index;
     let books = this.data.books;
@@ -228,10 +238,17 @@ Page({
      {
       cartTotal -= 1;
     }
+      if (cartTotal <= 2 && cartTotal > 0) {
+        color = "#fdc441";
+      }
+        else{
+          color = "#ddd";
+        }
    books.splice(index, 1);  // 删除购物车列表里这个商品
     this.setData({
       books: books,
       cartTotal : cartTotal,
+      color : color,
     });
 
   },
@@ -273,6 +290,49 @@ Page({
   })
 
 },
+  CreateOrder : function(e){
+    var num = e.currentTarget.dataset.num;
+
+    if(num <= 2  && num > 0)
+    {
+      var books = e.currentTarget.dataset.se_books;
+      var se_books=[];
+      var session_id = wx.getStorageSync('sessionID');
+      for (var idx in books) {
+        if (books[idx].selected == true) {
+          //选中状态
+          se_books.push(books[idx].unid);
+        }
+      }
+      var barcode1, barcode2;
+      if (se_books.length == 2) {
+        barcode1 = se_books[0];
+        barcode2 = se_books[1];
+      }
+      else {
+        barcode1 = se_books[0];
+      }
+
+      wx.request({
+        url: 'https://www.biulibiuli.cn/hhlab/addComment/createOrderForm',
+        data: {
+          "barcode1": barcode1,
+          "barcode2": barcode2,
+          "session_id": session_id,
+        },
+        header: {},
+        method: 'POST',
+        dataType: '',
+        success: function (res) {
+          console.log(res);
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }
+  
+     
+  },
 
   //去往登录页面
   toLogin: function () {

@@ -28,7 +28,7 @@
 	<text class="total">已加入：{{cartTotal}}本书</text>
   <text style="font-size:20rpx" class="notice" wx:if="{{cartTotal>2}}">(每次借书最多两本)</text>
   <view class="buttonMenu">
-    <button  class="opts"  bindtap="CreateOrder">
+    <button  class="opts"  bindtap="CreateOrder" style="background-color:{{color}};" data-se_books="{{books}}" data-num="{{cartTotal}}">
       生成订单
     </button>
     </view>
