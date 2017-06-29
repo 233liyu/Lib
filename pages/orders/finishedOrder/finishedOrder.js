@@ -46,7 +46,7 @@ Page({
 
   showQRcode: function (e) {
     console.log(e);
-    var url = 'https://www.biulibiuli.cn/hha?id=' + e.target.id + '&time=';
+    var url = 'https://www.biulibiuli.cn/hhalab?id=' + e.target.id + '&time=';
     url = encodeURIComponent(url);
     wx.navigateTo({
       url: '../QRPage/QRPage?url=' + url,

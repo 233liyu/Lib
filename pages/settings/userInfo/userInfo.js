@@ -63,7 +63,6 @@ Page({
       },
       fail: function(res){
         console.log('连接失败')
-
       }
 
     })
@@ -104,6 +103,16 @@ Page({
   onUnload:function(){
     // 页面关闭
   },
+
+  /**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+  onPullDownRefresh: function () {
+    this.onLoad(this.data.id_type);
+    this.onReady();
+  },
+
+  
 
   birthday_change:function(e){
     console.log(e.detail.value);

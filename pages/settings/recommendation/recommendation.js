@@ -6,6 +6,7 @@ Page({
     recommendation : false,
     selected_frequence : 0,
     frequence : [
+      "",
       "每月一次",
       "两周一次",
       "每周一次",
@@ -15,10 +16,11 @@ Page({
   },
 
   update : function(){
-    var session = wx.getStorageInfoSync('sessionID');
-    var freq = wx.getStorageInfoSync('selected_frequence');
+    var session = wx.getStorageSync('sessionID');
+    var freq = wx.getStorageSync('selected_frequence');
+
     wx.request({
-      url: 'https://www.biulibiuli.cn/user/recommend',
+      url: 'https://www.biulibiuli.cn/hhlab/user/recommend',
       data: {
         session_id : session,
         frequence : freq
@@ -28,6 +30,7 @@ Page({
       success: function (res) {
         // success
 
+        console.log(res.data);
         if(res.data.state){
           wx.showToast({
             title: "设置成功",
@@ -36,7 +39,7 @@ Page({
           });
         } else {
           wx.showToast({
-            title: "设置成功",
+            title: "设置失败",
             icon: "success",
             duration: 5000
           });
@@ -55,7 +58,6 @@ Page({
         // wx.hideToast();
       }
     })
-
   },
 
   recommendation : function(e){
@@ -68,6 +70,10 @@ Page({
       // 不打开推荐则将值赋值为0
       this.setData({
         selected_frequence: 0
+      })
+    } else {
+      this.setData({
+        selected_frequence: 1
       })
     }
 
@@ -82,6 +88,9 @@ Page({
 
   bindPickerChange : function(e){
     // 推荐频率的选择
+    if(e.detail.value == 0){
+      e.detail.value = 1;
+    }
     this.setData({
       selected_frequence : e.detail.value
     })
@@ -124,14 +133,29 @@ Page({
     }
 
     util.updateUserInfo();
-
-
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
+    util.updateUserInfo();
+    // 页面初始化 options为页面跳转所带来的参数
+    this.setData({
+      recommendation: wx.getStorageSync('open_recommendation'),
+      selected_frequence: wx.getStorageSync('selected_frequence')
+    })
+
+    if (!this.data.recommendation) {
+      // 不打开推荐则将值赋值为0
+      this.setData({
+        selected_frequence: 0
+      })
+      wx.setStorage({
+        key: 'selected_frequence',
+        data: '0',
+      })
+    }
     
   },
   onHide:function(){
