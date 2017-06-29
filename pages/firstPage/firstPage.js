@@ -387,13 +387,13 @@ onLoad: function(event)
       var open_recommendation = wx.getStorageSync('open_recommendation');
       //开启
       if (open_recommendation) {
-        this.data({
+        this.setData({
           containerShow: true,
         });
       }
       //关闭
       else {
-        this.data({
+        this.setData({
           containerShow: false,
         });
       }
@@ -462,14 +462,43 @@ cancel_rec:function(){
           wx.setStorageSync('open_recommendation', 'false'); 
           //并同时向服务器端发送数据
           wx.request({
-            url: '',
-            data: '',
-            header: {},
-            method: '',
-            dataType: '',
-            success: function(res) {},
-            fail: function(res) {},
-            complete: function(res) {},
+            url: 'https://www.biulibiuli.cn/hhlab/user/recommend',
+            data: {
+              session_id: sessionID,
+              frequence: 0
+            },
+            method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+            // header: {}, // 设置请求的 header
+            success: function (res) {
+              // success
+
+              console.log(res.data);
+              if (res.data.state) {
+                wx.showToast({
+                  title: "设置成功",
+                  icon: "success",
+                  duration: 5000
+                });
+              } else {
+                wx.showToast({
+                  title: "设置失败",
+                  icon: "success",
+                  duration: 5000
+                });
+                console.log(res.data.message);
+              }
+
+            },
+            fail: function (res) {
+              // fail
+              wx.showToast({
+                title: "网络连接失败",
+              })
+            },
+            complete: function (res) {
+              // complete
+              // wx.hideToast();
+            }
           })
         }
         else {
@@ -485,7 +514,7 @@ cancel_rec:function(){
  //用户没有登录
   else{
     wx.showModal({
-      content: "您目前还没有登录，请登录之后才能 关闭",
+      content: "您目前还没有登录，请登录之后才能关闭该功能",
       confirmText: "确定",
       showCancel:false,
       
