@@ -46,7 +46,7 @@ Page({
       if (res.data== "not exist!"){
          wx.showModal({
            title: '',
-           content: '不好意思，图书馆里还没有这边书哟',
+           content: '不好意思，图书馆里还没有这本书哟',
            showCancel: false,
            success:function(res){
              wx.navigateBack({
@@ -248,7 +248,7 @@ Page({
     {
         //在判断用户是否完善个人信息
           var addBorrow = wx.getStorageSync('ableToBorrow');
-          if(true){
+          if(addBorrow){
             var op = event.currentTarget.dataset.op;
             var unid = event.currentTarget.dataset.unid;
             switch (op) {

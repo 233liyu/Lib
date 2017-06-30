@@ -4,60 +4,11 @@ Page({
     messages : [
        {
         "id" : 0,
-        "title" : "我是你爸爸,嚯嚯嚯嘿嘿嘿HIAhiahia",
-        "content" : "嚯哈哈嚯哈嚯哈",
+        "title" : "借书成功",
+        "content" : "您于2017-06-30成功创建了订单，请按时还书，祝你阅读愉快",
         "show" : true,  
-        "signature" : "liyu",   
-        "date" : "2017-4-11"
-      },{
-        "id" : 1,
-        "title" : "这里",
-        "content" : "你没还书啊！啊哈哈哈",
-        "show" : true,
-        "signature" : "liyu",
-        "date" : "2017-4-11"
-      }, {
-        "id" : 2,
-        "title" : "我是你爸爸,嚯嚯嚯嘿嘿嘿HIAhiahia",
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "show" : true,  
-        "signature" : "liyu",   
-        "date" : "2017-4-11"
-      }, {
-        "id" : 3,
-        "title" : "我是你爸爸",      
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "show" : true,          
-        "signature" : "liyu",
-        "date" : "2017-4-11"
-      }, {
-        "id" : 4,
-        "title" : "我是你爸爸",
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "show" : true,         
-        "signature" : "liyu",
-        "date" : "2017-4-11"
-      }, {
-        "id" : 5,
-        "title" : "我是你爸爸",
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "show" : true,                  
-        "signature" : "liyu",
-        "date" : "2017-4-11"
-      }, {
-        "id" : 6,
-        "title" : "我是你爸爸",
-        "show" : true,        
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "signature" : "liyu",
-        "date" : "2017-4-11"
-      }, {
-        "id" : 7,
-        "title" : "我是你爸爸",
-        "show" : true,        
-        "content" : "嚯哈哈嚯哈嚯哈",
-        "signature" : "liyu",
-        "date" : "2017-4-11"
+        "signature" : "嚯哈图书馆",   
+        "date" : "2017-6-30"
       }
     ] 
   },
