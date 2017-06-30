@@ -2,13 +2,11 @@
 
 <view class="content">
 
-    <view class="header">
-        <!--<text>这里是标题</text>-->
+    <view class="header" style="background-color:#fff">
+         <image src="../../images/icon/avantar.png" style="width:85% ; height:500rpx; margin:auto" ></image>
     </view>
 <!--header and logo area-->
 <form bindsubmit="login">
-
-
     <view class="sub-container">
         <view class="row_box">
             <view class="tip_area"><text>手机号码</text></view>
