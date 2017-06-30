@@ -26,8 +26,7 @@ Page({
      })
      }
     var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details?isbn13=' + bookId;
-    var ReCommandUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
-    this.getReCommBooklist(ReCommandUrl,bookId);
+    
     this.getBookInfo(InfoUrl , bookId , unid);
     },
    
@@ -95,8 +94,6 @@ Page({
           var info = '';//书刊状态显示
           var option ='';//操作选择
           var color = '#000';
-          console.log("pr:" + unid);
-          console.log("book_id:" + book_id);
           if (book_id == unid) {//判断当前是否有选中图书
             color = '#f36a5a';
           }
@@ -119,7 +116,7 @@ Page({
           }
           storage_books.push(temp)
         }
-  
+        var subclass = data.subclass;
    
         var readyData = {
         bookId : bookId,
@@ -140,6 +137,8 @@ Page({
         };
      this.setData(readyData);
      console.log(readyData)
+     var ReCommandUrl = 'https://www.biulibiuli.cn/hhlab/recommend_subclass?subclass='+subclass;
+     this.getReCommBooklist(ReCommandUrl, bookId);
      wx.hideNavigationBarLoading();
    },
     
@@ -254,6 +253,7 @@ Page({
             var unid = event.currentTarget.dataset.unid;
             switch (op) {
               case "借阅": this.AddBorrow(unid); break;
+              case "预定": this.preOrder(unid);break;
             }
           }
           //没有权限，需完善个人信息
@@ -324,6 +324,25 @@ Page({
       }
    
   },
+  //预定
+  preOrder:function(unid){
+    var barcode = unid;
+    //console.log(Isbn13);
+    if (barcode) {
+      
+          wx.showToast({
+            title: "预定成功，请在 “我的预定” 里查看",
+            icon: 'success',
+            image: '',
+            duration: 1500,
+            mask: true,
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
+          })
+        }
+    },
+  
 
   //推荐部分点击封面到书籍到详情页
    onBookTap : function(event)

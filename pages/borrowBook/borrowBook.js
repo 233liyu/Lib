@@ -314,7 +314,7 @@ Page({
       }
 
       wx.request({
-        url: 'https://www.biulibiuli.cn/hhlab/addComment/createOrderForm',
+        url: 'https://www.biulibiuli.cn/hhlab/createOrderForm',
         data: {
           "barcode1": barcode1,
           "barcode2": barcode2,
@@ -324,7 +324,21 @@ Page({
         method: 'POST',
         dataType: '',
         success: function (res) {
-          console.log(res);
+          if (res.data != "create order form failure") {
+            wx.showModal({
+              title: "创建成功，请在未完成订单中查看并完成支付",
+              content: '',
+              showCancel:false,
+              confirmText:"好的",
+            })
+          } else {
+            wx.showToast({
+              title: "创建失败，请稍后再试",
+              icon: "",
+              duration: 1500
+            });
+            console.log(res.data.message);
+          }
         },
         fail: function (res) { },
         complete: function (res) { },
