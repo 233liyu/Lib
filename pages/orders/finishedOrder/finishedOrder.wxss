@@ -158,3 +158,13 @@
     
     background-color: #efefef;
 }
+
+.epo_container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img_ct{
+  margin-top: 100rpx;
+}

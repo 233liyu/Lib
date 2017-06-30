@@ -156,7 +156,7 @@ Page({
     // form a new url
     var urlb = this.data.target_url;
     var time = Date.now();
-    urlb += time;
+    urlb += '+' + time;
     console.log(urlb);
 
     var size = this.setCanvasSize();//动态设置画布大小

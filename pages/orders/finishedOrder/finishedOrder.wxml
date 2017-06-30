@@ -2,6 +2,20 @@
 <!--<text>pages/orders/finishedOrder/finishedOrder.wxml</text>-->
 
 <view class="order_area">
+
+<view wx:if="{{orders.length == 0}}" class="epo_container">
+
+    <view class="img_ct">
+    <image wx:if="{{orders.length == 0}}" src="/images/icon/empty_order.png"></image>
+    
+    </view>
+
+    <view class="img_ct">
+    <text>您还没有订单，快去借本书试试！</text>
+    </view>
+  
+</view>
+
   <block wx:for-items="{{orders}}" wx:key="{{orders.id}}">
     <view class="order_bg">
       <!--control button-->
@@ -11,8 +25,8 @@
           <text class="control_text">{{item.order_tile}}</text>
         </view>
         <view class="control_state_box">
-          <text class="control_state">{{item.order_state}}</text>
-
+          <text class="control_state" wx:if="{{item.order_state=='finished'}}">已完成</text>
+          <text class="control_state" wx:if="{{item.order_state=='failed'}}">已失效</text>
         </view>
       </view>
 
