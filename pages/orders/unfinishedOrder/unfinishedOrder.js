@@ -60,9 +60,11 @@ Page({
       order.books = this.bookGenerate(data[i].books, data[i].book_tot);
       // console.log(order);
       if (order.order_state != 'finished'){
+        console.log("add!")
         array[j] = order;
         j++;
       }
+      console.log(order);
     }
     this.setData({
       orders : array
@@ -140,7 +142,7 @@ Page({
 
   toPay: function (e) {
     var order_id = e.target.id;
-
+    console.log("!!!pay!!!");
       var that = this;
       wx.request({
         url: 'https://www.biulibiuli.cn/hhlab/OFchangeState',
