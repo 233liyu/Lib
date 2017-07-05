@@ -67,7 +67,15 @@ Page({
     this.setData({
       orders: array
     })
+  },
 
+  check_book: function (e) {
+    console.log(e);
+    var url = e.target.id;
+    url = JSON.parse(url);
+    wx.navigateTo({
+      url: '/pages/bookDetail/bookDetail?unid=' + url.barcode + '&isbn=' + url.isbn13,
+    })
   },
 
 

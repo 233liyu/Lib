@@ -22,7 +22,7 @@
       <view class="control_area">
         <image class="icon_img" src="../../../images/icon/title.png"></image>
         <view class="control_text_box">
-          <text class="control_text">{{item.order_tile}}</text>
+          <text class="control_text">我的订单</text>
         </view>
         <view class="control_state_box">
           <text class="control_state" wx:if="{{item.order_state=='finished'}}">已完成</text>
@@ -49,7 +49,7 @@
               </view>
             </view>
             <view class="state_button">
-              <button class="check_button" name="{{item.book_url}}" type="default">查看</button>
+              <button class="check_button" bindtap="check_book" id="{{item.book_url}}" name="{{item.book_url}}" type="default">查看</button>
             </view>
           </view>
         </block>

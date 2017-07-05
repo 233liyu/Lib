@@ -66,8 +66,11 @@
         <view class="key_name">
           <text class="line_text">手机号</text>
         </view>
-        <view class="value_box">
-          <input name="phone_num" placeholder-class="placeholder" placeholder="请输入您的手机号" disabled bindtap="phone_note" value="{{user_detail.phone_num}}" type="number" />
+        <view bindtap="phone_note" value="{{user_detail.phone_num}}" class="value_box">
+          <text wx:if="{{user_detail.phone_num == ''}}" bindtap="phone_note" class="placeholder">请输入您的手机号</text>
+          <text wx:else="{{user_detail.phone_num != ''}}" bindtap="phone_note" >{{user_detail.phone_num}}</text>          
+        
+          <!--<input name="phone_num" placeholder-class="placeholder" placeholder="请输入您的手机号" disabled bindtap="phone_note" value="{{user_detail.phone_num}}" type="number" />-->
           </view>
         </view>
         <view class="divider"></view>

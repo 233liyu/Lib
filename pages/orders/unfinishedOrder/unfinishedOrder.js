@@ -59,7 +59,7 @@ Page({
       // console.log(this.bookGenerate(data[i].books, data[i].book_tot));
       order.books = this.bookGenerate(data[i].books, data[i].book_tot);
       // console.log(order);
-      if (order.order_state != 'finished'){
+      if (order.order_state != 'finished' && order.order_state != 'failed'){
         console.log("add!")
         array[j] = order;
         j++;
