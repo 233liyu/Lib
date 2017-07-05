@@ -28,20 +28,34 @@
  flex: row;
  padding: 30rpx 10rpx 30rpx 10rpx;
 }
+
+/*已失效订单*/
+.timeout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100rpx;
+  margin-left: 70rpx;
+}
+
+/*未完成订单*/
 .failed
 {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100rpx;
-  margin-left: 150rpx;
+  margin-left: 310rpx;
+  margin-top: -133rpx;
 }
+
+/*已完成订单*/
 .success
 { display: flex;
   flex-direction: column;
   align-items: center;
   width: 100rpx;
-  margin-left: 500rpx;
+  margin-left: 560rpx;
   margin-top: -130rpx;
 }
 

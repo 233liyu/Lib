@@ -8,7 +8,7 @@
     "pages/notification/notice",
     "pages/orders/QRPage/QRPage",
     "pages/orders/finishedOrder/finishedOrder",
-    "pages/orders/unfinishedOrder/unfinishedOrder", 
+    "pages/orders/unfinishedOrder/unfinishedOrder",
     "pages/Login/CellPhone",
     "pages/orders/reservation/reservation",
     "pages/settings/userInfo/userInfo",
@@ -16,9 +16,9 @@
     "pages/Login/LoginMain",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/orders/failedOrder/failedOrder"
   ],
-
   "tabBar": {
     "color": "#fff",
     "selectedColor": "#fdc441",

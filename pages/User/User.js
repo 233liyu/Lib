@@ -91,6 +91,11 @@ Page({
       url: '../orders/finishedOrder/finishedOrder',
     })
   },
+  timeout:function(that){
+    wx.navigateTo({
+      url: '../orders/failedOrder/failedOrder',
+    })
+  },
 
   //去往登录页面
   toLogin:function(){

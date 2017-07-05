@@ -10,7 +10,7 @@
 <view class="cart-box"  wx:if="{{history}}">
     <!-- wx:for 渲染列表 -->
     <view wx:for="{{searchData}}" class="history-list" wx:key="{{index}}">
-       <view class="cart-pro-name">
+    <view class="cart-pro-name" bindtap="searchHistory">
           <image src="../../images/icon/history.png" ></image>
           <text>{{searchData[index]}}</text>
         </view>

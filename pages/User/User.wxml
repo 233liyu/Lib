@@ -15,6 +15,10 @@
   </view>
   </view>
  <view class="OrederInfo">
+   <view class="timeout" bindtap="timeout">
+   <image src="../../images/icon/failed.png" style="width:90rpx; height:90rpx;"></image>
+   <text>已失效</text>
+   </view>
    <view  class="failed" bindtap="ToFailed">
    <image src="../../images/icon/cry-2.png" style="width:80rpx; height:80rpx;"></image>
    <text>未完成</text>
