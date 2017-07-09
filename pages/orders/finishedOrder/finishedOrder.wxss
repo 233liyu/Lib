@@ -115,7 +115,7 @@
 }
 
 .info_line{
-    height: 35rpx;
+    min-height: 35rpx;
     /*line-height: 9pt;*/
 }
 
