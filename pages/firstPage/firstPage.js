@@ -6,6 +6,7 @@ Page({
     containerShow: true,
     Command:{},//热门推荐 
     personalCommand :{},//个性化推荐
+    usrLogin:false,//控制 个性化推荐的显示
  list: [
        {
         id: 'A',
@@ -400,6 +401,10 @@ onLoad: function(event)
           containerShow: false,
         });
       }
+
+      this.setData({
+        usrLogin:true,
+      })
     }  
   },
 /*-- 控制搜素面板 */
@@ -462,7 +467,7 @@ gethotCommBooklist: function (CommandUrl, settedKey){
     },
     success: function (res) {
       // success
-      console.log(res);
+      console.log(res.data.recommend);
       that.processCommandData(res.data.recommend, settedKey);
 
     },
@@ -486,7 +491,7 @@ cancel_rec:function(){
     //获取用户身份
     var sessionID = wx.getStorageSync('sessionID');
     wx.showModal({
-      content: "你确定关闭 “向你推荐” 吗？ 可在个人设置里重新开启。",
+      content: "你确定关闭 “个性化推荐” 吗？ 可在个人设置里重新开启。",
       confirmText: "确定",
       cancelText: "取消",
       success: function (res) {
@@ -590,6 +595,12 @@ cancel_rec:function(){
     })
   },
 
+//个性化推荐中 登录控制
+  login : function(){
+     wx.navigateTo({
+       url: '/pages/Login/LoginMain',
+     })
+  },
 
 processCommandData:function (BookInfo,settedKey)
 {

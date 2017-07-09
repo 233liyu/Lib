@@ -169,8 +169,8 @@ Page({
      for (var idx in BookInfo) {
       var subject = BookInfo[idx];
       title = subject.title;
-      if (title.length >= 20) {
-        title = title.substring(0, 20) + "...";
+      if (title.length >= 10) {
+        title = title.substring(0, 10) + "...";
       }
      
       var temp = {

@@ -1,12 +1,12 @@
 <import src="../templates/bookInfo.wxml" />
 <import src="../templates/bookList.wxml" />
 <view class="search">
- <view class="text_box" catchtap="toSearch">
- <text  class="search_text">请输入图书编号或者书名 </text>
-</view>
-<view class="scan_icon">
-<image src="../../images/icon/scan.png" class="scan" bindtap="scanCode"></image>
-</view>
+  <view class="text_box" catchtap="toSearch">
+   <text  class="search_text">请输入图书编号或者书名 </text>
+  </view>
+  <view class="scan_icon">
+    <image src="../../images/icon/scan.png" class="scan" bindtap="scanCode"></image>
+  </view>
 </view>
 
 <view class="container">
@@ -18,8 +18,8 @@
         <view class="little_title">
           热门推荐
         </view>
-        <template is="bookListTemplate" data="{{...Command}}"></template>
     </view>
+    <template is="bookListTemplate" data="{{...Command}}"></template>
   </view>
   
   <!--self recommand -->
@@ -29,10 +29,16 @@
         <view class="little_title">
           个性化推荐
         </view>
-        <view style="margin-top:-48rpx;" catchtap="cancel_rec"><image src="../../images/icon/xx.png" class="xx"></image> </view>
-       
-        <template is="bookListTemplate" data="{{...personalCommand}}"></template>
     </view>
+        <!--登录之后才回有信息显示 -->
+      <view wx:if="{{usrLogin}}">
+        <view style="margin-top:-48rpx;" catchtap="cancel_rec"><image src="../../images/icon/xx.png" class="xx"></image> </view>
+         <template is="bookListTemplate" data="{{...personalCommand}}"></template>
+       </view>
+      </view>
+       <view class="beforeLogin" wx:if="{{!usrLogin}}">
+        <view  bindtap="login"><text style="color:#fdc441">登录</text> </view><text>获取个性化推荐～</text>
+       </view>
   </view>
     
     <!-- end -->
@@ -45,7 +51,7 @@
       </view>
     </view>
     
-    <view class="index-bd">
+    <view class="index-bd" style="background:#fff"> 
       <view class="kind-list">
         <block wx:for-items="{{list}}" wx:key="{{item.id}}">
           <view class="kind-list-item">
@@ -65,8 +71,4 @@
           </view>
         </block>
       </view>
-    </view>
-  </view>
-  <view class="searchPanel" wx:if="{{searchPanel}}">
-
-  </view>
+   </view>

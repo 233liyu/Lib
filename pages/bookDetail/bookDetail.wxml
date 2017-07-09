@@ -123,7 +123,7 @@
     <text>{{array[index]}}</text>
 </picker>
 <text>评论：</text>
-  <input type="textarea" id="comment" bindconfirm="finished" />
+  <textarea  id="comment" bindconfirm="finished" />
   <button id="commit" catchtap="commit" data-rate="{{index}}" data-comment="{{comment}}" data-isbn="{{isbn13}}">提交</button>
   </view>
   
