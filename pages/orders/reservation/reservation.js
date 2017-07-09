@@ -78,6 +78,16 @@ Page({
         if (result.state) {
           var tem = that.data.reservation_orders;
           tem.valid_orders = result.content;
+          var arr = new Array();
+
+          for(var i = 0; i < tem.valid_orders.length; i++){
+            if (tem.valid_orders[i].order_state != 'failed'){
+              arr.push(tem.valid_orders[i]);
+            }
+          }
+          
+          tem.valid_orders = arr;
+
           that.setData({
             reservation_orders: tem
           })
@@ -93,9 +103,11 @@ Page({
   },
 
   cancleReservation : function(target){
-    console.log(target);
-    var orderID = target.detail.id;
+
+    var orderID = target.target.id;
     var session = wx.getStorageSync('sessionID');
+    var that = this;
+
     wx.showModal({
       title: '提示',
       content: '您确认要取消订单吗？取消后将从预订队列中退出',
@@ -121,6 +133,7 @@ Page({
                 })
                 console.log(res.data.message);
               }
+              that.onShow();
             }
           })
         } else if (res.cancel) {
@@ -131,7 +144,8 @@ Page({
   },
 
   confirmOrder: function (target) {
-    var orderID = target.detail.id;
+    var orderID = target.target.id;
+    var that = this;
     var session = wx.getStorageSync('sessionID');
     wx.showModal({
       title: '提示',
@@ -159,6 +173,7 @@ Page({
                 })
                 console.log(res.data.message);
               }
+              that.onShow();              
             }
           })
         } else if (res.cancel) {
@@ -169,7 +184,9 @@ Page({
   },
   
   deleteOrder : function(target){
-    var orderID = target.detail.id;
+    var orderID = target.target.id;
+    var that = this;
+
     var session = wx.getStorageSync('sessionID');
     wx.showModal({
       title: '提示',
@@ -197,6 +214,7 @@ Page({
                 })
                 console.log(res.data.message);
               }
+              that.onShow();              
             }
           })
         } else if (res.cancel) {
