@@ -6,38 +6,31 @@ Page({
     localover: '../../images/icon/icon_d_arrow_down.png',
     hideText: true,
     hideClass: 'up',
-    ifAdd:false,
     array:['1分','2分','3分','4分','5分'],
     index:0,
     comment:'',
     RealtiveReCommand:{},
+    ifBorrow : false,//控制当前图书是否只能借阅
     },
    onLoad: function(options) {
     var bookId = options.isbn;
     var unid = options.unid;
-    if(unid.length == 0){
-     this.setData({
-       ifAdd : true,
-     })
-     }
-     else{
-     this.setData({
-       ifAdd: false,
-     })
-     }
-    var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details?isbn13=' + bookId;
-    
+    var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details';
     this.getBookInfo(InfoUrl , bookId , unid);
     },
    
     getBookInfo :function(InfoUrl , bookId ,unid)
-    {
+    { 
+      var session = wx.getStorageSync('sessionID');
       wx.showNavigationBarLoading()
       var that = this;
       wx.request({
          url: InfoUrl ,
-    data: {},
-          method: 'GET', 
+     data: {
+      "session_id": session,
+      "isbn13": bookId
+        },
+          method: 'POST', 
      header: {
         "Content-Type": "json"
       },
@@ -72,7 +65,7 @@ Page({
 
     processBookData(data , bookId , unid)
     { 
-         var rating = [];
+        var rating = [];
         var authors = [];
         var ImageUrl;
         var bookid;
@@ -85,6 +78,7 @@ Page({
         var Storagevisible;
         var _class;
         var subclass;
+        var tempCount = 0;
         
         //馆藏信息的预处理修改
         for (var idx in data.storage_books){
@@ -103,9 +97,9 @@ Page({
 
           switch (subject.book_state){
             case '1': info = "暂无此书", option =""; break;
-            case '2': info = "已借出", option = "预定"; break;
-            case '3': info = "已预订", option = "预定"; break;
-            case '4': info = "可借", option = "借阅"; break;
+            case '2': info = "已借出", option = ""; break;
+            case '3': info = "已预订", option = ""; break;
+            case '4': info = "可借", option = "借阅"; tempCount++; break;
           }
           var temp = {
             book_id: subject.book_id,//unid
@@ -117,7 +111,19 @@ Page({
           storage_books.push(temp)
         }
         var subclass = data.subclass;
-   
+
+        //控制显示预定按钮
+        if (tempCount == 0 ){
+          this.setData({
+            ifBorrow : true,
+          })
+        }
+        else{
+          this.setData({
+            ifBorrow: false,
+          })
+        }
+
         var readyData = {
         bookId : bookId,
         Storagevisible : 0,
@@ -132,7 +138,7 @@ Page({
         comments :data.comments,
         storage : data.storage,
         storage_books : storage_books,
-        _class:subject._class,
+        _class:data._class,
         subclass : data.subclass,
         };
      this.setData(readyData);
@@ -252,8 +258,8 @@ Page({
             var op = event.currentTarget.dataset.op;
             var unid = event.currentTarget.dataset.unid;
             switch (op) {
-              case "借阅": this.AddBorrow(unid); break;
-              case "预定": this.preOrder(unid);break;
+               case "借阅": this.AddBorrow(unid); break;
+              //case "预定": this.preOrder(unid);break;
             }
           }
           //没有权限，需完善个人信息
@@ -325,22 +331,51 @@ Page({
    
   },
   //预定
-  preOrder:function(unid){
-    var barcode = unid;
-    //console.log(Isbn13);
-    if (barcode) {
-      
-          wx.showToast({
-            title: "预定成功，请在 “我的预定” 里查看",
-            icon: 'success',
-            image: '',
-            duration: 1500,
-            mask: true,
-            success: function (res) { },
-            fail: function (res) { },
-            complete: function (res) { },
+  preOrder:function(e){
+    var isbn13 = e.currentTarget.dataset.bookid;
+    var session = wx.getStorageSync('sessionID');
+    if (isbn13) {
+          wx.request({
+            url: 'https://www.biulibiuli.cn/hhlab/reservation/create',
+            data: {
+              session_id : session,
+                isbn : isbn13
+            },
+            header: {},
+            method: 'POST',
+            dataType: '',
+            success: function(res) {
+                 res = res.data;
+                if(res.state == true){
+                  wx.showToast({
+                    title: "预定成功，请在 “我的预定” 里查看",
+                    icon: 'success',
+                    image: '',
+                    duration: 1500,
+                    mask: true,
+                    success: function (res) { },
+                    fail: function (res) { },
+                    complete: function (res) { },
+                  })
+                }
+                else{
+                  var content = res.errMsg;
+                  wx.showToast({
+                    title: content,
+                    image: '',
+                    duration: 1500,
+                    mask: true,
+                    success: function (res) { },
+                    fail: function (res) { },
+                    complete: function (res) { },
+                  })
+                }
+            },
+            fail: function(res) {},
+            complete: function(res) {},
           })
-        }
+              
+     }
     },
   
 

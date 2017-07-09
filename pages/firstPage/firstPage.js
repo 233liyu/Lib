@@ -4,7 +4,8 @@ Page({
   data: {
     /*初始控制模块变量 */
     containerShow: true,
-    Command:{},
+    Command:{},//热门推荐 
+    personalCommand :{},//个性化推荐
  list: [
        {
         id: 'A',
@@ -386,10 +387,12 @@ onLoad: function(event)
     if (app.globalData.userInfo != null) {
       var open_recommendation = wx.getStorageSync('open_recommendation');
       //开启
-      if (open_recommendation) {
+      if (open_recommendation) {//开启推荐将会显示个性化推荐
         this.setData({
           containerShow: true,
         });
+        var hotUrl = 'https://www.biulibiuli.cn/hhlab/indexre';
+        this.gethotCommBooklist(hotUrl, 'personalCommand');
       }
       //关闭
       else {
@@ -416,20 +419,21 @@ onLoad: function(event)
     })
   },
 getCommBooklist : function(CommandUrl,settedKey){
-  wx.showNavigationBarLoading()
+  wx.showNavigationBarLoading();
   var that = this;
   wx.request({
     url: CommandUrl,
     data: {
-      
     },
-    method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     header: {
         "Content-Type": "json"
       },
     success: function(res){
       // success
-      that.processCommandData(res.data,settedKey);
+      console.log(res);
+      that.processCommandData(res.data.hot ,settedKey);
+
     },
     fail: function(error) {
       // fail
@@ -440,6 +444,37 @@ getCommBooklist : function(CommandUrl,settedKey){
     }
   })
 },
+
+
+//热门推荐请求 需要携带sessionid
+gethotCommBooklist: function (CommandUrl, settedKey){
+  wx.showNavigationBarLoading();
+  var sessionID = wx.getStorageSync('sessionID');//获取sessionid
+  var that = this;
+  wx.request({
+    url: CommandUrl,
+    data: {
+      session_id: sessionID,//存在session_id 时会打开推荐
+    },
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    header: {
+      "Content-Type": "json"
+    },
+    success: function (res) {
+      // success
+      console.log(res);
+      that.processCommandData(res.data.recommend, settedKey);
+
+    },
+    fail: function (error) {
+      // fail
+      console.log(error)
+    },
+    complete: function (res) {
+      // complete
+    }
+  })
+  },
 
 //关闭推荐
 cancel_rec:function(){
@@ -558,12 +593,11 @@ cancel_rec:function(){
 
 processCommandData:function (BookInfo,settedKey)
 {
-  console.log(BookInfo);
   var books = [];
   var readyData = {};
 
-  for (var idx in BookInfo.message) {
-    var subject = BookInfo.message[idx];
+  for (var idx in BookInfo) {
+    var subject = BookInfo[idx];
     var title = subject.title;
     if (title.length >= 6) {
       title = title.substring(0, 6) + "...";

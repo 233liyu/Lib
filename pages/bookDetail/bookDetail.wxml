@@ -21,8 +21,8 @@
     <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx;" bindtap="StorageInfo" data-vis="{{Storagevisible}}">
       馆藏信息: {{storage}}本
     </button>
-    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" catchtap="AddBorrow" data-bookId="{{isbn13}}"  wx:if="{{ifAdd}}" >
-      加入借书栏
+    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" catchtap="preOrder" data-bookId="{{isbn13}}"  wx:if="{{ifBorrow}}" >
+      预定此书
     </button>
   </view>
   <view class="Storage" wx:if="{{Storagevisible}}" >

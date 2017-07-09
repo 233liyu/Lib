@@ -36,12 +36,6 @@
     其他
   </view>
 </view>
- <view class="navigator-box-show">
-    <navigator url="../notification/notice" class="navigator">
-      <view class="navigator-text">通知</view>
-      <view class="navigator-arrow"></view>
-    </navigator>
- </view>
   <view class="navigator-box-show">
      <navigator url="../orders/reservation/reservation" class="navigator">
       <view class="navigator-text">我的预定</view>

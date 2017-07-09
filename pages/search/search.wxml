@@ -10,13 +10,13 @@
 <view class="cart-box"  wx:if="{{history}}">
     <!-- wx:for 渲染列表 -->
     <view wx:for="{{searchData}}" class="history-list" wx:key="{{index}}">
-    <view class="cart-pro-name" bindtap="searchHistory">
+    <view class="cart-pro-name" bindtap="searchHistory" data-his="{{searchData[searchData.length-index-1]}}">
           <image src="../../images/icon/history.png" ></image>
-          <text>{{searchData[index]}}</text>
+          <text>{{searchData[searchData.length-index-1]}}</text>
         </view>
 
        <!-- 删除按钮 -->
-        <text class="cart-del" bindtap="deleteList" data-index="{{index}}"> × </text>
+        <text class="cart-del" bindtap="deleteList" data-index="{{searchData.length-index-1}}"> × </text>
     </view>
 </view>
 
@@ -42,4 +42,9 @@
 <view class="no_result" wx:if="{{no_result}}">
  <text style="margin-left:170rpx;">没有找到相关内容{{char_gt}}_{{char_lt}} </text>
  <view style="margin-left:140rpx; margin-top:20rpx;"><image src="../../images/icon/no_result.png" style="width:360rpx; height:260rpx;"></image> </view>
+</view>
+
+<!--no_more-->
+ <view class="fix_tip {{disabledRemind?'active':''}}">
+    <text>没有更多啦</text>
 </view>

@@ -1,14 +1,16 @@
+var util = require('../../utils/util.js');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputValue:'',
     searchUrl: 'http://www.biulibiuli.cn/hhlab/search_book',
     history : false,
     no_result: false,
     s_result:false,
+    requestUrl: "",//触底时的请求链接
+    totalCount: 20,//总的请求数量
+    isEmpty: true,//判断返回是否为空
+    disabledRemind: false,
+    books:[],
     char_lt: "<",
     char_gt: ">",
      t :'\n',
@@ -56,6 +58,7 @@ Page({
      var inputValue = e.detail.value;
      if(inputValue.length > 0){
        var url = 'https://www.biulibiuli.cn/hhlab/search_book?key=' + inputValue;
+       this.data.requestUrl = url; 
        wx.request({
          url: url,
          method: 'GET',
@@ -88,6 +91,7 @@ Page({
       searchData.push(inputValue)
       wx.setStorageSync('searchData', searchData) 
       var url = 'https://www.biulibiuli.cn/hhlab/search_book?key=' + inputValue;
+      this.data.requestUrl = url; 
       wx.request({
         url: url,
         method: 'GET',
@@ -137,15 +141,79 @@ Page({
          }
          books.push(temp)
        }
-       
+        this.data.books = books;
        this.setData({
          history: false,
          no_result: false,
          s_result: true,
-        books: books
+         books: books
        });
       }
   },
+
+  BottomData: function (BookInfo){
+    var books = [];
+    //没有更多啦
+    if (BookInfo.length <= 0) {
+      var _this = this;
+      if (!_this.data.disabledRemind) {
+        _this.setData({
+          disabledRemind: true
+        });
+        setTimeout(function () {
+          _this.setData({
+            disabledRemind: false
+          });
+        }, 2000);
+      }
+    }
+    var bookId, url, authors, storage, storage_b, subject, title;
+    for (var idx in BookInfo) {
+      subject = BookInfo[idx];
+      title = subject.title;
+      if (title.length >= 20) {
+        title = title.substring(0, 20) + "...";
+      }
+      var temp = {
+        title: title,
+        bookId: subject.isbn13,
+        url: subject.image,
+        authors: subject.author,
+        storage: subject.storage,
+        storage_cb: subject.storage_cb,
+      }
+      books.push(temp)
+    }
+
+    var totalBooks = {}
+    //如果要绑定新加载的数据，那么需要同旧有的数据合并在一起
+    if (!this.data.isEmpty) {
+      totalBooks = this.data.books.concat(books);
+    }
+    else {
+      totalBooks = this.data.books;
+      this.data.isEmpty = false;
+    }
+    this.setData({
+      books: totalBooks
+    });
+   
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh()
+    this.setData({
+      hiddenLoading: true
+    })  
+  },
+  onReachBottom: function (event) {
+    // 页面上拉触底事件的处理函数 
+    var totalCount = this.data.totalCount; //当前加载的数量
+    var nextUrl = this.data.requestUrl + "&beginindex=" + totalCount;
+    this.data.totalCount += 20;
+     util.http(nextUrl, this.BottomData);//重新加载处理
+    //处理请求数量
+     wx.showNavigationBarLoading();
+  },
+
 
   deleteList(e) {
     const index = e.currentTarget.dataset.index;
@@ -159,6 +227,11 @@ Page({
 
   },
  
+ //点击搜索历史条将会跳转到搜索
+  searchHistory:function(e){
+    var text = e.currentTarget.dataset.his;
+    
+  },
  
 
   /**
