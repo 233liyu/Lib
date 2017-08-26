@@ -83,6 +83,52 @@ Page({
 
   },
 
+  failed_order :function(e){
+    var order_id = e.target.id;
+    var session = wx.getStorageSync('sessionID');
+    var that = this;
+    console.log("delete order");
+    wx.showModal({
+      title: '放弃订单',
+      content: '您的订单尚未完成，是否确认放弃订单？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('删除订单');
+          wx.request({
+            // wx.request({
+            url: 'https://www.biulibiuli.cn/hhlab/OFchangeState',
+            method: 'POST',
+            data: {
+              newState: 'failure',
+              orderid: order_id,
+              session_id: session
+            },
+            success: function (res) {
+              if(res.data.state){
+                wx.showToast({
+                  title: '已标记失效',
+                  icon: 'success',
+                  duration: 2000
+                })
+              } else {
+                wx.showToast({
+                  title: res.data.errMsg
+                })
+              }
+              that.fresh();              
+            },
+            fail: function (res) { console.log('no net connect') },
+            complete: function (res) {
+
+             },
+          })
+        } else if (res.cancel) {
+
+        }
+      }
+    })
+  },
+
 
   bookGenerate: function (arr, n) {
     var array = new Array();
@@ -121,42 +167,10 @@ Page({
     })
   },
 
-  deleteOrder: function (e) {
-    var order_id = e.target.id;
-    console.log("delete order");
-    wx.showModal({
-      title: '删除订单',
-      content: '您确认要删除该订单吗？删除后不可复原',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('删除订单');
-          wx.request({
-            // wx.request({
-            url: '',
-            data: '',
-            header: {},
-            method: '',
-            dataType: '',
-            success: function (res) {
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 2000
-              })
-            },
-            fail: function (res) { console.log('no net connect') },
-            complete: function (res) { },
-          })
-        } else if (res.cancel) {
-
-        }
-      }
-    })
-  },
 
   toPay: function (e) {
     var order_id = e.target.id;
-    var session = wx.getStorageInfoSync('sessionID');
+    var session = wx.getStorageSync('sessionID');
     var that = this;
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/OFchangeState',
@@ -167,8 +181,8 @@ Page({
         session_id: session
       },
       success: function (res) {
-        var ret = JSON.parse(res.data);
-
+        console.log(res.data);
+        var ret = res.data;
         if (!ret.state) {
           wx.showToast({
             title: '支付失败',
@@ -179,7 +193,7 @@ Page({
           });
         }
         console.log(ret.log);
-        this.refresh();
+        that.fresh();
       }
     })
 

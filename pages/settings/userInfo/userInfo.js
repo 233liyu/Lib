@@ -60,7 +60,7 @@ Page({
             tem_user: net_user,
           })
           console.log(net_user);
-          this.onReady();
+          that.onReady();
           
         } else {
           wx.showToast({
