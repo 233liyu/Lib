@@ -73,7 +73,7 @@
 
       <view class="button_area">
         <view class="button_row"  wx:if="{{item.order_state == 'failed'}}">
-          <button bindtap="deleteOrder" wx:if="{{item.order_state == 'failed'}}" id="{{item.id}}" class="code_button delete_button">删除订单</button>
+          <!-- <button bindtap="deleteOrder" wx:if="{{item.order_state == 'failed'}}" id="{{item.id}}" class="code_button delete_button">删除订单</button> -->
           <button bindtap="showQRcode" id="{{item.id}}" class="code_button qr_code_button">显示二维码</button>
         </view>
       </view>

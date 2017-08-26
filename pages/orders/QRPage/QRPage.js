@@ -10,7 +10,7 @@ function count_down() {
   if (!page.data.on_counting) {
     //如果没有在计时状态的话，启动计时
     console.log('counting start')
-    timing = 10
+    timing = 60
     page.setData({
       on_counting: true
     })
@@ -29,7 +29,7 @@ function count_down() {
   } else {
     // 正常计时状态
     timing--
-    tap_text = timing + 's'
+    tap_text = '';
     page.setData({
       button_text: tap_text
     })
@@ -128,6 +128,7 @@ Page({
       }
     });
   },
+
 
 
   page_return : function(){

@@ -5,10 +5,13 @@ Page({
 
     ]
   },
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+
+  refresh : function(){
     var that = this;
     var session = wx.getStorageSync("sessionID");
+    wx.showLoading({
+      title: '正在载入',
+    })
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/showOrderForm',
       method: 'POST',
@@ -18,15 +21,23 @@ Page({
       },
       success: function (res) {
         //  console.log(res.data);
+        wx.hideLoading();
         that.coverte(res.data);
       }
     })
+  },
+
+  onLoad: function (options) {
+    // 页面初始化 options为页面跳转所带来的参数
+
+    
   },
   onReady: function () {
     // 页面渲染完成
   },
   onShow: function () {
     // 页面显示
+    this.refresh();
   },
   onHide: function () {
     // 页面隐藏
@@ -75,6 +86,9 @@ Page({
     var array = new Array();
     for (var i = 0; i < arr.length; i++) {
       var e = arr[i];
+      if (e.book.title.length > 9) {
+        e.book.title = e.book.title.substring(0, 9) + "...";
+      }
       var book = {
         "book_title": e.book.title,
         "book_content": "图书条码号：" + e.book.barcode,
@@ -107,6 +121,7 @@ Page({
 
   deleteOrder: function (e) {
     var order_id = e.target.id;
+    var session = wx.getStorageSync('sessionID');
     console.log("delete order");
     wx.showModal({
       title: '删除订单',
@@ -116,12 +131,15 @@ Page({
           console.log('删除订单');
           wx.request({
             // wx.request({
-            url: '',
-            data: '',
-            header: {},
-            method: '',
-            dataType: '',
+            url: 'https://www.biulibiuli.cn/hhlab/OFchangeState',
+            data: {
+              newState: 'delete',
+              orderid: order_id,
+              session_id: session
+            },
+            method: 'POST',
             success: function (res) {
+              
               wx.showToast({
                 title: '删除成功',
                 icon: 'success',
@@ -140,17 +158,20 @@ Page({
 
   toPay: function (e) {
     var order_id = e.target.id;
-
+    var session = wx.getStorageInfoSync('sessionID');
     var that = this;
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/OFchangeState',
-      method: 'GET',
+      method: 'POST',
       data: {
         newState: 'pay',
-        orderid: order_id
+        orderid: order_id,
+        session_id : session
       },
       success: function (res) {
-        if (res.data == 'failure') {
+        var ret = JSON.parse(res.data);
+
+        if (!ret.state) {
           wx.showToast({
             title: '支付失败',
           });
@@ -159,16 +180,10 @@ Page({
             title: '支付成功',
           });
         }
-        that.onLoad();
-
+        console.log(ret.log);
+        this.refresh();        
       }
     })
-    // wx.requestPayment({
-    //   timeStamp: '',
-    //   nonceStr: '',
-    //   package: '',
-    //   signType: '',
-    //   paySign: '',
-    // })
+
   }
 })

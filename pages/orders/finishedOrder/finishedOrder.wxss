@@ -92,6 +92,7 @@
 .book_info_text{
     display: flex;
     height: 50rpx;
+    overflow-x: hidden;
 }
 
 .book_intro_title{

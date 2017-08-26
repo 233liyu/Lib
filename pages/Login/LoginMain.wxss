@@ -37,12 +37,12 @@
 
 .login_button{
     width: 100%;
-    font-weight: 100;
+    font-weight: 300;
     margin-bottom: 30rpx;
 }
 
 .user-motto{
-    font-weight: 100;
+    font-weight: 300;
     font-size: 30rpx;
     font-style: normal;
     color: #bbbbbb;

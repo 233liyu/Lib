@@ -34,7 +34,7 @@
 
     <view class="button_area">
         <button loading="{{loading_logo}}" form-type="submit" type="primary" disabled="{{submit_button}}" class="button_sytle" >提交</button>
-        <button type="default" class="button_sytle">返回首页</button>
+        <button type="default" bindtap="return_bc" class="button_sytle">返回首页</button>
     </view>
 
     </form>

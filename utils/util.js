@@ -1,5 +1,5 @@
 
-function http(url, callBack){
+function http(url, callBack) {
   wx.request({
     url: url,
     method: 'GET',
@@ -35,16 +35,16 @@ function formatNumber(n) {
 }
 
 
-function updateUserInfo(){
+function updateUserInfo() {
   var session = wx.getStorageSync('sessionID');
   wx.request({
     url: 'https://www.biulibiuli.cn/hhlab/user/info',
-    method : 'POST',
-    data:{
-      session_id : session,
+    method: 'POST',
+    data: {
+      session_id: session,
     },
 
-    success:function (res) {
+    success: function (res) {
       if (res.data.message == 'success') {
         // success 
         console.log('get info success')
@@ -52,12 +52,17 @@ function updateUserInfo(){
 
         wx.setStorageSync('ableToBorrow', false);
 
-        if (net_user.phone_num != null){
-          if (net_user.id_num != null && net_user.id_type != 0){
-            wx.setStorageSync('ableToBorrow', true);
+        console.log(net_user);
+        if (net_user.phone_num != null) {
+          if (net_user.id_num != null) {
+            var id = new String(net_user.id_num);
+            console.log(id);
+            if (id.length != 0 && net_user.id_type != 0) {
+              wx.setStorageSync('ableToBorrow', true);
+              console.log("able to borrow!");
+            }
           }
         }
-        
       } else {
         wx.setStorageSync('ableToBorrow', false);
       }

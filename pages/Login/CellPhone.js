@@ -157,6 +157,12 @@ Page({
     }
   },
 
+  return_bc:function(){
+    wx.navigateBack({
+      
+    })
+  },
+
   login:function(e){
     // 提交表单，申请登录
     this.setData({
@@ -216,11 +222,6 @@ Page({
       }
 
     })
-
-
-
-
-
     // e.phone_num
     // e.check_code
   },
@@ -233,6 +234,7 @@ Page({
       button_text: '获取验证码'
     })
   },
+
   onShow:function(){
     // 生命周期函数--监听页面显示
 
@@ -242,10 +244,12 @@ Page({
     // 生命周期函数--监听页面隐藏
     // String5
   },
+
   onUnload:function(){
     // 生命周期函数--监听页面卸载
     // String6
   },
+
   onPullDownRefresh: function() {
     // 页面相关事件处理函数--监听用户下拉动作
     // String7

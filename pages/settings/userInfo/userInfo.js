@@ -23,6 +23,8 @@ Page({
     "cert_type" : 0,
     "diploma" : 0,
 
+    "modify_mark" : false,
+
     "user_detail":{
       "user_name":"",
       "email":"",
@@ -33,21 +35,24 @@ Page({
     },
   },
 
-  onLoad:function(options){
-
-    // 页面初始化 options为页面跳转所带来的参数
+  refresh:function(){
     var session = wx.getStorageSync('sessionID');
     var that = this;
+
+    wx.showLoading({
+      title: '正在载入',
+    })
+
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/user/info',
       method: 'POST',
-      data : {
-        session_id : session
+      data: {
+        session_id: session
       },
-      success:function(res){
+      success: function (res) {
         console.log(res.data);
-
-        if(res.data.message == 'success'){
+        wx.hideLoading();
+        if (res.data.message == 'success') {
           // success 
           console.log('update user info success')
           var net_user = JSON.parse(res.data.user_detail);
@@ -55,18 +60,31 @@ Page({
             tem_user: net_user,
           })
           console.log(net_user);
+          this.onReady();
+          
         } else {
           wx.showToast({
             title: '获取用户信息失败',
           })
         }
       },
-      fail: function(res){
+      fail: function (res) {
         console.log('连接失败')
       }
-
     })
   },
+
+
+  onLoad:function(options){
+
+    // 页面初始化 options为页面跳转所带来的参数
+    this.setData({
+      modify_mark : false
+    })
+
+    this.refresh();
+  },
+  
   onReady:function(){
     // 页面渲染完成
     var net_user = this.data.tem_user;
@@ -94,9 +112,11 @@ Page({
   },
   onShow:function(){
     // 页面显示
-    this.onLoad(this.data.id_type);
-    this.onReady();
-
+    var flag = this.data.modify_mark;
+    if(!flag){
+      this.refresh();
+      this.onReady();
+    }
   },
   onHide:function(){
     // 页面隐藏
@@ -109,17 +129,39 @@ Page({
  * 页面相关事件处理函数--监听用户下拉动作
  */
   onPullDownRefresh: function () {
-    this.onLoad(this.data.id_type);
+    this.refresh();
     this.onReady();
   },
 
-  
+  update:function(res){
+    // console.log(res);
+    var id = res.target.id;
+    var value = res.detail.value;
+
+    var user = this.data.user_detail;
+
+    switch(id){
+      case 'name': user.user_name = value;break;
+      case 'email': user.email = value; break;
+      case 'id': user.id_num = value; break;
+      case 'mail_codew': user.mail_code = value; break;
+      case 'address': user.mail_address = value; break;
+    }
+
+    this.setData({
+      user_detail : user,
+      modify_mark: true      
+    });
+
+    // console.log(this.data.user_detail);
+  },
 
   birthday_change:function(e){
     console.log(e.detail.value);
     var birthday_new = e.detail.value;
     this.setData({
-      birthday : birthday_new
+      birthday : birthday_new,
+      modify_mark : true
     })
   },
 
@@ -127,27 +169,57 @@ Page({
     // var user = this.data.user_detail;
     var diploma = parseInt(e.detail.value);
     this.setData({
-      diploma: diploma
+      diploma: diploma,
+      modify_mark: true      
     })
   },
+
+  return_back: function () {
+    wx.navigateBack({
+
+    })
+  },
+
 
   id_type_change:function(e){  
     var cet = parseInt(e.detail.value);
     this.setData({
-      cert_type: cet
+      cert_type: cet,
+      modify_mark: true      
     })
   },
 
   phone_note : function(e){
+    var that = this;
     wx.showModal({
       title: '提示',
       content: '若需要修改当期绑定的手机号，请通过手机验证,是否修改',
       success: function (res) {
         if (res.confirm) {
           // console.log('用户点击确定')
-          wx.navigateTo({
-            url: '/pages/Login/CellPhone',
-          })
+
+          if(that.data.modify_mark){
+            wx.showModal({
+              title: '提示',
+              content: '当前的修改未提交，如果继续将丢失当期的修改,是否继续？',
+              success:function(res){
+                if(res.confirm){
+                  that.setData({
+                    modify_mark : false
+                  })
+                  wx.navigateTo({
+                    url: '/pages/Login/CellPhone',
+                  })
+                }
+              }
+            })
+          } else {
+            wx.navigateTo({
+              url: '/pages/Login/CellPhone',
+            })
+          }
+
+
         } else if (res.cancel) {
           // console.log('用户点击取消')
           
@@ -181,6 +253,8 @@ Page({
     };
 
     var session = wx.getStorageSync('sessionID');
+
+    var that = this;
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/user/info_modify',
       method: 'POST',
@@ -195,9 +269,11 @@ Page({
           wx.showToast({
             title: '保存成功',
           });
-          wx.navigateBack({
-            
-          });
+
+          that.setData({
+            modify_mark : false
+          })
+
         } else{
           console.log(res.data.message);
           wx.showToast({

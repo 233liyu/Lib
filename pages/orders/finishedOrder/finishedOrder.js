@@ -5,10 +5,13 @@ Page({
       
     ]
   },
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+
+  refresh:function(){
     var that = this;
     var session = wx.getStorageSync("sessionID");
+    wx.showLoading({
+      title: '正在载入',
+    })
     wx.request({
       url: 'https://www.biulibiuli.cn/hhlab/showOrderForm',
       method: 'POST',
@@ -19,14 +22,21 @@ Page({
       success: function (res) {
         //  console.log(res.data);
         that.coverte(res.data);
+        wx.hideLoading();
       }
     })
+  },
+
+  onLoad: function (options) {
+    // 页面初始化 options为页面跳转所带来的参数
+
   },
   onReady: function () {
     // 页面渲染完成
   },
   onShow: function () {
     // 页面显示
+    this.refresh();
   },
   onHide: function () {
     // 页面隐藏
@@ -83,6 +93,9 @@ Page({
     var array = new Array();
     for (var i = 0; i < arr.length; i++) {
       var e = arr[i];
+      if (e.book.title.length > 9) {
+        e.book.title = e.book.title.substring(0, 9) + "...";
+      }
       var book = {
         "book_title": e.book.title,
         "book_content": "图书条码号：" + e.book.barcode,

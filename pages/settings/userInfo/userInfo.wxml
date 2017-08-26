@@ -13,7 +13,7 @@
           <text class="line_text">姓名</text>
         </view>
         <view class="value_box">
-          <input name="name" placeholder-class="placeholder" value="{{user_detail.user_name}}" placeholder="请输入您的姓名" type="text" />
+          <input id="name"  bindinput="update" name="name" placeholder-class="placeholder" value="{{user_detail.user_name}}" placeholder="请输入您的姓名" type="text" />
         </view>
       </view>
       <view class="divider"></view>
@@ -58,7 +58,7 @@
           <text class="line_text">电子邮箱</text>
         </view>
         <view class="value_box">
-          <input name="email" placeholder-class="placeholder" value="{{user_detail.email}}" type="text" placeholder="请输入您的电子邮箱" />
+          <input  bindinput="update" id="email" name="email" placeholder-class="placeholder" value="{{user_detail.email}}" type="text" placeholder="请输入您的电子邮箱" />
         </view>
       </view>
       <view class="divider"></view>
@@ -101,7 +101,7 @@
             <text class="line_text">证件号</text>
           </view>
           <view class="value_box">
-            <input data-da="value" disable="{{tem_user.id_num != null && tem_user.id_type!=0}}" name="id" placeholder-class="placeholder" placeholder="请输入您的证件号" value="{{user_detail.id_num}}" type="text" />
+            <input  bindinput="update" id="id" data-da="value" disable="{{tem_user.id_num != null && tem_user.id_type!=0}}" name="id" placeholder-class="placeholder" placeholder="请输入您的证件号" value="{{user_detail.id_num}}" type="text" />
           </view>
         </view>
       </view>
@@ -119,7 +119,7 @@
             <text class="line_text">邮寄地址</text>
           </view>
           <view class="value_box">
-            <input name="address" placeholder-class="placeholder" type="text" value="{{user_detail.mail_address}}" placeholder="请输入您的邮寄地址" />
+            <input  bindinput="update" id="address" name="address" placeholder-class="placeholder" type="text" value="{{user_detail.mail_address}}" placeholder="请输入您的邮寄地址" />
           </view>
         </view>
         <view class="divider"></view>
@@ -128,13 +128,14 @@
             <text class="line_text">邮政编号</text>
           </view>
           <view class="value_box">
-            <input name="mail_codew" placeholder-class="placeholder" placeholder="邮政编号" value="{{user_detail.mail_code}}" type="number" />
+            <input bindinput="update"  id="mail_codew" name="mail_codew" placeholder-class="placeholder" placeholder="邮政编号" value="{{user_detail.mail_code}}" type="number" />
           </view>
         </view>
       </view>
 
 
-      <button class="opts" form-type="submit" style=" border-color:#fdc441; background-color: #ffb936; color: #ffffff">提交</button>
+      <button class="opts" form-type="submit" style=" border-color:#fdc441; background-color: #ffb936; margin-bottom : 40rpx; color: #ffffff">提交</button>
+      <button class="opts" bindtap="return_back" style=" border-color:#fdc441; background-color: #eee; color: #000">返回上一页</button>
 
       <view class="content_box">
 
