@@ -64,7 +64,7 @@
   width: 100%;
   height: 100rpx;
   margin: auto;
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   line-height: 1.41176471;
   font-size: 34rpx;
   transform: translateY(0);
@@ -103,16 +103,22 @@
 }
 
 .before_login{
-  margin:200rpx 0 0 200rpx;
+  margin:200rpx 0 0 240rpx;
 }
 
 .l_btn{
   width: 180rpx;
   height:70rpx;
   background-color: #464646;
-  margin-left: 50rpx;
+  margin-left: 70rpx;
   font-size: 30rpx;
   color: #fdbc39;
   border: 1px solid #D8D8D8;
   border-radius: 3rpx;
+}
+.kind-list{
+  padding-top: 30rpx;
+  width: 100%;
+  margin: auto;
+  background-color: #FFFFFF;
 }

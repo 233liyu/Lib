@@ -1,4 +1,5 @@
-var app = getApp()
+var app = getApp();
+var comments = [];
 var pp = null
 Page({
   data:{
@@ -9,6 +10,7 @@ Page({
     array:['1分','2分','3分','4分','5分'],
     index:0,
     comment:'',
+    ifPrice:false,//判断当前是否查询到价格
     RealtiveReCommand:{},
     ifBorrow : false,//控制当前图书是否只能借阅
     },
@@ -16,9 +18,51 @@ Page({
     var bookId = options.isbn;
     var unid = options.unid;
     var InfoUrl = 'https://www.biulibiuli.cn/hhlab/book_details';
+    var priceUrl = 'https://www.biulibiuli.cn/hhlab/price'
     this.getBookInfo(InfoUrl , bookId , unid);
+    this.getPrice(priceUrl, bookId);
     },
-   
+
+    getPrice : function(priceUrl , bookId)
+    {
+      var that = this;
+       wx.request({
+         url: priceUrl,
+         data: JSON.stringify({ 
+           "isbn": bookId
+          }),
+         header: { "Content-Type": "json"},
+         method: 'POST',
+         dataType: '',
+         success: function(res) {
+           console.log(res);
+           that.processPrice(res.data);
+         },
+         fail: function(res) {},
+         complete: function(res) {},
+       })
+    },
+    processPrice(data){
+      var message;
+
+      if(data.state == true){//状态无误
+        var site_prices = data.site_prices;
+        this.setData({
+         ifPrice : true,
+         site_prices:site_prices
+        })
+      }
+      else{
+        message = "对不起 ，当前无法查询到该书的价格"
+        this.setData({
+          ifPrice:false,
+          message : message,
+        })
+      }
+      
+       
+    },
+
     getBookInfo :function(InfoUrl , bookId ,unid)
     { 
       var session = wx.getStorageSync('sessionID');
@@ -30,7 +74,7 @@ Page({
       "session_id": session,
       "isbn13": bookId
         },
-          method: 'POST', 
+            method: 'POST', 
      header: {
         "Content-Type": "json"
       },
@@ -72,7 +116,6 @@ Page({
         var publisher;
         var title;
         var guide_read = '';
-        var comments = [];
         var storage;
         var storage_books=[];
         var Storagevisible;
@@ -197,7 +240,7 @@ Page({
       for (var idx in BookInfo.message) {
       var subject = BookInfo.message[idx];
       var title = subject.title;
-      if (title.length >= 6) {
+      if (title.length > 6) {
           title = title.substring(0, 6) + "...";
         }
         var temp = {
@@ -389,16 +432,17 @@ Page({
       })
   },
 
- //提交评论和评分
-   finished: function(e){
-      this.setData({
-        comment : e.detail.value,
-      })
+  //获取当前输入评论
+   bindTextAreaBlur: function (e) {
+     this.setData({
+       comment : e.detail.value,
+     })
    },
    commit:function(e){
      var rate = e.currentTarget.dataset.rate-'0'+1;
      var comment = e.currentTarget.dataset.comment;
      var isbn = e.currentTarget.dataset.isbn;
+     var that = this;
      //判断用户是否登录
      if (app.globalData.userInfo == null) {
         wx.showModal({
@@ -411,7 +455,7 @@ Page({
      } 
      else{
        var session = wx.getStorageSync('sessionID');
-  
+       var new_com ={};
        wx.request({
          url: 'https://www.biulibiuli.cn/hhlab/addComment',
          data: {
@@ -425,12 +469,21 @@ Page({
          dataType: '',
          success: function(res) {
            console.log(res.data);
-           if (res.data =="add success") {
+           if (res.data !="faliure") {
              wx.showToast({
                title: "添加成功",
                icon: "success",
                duration: 5000
              });
+             new_com = {
+               user_name : res.data,
+               rate : rate,
+               content : comment
+             }
+             comments = that.data.comments.concat(new_com);//拼接评论
+             that.setData({
+               comments : comments
+             })
            } else {
              wx.showToast({
                title: "添加失败",
@@ -439,10 +492,6 @@ Page({
              });
              console.log(res.data.message);
            }
-           wx.navigateTo({
-             
-             url: '/pages/bookDetail/bookDetail?unid=null&isbn='+isbn,
-           })
          },
          fail: function(res) {},
          complete: function(res) {},

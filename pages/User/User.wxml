@@ -13,7 +13,8 @@
   <view class="little_title">
     订单详情
   </view>
-  </view>
+ </view>
+
  <view class="OrederInfo">
    <view class="timeout" bindtap="timeout">
    <image src="../../images/icon/failed.png" style="width:90rpx; height:90rpx;"></image>
@@ -28,7 +29,7 @@
    <text>已完成</text>
    </view>
 
-   </view>
+</view>
 
 <view class="ttt" >
   <image class="title_pic" src="../../images/icon/title.png"></image>
@@ -36,19 +37,21 @@
     其他
   </view>
 </view>
-  <view class="navigator-box-show">
+
+<view class="kind-list">
+  <view class="navigator-box-show" style="height:120rpx">
      <navigator url="../orders/reservation/reservation" class="navigator">
       <view class="navigator-text">我的预定</view>
       <view class="navigator-arrow"></view>
-    </navigator>
+     </navigator>
   </view>
   <view class="navigator-box-show">
      <navigator url="../settings/recommendation/recommendation" class="navigator">
       <view class="navigator-text">个人设置</view>
       <view class="navigator-arrow"></view>
     </navigator>
+   </view>
   </view>
-
 </view>
 
 <view class="before_login" wx:if="{{!afterLogin}}">

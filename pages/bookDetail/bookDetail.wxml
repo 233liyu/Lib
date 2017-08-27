@@ -6,7 +6,7 @@
   <view class="head-img-hover" data-src="{{ImageUrl}}" catchtap="viewBookPostImg">
     <text class="main-title">{{title}}</text>
     <view class="flex-row">
-      <text class="mark">作者</text>
+      <text class="mark" style="text-shadow:1px 1px 2px #000;">作 者</text>
       <block wx:for="{{authors}}" wx:for-item="author" wx:key="index">
         <view class="sub-title">
           <text>
@@ -84,6 +84,30 @@
   <view class="ttt" >
   <image class="title_pic" src="../../images/icon/title.png"></image>
   <view class="little_title">
+    全网比价
+  </view>
+  </view>
+  <view class="bookInfo">
+   
+   <view class="showPrice" wx:if="{{ifPrice}}" >
+    <block wx:for="{{site_prices}}" wx:for-item="price" wx:key="index"> 
+     <view style="width:250rpx"> 
+      <text>购买平台：{{price.site_name}}</text>
+    </view >
+    <view style="float:left; margin-top:-50rpx; margin-left:400rpx">
+      <text>价格：{{price.price}}</text>
+     </view>
+  </block>
+   </view>
+   <view class="noPrice" wx:else>
+   {{message}}
+   </view>
+
+  </view>
+
+  <view class="ttt" >
+  <image class="title_pic" src="../../images/icon/title.png"></image>
+  <view class="little_title">
     相关推荐
   </view>
   </view>
@@ -91,13 +115,14 @@
    <template is="bookListTemplate" data="{{...RealtiveReCommand}}"></template>
   </view>
 
+
   <view class="ttt" >
     <image class="title_pic" src="../../images/icon/title.png"></image>
     <view class="little_title">
     书籍评论
     </view>
   </view>
-  <view class="comments">
+  <view class="comments" data-allComments="{{comments}}">
       <block wx:for="{{comments}}" wx:for-item="comment"  wx:key="index">
       <view class="bookInfo">
       <view>
@@ -123,7 +148,7 @@
     <text>{{array[index]}}</text>
 </picker>
 <text>评论：</text>
-  <textarea  id="comment" bindconfirm="finished" />
+  <textarea  id="comment" bindblur="bindTextAreaBlur" />
   <button id="commit" catchtap="commit" data-rate="{{index}}" data-comment="{{comment}}" data-isbn="{{isbn13}}">提交</button>
   </view>
   

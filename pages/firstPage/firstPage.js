@@ -610,7 +610,7 @@ processCommandData:function (BookInfo,settedKey)
   for (var idx in BookInfo) {
     var subject = BookInfo[idx];
     var title = subject.title;
-    if (title.length >= 6) {
+    if (title.length > 6) {
       title = title.substring(0, 6) + "...";
     }
     var temp = {

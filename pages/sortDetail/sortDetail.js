@@ -71,7 +71,7 @@ Page({
       var subject = BookInfo[idx];
       var bookId, url, authors, storage, storage_b, subject, title;
       title = subject.title;
-      if (title.length >= 6) {
+      if (title.length > 6) {
         title = title.substring(0, 6) + "...";
       }
       var temp = {

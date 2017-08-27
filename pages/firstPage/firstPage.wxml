@@ -9,10 +9,10 @@
   </view>
 </view>
 
-<view class="container">
+<view class="container" style="overflow:hidden">
   <!-- 推荐模块 -->
   <!--hot recommand-->
-  <view class="Reco_BookInfo">
+  <view class="Reco_BookInfo"  style="overflow:hidden">
     <view class="ttt" style="  overflow-x: hidden;">
         <image class="title_pic" src="../../images/icon/title.png"></image>
         <view class="little_title">
@@ -23,7 +23,7 @@
   </view>
   
   <!--self recommand -->
-   <view class="Reco_BookInfo"  wx:if="{{containerShow}}">
+   <view class="Reco_BookInfo"  wx:if="{{containerShow}}"  style="overflow:hidden">
     <view class="ttt" style="  overflow-x: hidden;">
         <image class="title_pic" src="../../images/icon/title.png"></image>
         <view class="little_title">
@@ -32,7 +32,7 @@
     </view>
         <!--登录之后才回有信息显示 -->
       <view wx:if="{{usrLogin}}">
-        <view style="margin-top:-48rpx;" catchtap="cancel_rec"><image src="../../images/icon/xx.png" class="xx"></image> </view>
+        <view style="margin-top:-48rpx;" bindtap="cancel_rec"><image bindtap="cancel_rec" src="../../images/icon/xx.png" class="xx"></image> </view>
          <template is="bookListTemplate" data="{{...personalCommand}}"></template>
        </view>
       </view>

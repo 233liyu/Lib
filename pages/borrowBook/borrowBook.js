@@ -292,26 +292,32 @@ Page({
 },
   CreateOrder : function(e){
     var num = e.currentTarget.dataset.num;
-
+    var books = e.currentTarget.dataset.se_books;
+    var that = this;
+    var cartTotal = this.data.cartTotal;
     if(num <= 2  && num > 0)
-    {
-      var books = e.currentTarget.dataset.se_books;
+    { 
       var se_books=[];
       var session_id = wx.getStorageSync('sessionID');
       for (var idx in books) {
         if (books[idx].selected == true) {
           //选中状态
           se_books.push(books[idx].unid);
+          //之后删除掉在原列表中选中商品
+          books.splice(idx, 1);
+          cartTotal-=1;//总数减一
         }
       }
       var barcode1, barcode2;
       if (se_books.length == 2) {
         barcode1 = se_books[0];
         barcode2 = se_books[1];
+        
       }
       else {
         barcode1 = se_books[0];
       }
+
 
       wx.request({
         url: 'https://www.biulibiuli.cn/hhlab/createOrderForm',
@@ -331,6 +337,11 @@ Page({
               showCancel:false,
               confirmText:"好的",
             })
+            that.setData({
+              books: books,
+              cartTotal:cartTotal
+            });
+
           } else {
             wx.showToast({
               title: "创建失败，请稍后再试",
