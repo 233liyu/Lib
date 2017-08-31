@@ -10,6 +10,7 @@ Page({
     array:['1分','2分','3分','4分','5分'],
     index:0,
     comment:'',
+    moreComments : false,
     ifPrice:false,//判断当前是否查询到价格
     RealtiveReCommand:{},
     ifBorrow : false,//控制当前图书是否只能借阅
@@ -128,6 +129,7 @@ Page({
           var subject = data.storage_books[idx];
           var book_id = subject.book_id;
           var book_location;
+          var comments;
           var info = '';//书刊状态显示
           var option ='';//操作选择
           var color = '#000';
@@ -154,7 +156,7 @@ Page({
           storage_books.push(temp)
         }
         var subclass = data.subclass;
-
+    
         //控制显示预定按钮
         if (tempCount == 0 ){
           this.setData({
@@ -166,6 +168,18 @@ Page({
             ifBorrow: false,
           })
         }
+       
+       //处理评论时间
+       comments = data.comments;
+       for(var t in comments){
+         comments[t].c_time = this.getLocalTime(comments[t].c_time.time);
+       }
+       if(comments.length>4){
+         comments.length = 4;
+         this.setData({
+           moreComments : true
+         })
+       }
 
         var readyData = {
         bookId : bookId,
@@ -178,7 +192,7 @@ Page({
         isbn13: data.isbn13,
         title: data.title,
         guide_read: data.guide_read,
-        comments :data.comments,
+        comments: comments,
         storage : data.storage,
         storage_books : storage_books,
         _class:data._class,
@@ -442,7 +456,10 @@ Page({
      var rate = e.currentTarget.dataset.rate-'0'+1;
      var comment = e.currentTarget.dataset.comment;
      var isbn = e.currentTarget.dataset.isbn;
+     var c_time = Date.parse(new Date());
      var that = this;
+     c_time = that.getLocalTime(c_time);
+     
      //判断用户是否登录
      if (app.globalData.userInfo == null) {
         wx.showModal({
@@ -478,9 +495,15 @@ Page({
              new_com = {
                user_name : res.data,
                rate : rate,
-               content : comment
+               content : comment,
+               c_time :c_time,
              }
-             comments = that.data.comments.concat(new_com);//拼接评论
+             that.data.comments.unshift(new_com);//在头部拼接评论
+             comments = that.data.comments;
+             if(comments.length>4){
+               comments.length = 4;
+             }
+            
              that.setData({
                comments : comments
              })
@@ -498,7 +521,32 @@ Page({
        })
      }
    },
+   getLocalTime: function (timeStamp) {     
+     var date = new Date();
+     date.setTime(timeStamp);
+     var y = date.getFullYear();
+     var m = date.getMonth() + 1;
+     m = m < 10 ? ('0' + m) : m;
+     var d = date.getDate();
+     d = d < 10 ? ('0' + d) : d;
+     var h = date.getHours();
+     h = h < 10 ? ('0' + h) : h;
+     var minute = date.getMinutes();
+     var second = date.getSeconds();
+     minute = minute < 10 ? ('0' + minute) : minute;
+     second = second < 10 ? ('0' + second) : second;
+     return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;       
+    } ,
 
+   //加载更多评论
+   moreComments:function(e){
+      wx.navigateTo({
+        url: '../moreComments/moreComments?isbn13=' + e.currentTarget.dataset.isbn,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+   },
  
  onShareAppMessage: function() {
     // 用户点击右上角分享

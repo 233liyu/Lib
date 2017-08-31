@@ -18,7 +18,7 @@
     <image class="book-img" src="{{ImageUrl}}" data-src="{{ImageUrl}}" catchtap="viewBookPostImg" />
   </view>
   <view class="buttonMenu">
-    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx;" bindtap="StorageInfo" data-vis="{{Storagevisible}}">
+    <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx; " bindtap="StorageInfo" data-vis="{{Storagevisible}}">
       馆藏信息: {{storage}}本
     </button>
     <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:-85rpx 0rpx 5rpx 370rpx;" catchtap="preOrder" data-bookId="{{isbn13}}"  wx:if="{{ifBorrow}}" >
@@ -53,7 +53,7 @@
  </view>
   </form>
   </view>
- <view class="ttt" >
+ <view class="ttt">
   <image class="title_pic" src="../../images/icon/title.png"></image>
   <view class="little_title">
     精彩导读
@@ -74,7 +74,7 @@
   <view class="bookInfo ">
   <text>书名: {{title+'\n'}}</text>
   <block wx:for="{{authors}}" wx:for-item="author" wx:key="index"> 
- <view><text>作者：{{author}} </text></view>
+  <view><text>作者：{{author}} </text></view>
   </block>
   <text>出版社: {{publisher+'\n'}}</text>
   <text>ISBN: {{isbn13 +'\n'}}</text>
@@ -124,16 +124,25 @@
   </view>
   <view class="comments" data-allComments="{{comments}}">
       <block wx:for="{{comments}}" wx:for-item="comment"  wx:key="index">
-      <view class="bookInfo">
-      <view>
-       <text wx:if="{{comment.user_name.length > 0}}">{{comment.user_name}}</text>
-       <text wx:if="{{comment.user_name.length == 0}}">匿名评论</text>
-       <text class="rate">{{comment.rate}}分</text>
+     <view class="commentInfo">
+       <view>
+         <image class="userinfo-avatar" src="../../images/index/temp_user.png" background-size="cover"></image>
+         <view style="margin-top:-85rpx; margin-left:100rpx;">  
+          <text wx:if="{{comment.user_name.length > 0}}">{{comment.user_name}}</text>
+          <text wx:if="{{comment.user_name.length == 0}}">匿名评论</text>
+          <text class="rate">{{comment.rate}}分</text>
+         </view>
+        <view style="margin-top:-10rpx; margin-left:100rpx">
+         <text class="c_time">{{comment.c_time}}</text>
+        </view>
        </view>
-       <text wx:if="{{comment.content.length > 0}}">{{comment.content}} </text>
-       <text wx:if="{{comment.content.length == 0}}">该用户没有填写评论 </text>
+       <view style="margin-left:100rpx;">
+        <text  wx:if="{{comment.content.length > 0}}">{{comment.content}} </text>
+        <text  wx:if="{{comment.content.length == 0}}">该用户没有填写评论 </text>
+       </view>
       </view>
       </block>
+      <button wx:if="{{moreComments}}" id="moreComments" catchtap="moreComments" data-isbn="{{isbn13}}">查看更多</button>
   </view>
 
   <view class="ttt" >

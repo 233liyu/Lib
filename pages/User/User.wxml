@@ -39,19 +39,29 @@
 </view>
 
 <view class="kind-list">
-  <view class="navigator-box-show" style="height:120rpx">
+   <view class="navigator-box-show" style="padding-top:25rpx">
      <navigator url="../orders/reservation/reservation" class="navigator">
       <view class="navigator-text">我的预定</view>
       <view class="navigator-arrow"></view>
-     </navigator>
+    </navigator>
+   </view>
   </view>
-  <view class="navigator-box-show">
+
+  <view class="navigator-box-show" style="padding-top:-5rpx; margin-top:-15rpx" >
      <navigator url="../settings/recommendation/recommendation" class="navigator">
       <view class="navigator-text">个人设置</view>
       <view class="navigator-arrow"></view>
     </navigator>
    </view>
-  </view>
+  
+
+   <view class="navigator-box-show" style="padding-top:-5rpx; margin-top:-15rpx"> 
+     <navigator url="../userRecord/userRecord" class="navigator">
+      <view class="navigator-text">年度数据</view>
+      <view class="navigator-arrow"></view>
+    </navigator>
+   </view>
+
 </view>
 
 <view class="before_login" wx:if="{{!afterLogin}}">

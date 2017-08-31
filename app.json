@@ -17,7 +17,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/search/search",
-    "pages/orders/failedOrder/failedOrder"
+    "pages/orders/failedOrder/failedOrder",
+    "pages/userRecord/userRecord",
+    "pages/moreComments/moreComments"
   ],
   "tabBar": {
     "color": "#fff",

@@ -78,6 +78,7 @@
   width: 300rpx;
   font-size: 30rpx; 
   
+  
 }
 /*储存信息表格 */
 .table {
@@ -201,3 +202,42 @@
   color: #464646;
 }
 
+.c_time{
+  margin-top: 40rpx;
+  color: #777777;
+  font-size: 25rpx;
+}
+.userinfo-avatar {
+  width: 70rpx;
+  height: 70rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+  border-width: 1rpx;
+  border-color: #ffffff;
+}
+
+
+#moreComments{
+  width: 40%;
+  height: 70rpx;
+  font-size: 30rpx;
+  border: 1rpx solid #fff;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  background-color: #fff;
+  color: #fdc441;
+}
+.comments{
+  background: #fff;
+}
+
+.commentInfo{
+ width: 90%;
+ margin: auto;
+ background: #fff;
+ /*border-left: 1px solid black;
+ border-right: 1px solid black;*/
+ padding: 15rpx 25rpx 15rpx 25rpx;
+ font-size: 30rpx;
+ border-bottom: 1rpx solid #edecee;
+}
