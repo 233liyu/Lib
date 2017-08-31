@@ -5,8 +5,8 @@ Page({
     disabledRemind: false,
     isEmpty: true,
     comments:[],
-    requestUrl: 'https://www.biulibiuli.cn/hhlab/getMoreComment ',
-    totalCount: 20,
+    requestUrl: 'https://www.biulibiuli.cn/hhlab/getMoreComment',
+    totalCount: 5,
     isbn13 : 0,
   },
 
@@ -14,8 +14,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     this.data.isbn13 = options.isbn13;
-    this.getData(this.data.isbn13, 1,20);
+    this.getData(this.data.isbn13, 1,5);
   
   },
   /**
@@ -30,7 +31,7 @@ Page({
     this.data.comments = {};
     this.data.isEmpty = true;
     this.data.totalCount = 0;
-    this.getData(this.data.isbn13, totalCount, totalCount + 20);
+    this.getData(this.data.isbn13, totalCount, totalCount + 5);
     wx.showNavigationBarLoading();
 
   },
@@ -40,7 +41,7 @@ Page({
     //之后在和后台交互的时候连接加参数
     var totalCount = this.data.totalCount //当前加载的数量
     this.getData(this.data.isbn13, totalCount, totalCount+20);
-    this.data.totalCount+=20;
+    this.data.totalCount+=5;
     wx.showNavigationBarLoading();
   },
 
@@ -56,12 +57,14 @@ Page({
         _end : end
       },
       header: {},
-      method: '',
+      method: 'POST',
       dataType: '',
       success: function(res) {
         that.processData(res.data);
       },
-      fail: function(res) {},
+      fail: function(res) {
+        console.log("get error");
+      },
       complete: function(res) {},
     })
   },
