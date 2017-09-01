@@ -100,7 +100,8 @@ Page({
   },
   process:function(data){
     var rank ,amount, sorts;
-    if(data.length ==  0){
+    console.log(data);
+    if(data ==  'failure'){
       this.setData({
         data_null: true,
         
@@ -113,6 +114,7 @@ Page({
       sorts = app.bookSorts(sorts);
 
       this.setData({
+        data_null : false,
         rank: rank,
         amount: amount,
         sorts: sorts

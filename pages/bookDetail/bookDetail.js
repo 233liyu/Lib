@@ -405,7 +405,7 @@ Page({
                  res = res.data;
                 if(res.state == true){
                   wx.showToast({
-                    title: "预定成功，请在 “我的预定” 里查看",
+                    title: "预定成功",
                     icon: 'success',
                     image: '',
                     duration: 1500,
@@ -558,7 +558,7 @@ Page({
 
    to_personalPage:function(e){
        wx.navigateTo({
-         url: '../personalPage/personalPage',
+         url: '../personalPage/personalPage?userid='+e.currentTarget.dataset.user,
          success: function(res) {},
          fail: function(res) {},
          complete: function(res) {},

@@ -25,7 +25,6 @@
        </view>
       </view>
       </block>
-      <button wx:if="{{moreComments}}" id="moreComments" catchtap="moreComments" data-isbn="{{isbn13}}">查看更多</button>
   </view>
 
 <loading hidden="{{hiddenLoading}}">数据正在加载</loading>

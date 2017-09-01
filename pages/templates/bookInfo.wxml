@@ -5,6 +5,9 @@
 <image src="{{image}}" class="book_image" />
 <view class="book_title">
 <text>{{title}}</text>
+ <view style="font-size:25rpx"> 
+ <text>{{ave}}分</text>
+ </view>
 </view>
 </view>
 </template>

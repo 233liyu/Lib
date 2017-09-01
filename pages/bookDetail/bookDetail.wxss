@@ -170,6 +170,7 @@
 .rate{
  color: #777777;
  float: right;
+ margin-right: 20rpx;
 }
 
 /*用户添加评论*/

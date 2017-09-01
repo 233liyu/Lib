@@ -75,12 +75,13 @@ Page({
         title = title.substring(0, 6) + "...";
       }
       var temp = {
-        title: title,
-        bookId: subject.isbn13,
-        image: subject.image,
         authors: subject.author,
         storage: subject.storage,
         storage_cb: subject.storage_cb,
+        title: title,
+        bookId: subject.isbn13,
+        image: subject.image,
+        ave: subject.grade_ave_f,
       }
       books.push(temp)
     }

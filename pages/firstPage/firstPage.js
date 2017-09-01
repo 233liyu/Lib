@@ -614,10 +614,10 @@ processCommandData:function (BookInfo,settedKey)
       title = title.substring(0, 6) + "...";
     }
     var temp = {
-
       title: title,
       bookId: subject.isbn13,
       image: subject.image,
+      ave: subject.grade_ave_f,
     }
     books.push(temp)
   }
