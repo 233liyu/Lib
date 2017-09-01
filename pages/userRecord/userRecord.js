@@ -100,16 +100,25 @@ Page({
   },
   process:function(data){
     var rank ,amount, sorts;
-    rank = data.defeat * 100;
-    amount = data.books;
-    sorts = data.subclass;
-    sorts = app.bookSorts(sorts);
+    if(data.length ==  0){
+      this.setData({
+        data_null: true,
+        
+      })
+    }
+    else{
+      rank = data.defeat * 100;
+      amount = data.books;
+      sorts = data.subclass;
+      sorts = app.bookSorts(sorts);
 
-    this.setData({
-      rank : rank,
-      amount : amount,
-      sorts : sorts
-    })
+      this.setData({
+        rank: rank,
+        amount: amount,
+        sorts: sorts
+      })
+    }
+   
   },
   
 

@@ -6,7 +6,7 @@ Page({
     isEmpty: true,
     comments:[],
     requestUrl: 'https://www.biulibiuli.cn/hhlab/getMoreComment',
-    totalCount: 5,
+    totalCount: 20,
     isbn13 : 0,
   },
 
@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
 
     this.data.isbn13 = options.isbn13;
-    this.getData(this.data.isbn13, 1,5);
+    this.getData(this.data.isbn13, 1,20);
   
   },
   /**
@@ -31,7 +31,7 @@ Page({
     this.data.comments = {};
     this.data.isEmpty = true;
     this.data.totalCount = 0;
-    this.getData(this.data.isbn13, totalCount, totalCount + 5);
+    this.getData(this.data.isbn13, totalCount, totalCount + 20);
     wx.showNavigationBarLoading();
 
   },
@@ -41,7 +41,7 @@ Page({
     //之后在和后台交互的时候连接加参数
     var totalCount = this.data.totalCount //当前加载的数量
     this.getData(this.data.isbn13, totalCount, totalCount+20);
-    this.data.totalCount+=5;
+    this.data.totalCount+=20;
     wx.showNavigationBarLoading();
   },
 

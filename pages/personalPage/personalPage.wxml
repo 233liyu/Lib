@@ -1,0 +1,10 @@
+<!--personalPage.wxml-->
+<view class="Info">
+  <view  bindtap="bindViewTap" class="userinfo">
+   <image src="../../images/index/per_bg.png" class="per_bg" mode="widthFix"></image>
+    <view style="margin-top:-320rpx;">
+    <image class="userinfo-avatar" src="../../images/index/temp_user.png" background-size="cover"></image>  
+    </view>
+    <text class="userinfo-nickname">Vivian </text>
+  </view>
+</view>

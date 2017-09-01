@@ -502,6 +502,14 @@ Page({
              comments = that.data.comments;
              if(comments.length>4){
                comments.length = 4;
+               that.setData({
+                 moreComments: true
+               })
+             }
+             else{
+               that.setData({
+                 moreComments: false
+               })
              }
             
              that.setData({
@@ -546,6 +554,15 @@ Page({
         fail: function(res) {},
         complete: function(res) {},
       })
+   },
+
+   to_personalPage:function(e){
+       wx.navigateTo({
+         url: '../personalPage/personalPage',
+         success: function(res) {},
+         fail: function(res) {},
+         complete: function(res) {},
+       })
    },
  
  onShareAppMessage: function() {

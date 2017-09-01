@@ -1,0 +1,23 @@
+/* personalPage.wxss */
+
+.per_bg{
+ width: 376px;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 30rpx;
+  border-radius: 50%;
+  border-width: 3rpx;
+  border-color: #ffffff;
+}
+.userinfo-nickname {
+    color: #000;
+}
