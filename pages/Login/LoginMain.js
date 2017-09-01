@@ -5,6 +5,34 @@ var app = getApp()
 var pp = null
 var util = require("../../utils/util.js")
 
+function updateImg(userInfo){
+  var session = wx.getStorageSync('sessionID');
+  var img = userInfo.avatarUrl;
+
+  wx.request({
+    url: 'https://www.biulibiuli.cn/hhlab/user/update_image',
+    data: {
+      session_id: session,
+      avatar: img
+    },
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    // header: {}, // 设置请求的 header
+    success: function (res) {
+      // success
+      var reciveData = res.data;
+      console.log(reciveData);
+
+      if(reciveData.state){
+        console.log('update user image success');
+      } else {
+        console.log('update image failed' + reciveData.msg);        
+      }
+
+
+    }
+  })
+}
+
 
 function requestUserInfo(that){
     // 拉起获取用户信息的请求
@@ -111,6 +139,8 @@ Page({
           if(reciveData == 'success'){
             // mark user have logged
             app.globalData.userInfo = pp.data.userInfo;
+
+            updateImg(pp.data.userInfo);
 
             wx.showToast({
               title: '登录成功',
