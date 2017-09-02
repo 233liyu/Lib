@@ -15,6 +15,99 @@ function http(url, callBack) {
   })
 }
 
+function reLogIn(){
+  // 调用微信登录，建立第三方session
+  wx.login({
+    success: function (res) {
+      console.log(res);
+      if (res.errMsg == 'login:ok') {
+        // 如果登录成功，发送到服务器换取session key
+        wx.request({
+          url: 'https://www.biulibiuli.cn/hhlab/login/create_session',
+          method: 'POST',
+          data: {
+            code: res.code
+          },
+          success: function (res) {
+            console.log(res);
+            // 将结果写入到微信本地保存
+            if (res.data.state == 'success') {
+              wx.setStorageSync('sessionID', res.data.sessionID);
+              wx.setStorageSync('openID', res.data.openID);
+            } else {
+              wx.clearStorageSync('sessionID');
+            }
+          },
+          failed: function () {
+            wx.clearStorageSync('sessionID');
+          }
+        })
+      }
+    },
+    fail: function () {
+      wx.clearStorageSync('sessionID');
+      console.log('log in failed')
+    }
+  })
+}
+
+
+function checkLogIn(){
+
+  // 检查微信与服务器的session 是否过期，如果微信过期则重新调用登录
+  // 如果服务器过期，则重新创建session
+  var session = wx.getStorageSync('sessionID');
+  var openid = wx.getStorageSync('openID');
+
+  wx.checkSession({
+    success: function () {
+      //session 未过期，并且在本生命周期一直有效
+      wx.request({
+        url: 'https://www.biulibiuli.cn/hhlab/user/check_session',
+        method: 'POST',
+        data: {
+          session_id : session,
+          open_id : openid
+        },
+        success: function (res) {
+          console.log(res);
+          if (res.data.state) {
+            // 请求成功
+            
+            if (res.data.errMsg == 'expired'){
+              console.log('user session expired');
+
+              wx.setStorage({
+                key: 'sessionID',
+                data: res.data.content,
+              })
+
+            } else {
+              console.log('user session not expired');
+            }
+
+
+          } else {
+
+            console.log('failed to check session');
+
+          }
+        },
+        failed: function () {
+          // wx.clearStorageSync('sessionID');
+        }
+      })
+
+
+    },
+    fail: function () {
+      //登录态过期
+      reLogIn();
+    }
+  })
+
+
+}
 
 function formatTime(date) {
   var year = date.getFullYear()
