@@ -13,6 +13,9 @@ Page({
     hiddenLoading: false,
     disabledRemind: false,
     isEmpty: true,
+    hasfollowed:false,
+    followMsg:'关注',//提示关注 
+    hisOwn : false,//判断是否是本人
     comments: [],
     totalCount: 20,
     isbn13: 0,
@@ -58,18 +61,20 @@ Page({
   getData: function (userid, begin, end) {
     //参数userid，_begin,_end
     var that = this;
+    var session_id = wx.getStorageSync('sessionID');
     wx.request({
       url: this.data.requestUrl,
       data: {
         userid: userid,
         _begin: begin,
-        _end: end
+        _end: end,
+        session_id : session_id
       },
       header: {},
       method: 'POST',
       dataType: '',
       success: function (res) {
-        that.processData(res.data);
+        that.processData(res.data[0]);
       },
       fail: function (res) {
         console.log("get error");
@@ -79,9 +84,13 @@ Page({
   },
 
   //处理数据
-  processData: function (comments) {
-    console.log(comments);
-    /*
+  processData: function (data) {
+    console.log(data);
+    var owner = data.owner;
+    var comments = data.comments;
+    this.processUser( owner, data.follower, data.hisOwn);//处理用户信息
+
+     /*
      没有评论返回
     */
     if (comments.length == 0) {
@@ -118,6 +127,51 @@ Page({
       comments: comments,
       hiddenLoading: true
     })
+
+  },
+  processUser: function (owner, hasfollow, hisOwn){
+    var name, follow, fan, hasfollowed, follow,followMsg ,image;
+      image = owner.image
+      name = owner.name;
+      fan = owner.fan;
+      follow = owner.follow;
+
+        if (hisOwn) {
+          //本人
+          this.setData({
+            hasfollowed: false,
+            followMsg: '关注',
+            hisOwn: true,
+            name : name,
+            fan :fan,
+            image : image,
+            follow : follow
+          })
+        }
+        else{
+          if (hasfollow){//已关注
+            hasfollowed = true;
+            followMsg = '已关注';//提示关注 
+            hisOwn = false;
+
+          }
+          else{
+            hasfollowed = false;
+            followMsg = '关注';//提示关注 
+            hisOwn = false;
+          }
+         
+          this.setData({
+            hasfollowed: hasfollowed,
+            followMsg: followMsg,
+            hisOwn: hisOwn,
+            name: name,
+            image: image,
+            fan: fan,
+            follow: follow
+          })
+        }
+
 
   },
 

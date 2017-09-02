@@ -109,6 +109,14 @@ Page({
      })
       
    },
+   to_personalPage: function (e) {
+     wx.navigateTo({
+       url: '../personalPage/personalPage?userid=' + e.currentTarget.dataset.user,
+       success: function (res) { },
+       fail: function (res) { },
+       complete: function (res) { },
+     })
+   },
    
    /**
    * 处理时间函数
