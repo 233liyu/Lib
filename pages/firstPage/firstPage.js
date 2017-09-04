@@ -1,5 +1,5 @@
-var app = getApp()
-var pp = null
+var app = getApp();
+var pp = null;
 Page({
   data: {
     /*初始控制模块变量 */
@@ -7,6 +7,7 @@ Page({
     Command:{},//热门推荐 
     personalCommand :{},//个性化推荐
     usrLogin:false,//控制 个性化推荐的显示
+
  list: [
        {
         id: 'A',
@@ -388,6 +389,9 @@ onLoad: function(event)
     if (app.globalData.userInfo != null) {
       var open_recommendation = wx.getStorageSync('open_recommendation');
       //开启
+      var util = require('../../utils/util.js')
+      util.checkLogIn();
+
       if (open_recommendation) {//开启推荐将会显示个性化推荐
         this.setData({
           containerShow: true,

@@ -6,21 +6,27 @@
 }
 
 .userinfo {
+  padding-bottom: 15rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
  
 .userinfo-avatar {
-  width: 180rpx;
-  height: 180rpx;
-  margin: 40rpx;
+  width: 175rpx;
+  height: 175rpx;
+  margin-top: 20rpx;
   border-radius: 50%;
   border-width: 3rpx;
   border-color: #ffffff;
 }
 .userinfo-nickname {
     color: #ffffff;
+
+}
+.exit{
+  height: 30px;
+  font-size: 25rpx;
 }
 
 .OrederInfo{
@@ -117,3 +123,4 @@
   border: 1px solid #D8D8D8;
   border-radius: 3rpx;
 }
+

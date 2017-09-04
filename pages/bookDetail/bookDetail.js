@@ -122,6 +122,7 @@ Page({
         var Storagevisible;
         var _class;
         var subclass;
+        var grade_ave_f;
         var tempCount = 0;
         
         //馆藏信息的预处理修改
@@ -193,13 +194,13 @@ Page({
         title: data.title,
         guide_read: data.guide_read,
         comments: comments,
+        grade_ave_f: data.grade_ave_f,
         storage : data.storage,
         storage_books : storage_books,
         _class:data._class,
         subclass : data.subclass,
         };
      this.setData(readyData);
-     console.log(readyData)
      var ReCommandUrl = 'https://www.biulibiuli.cn/hhlab/recommend_subclass?subclass='+subclass;
      this.getReCommBooklist(ReCommandUrl, bookId);
      wx.hideNavigationBarLoading();
@@ -261,6 +262,7 @@ Page({
           title: title,
           bookId: subject.isbn13,
           image: subject.image,
+          ave: subject.grade_ave_f,
         }
         books.push(temp)
       }

@@ -20,7 +20,8 @@
     "pages/orders/failedOrder/failedOrder",
     "pages/userRecord/userRecord",
     "pages/moreComments/moreComments",
-    "pages/personalPage/personalPage"
+    "pages/personalPage/personalPage",
+    "pages/followOrfan/followOrfan"
   ],
   "tabBar": {
     "color": "#fff",

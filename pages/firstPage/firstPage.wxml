@@ -2,7 +2,7 @@
 <import src="../templates/bookList.wxml" />
 <view class="search">
   <view class="text_box" catchtap="toSearch">
-   <text  class="search_text">请输入图书编号或者书名 </text>
+   <text  class="search_text">搜索</text>
   </view>
   <view class="scan_icon">
     <image src="../../images/icon/scan.png" class="scan" bindtap="scanCode"></image>

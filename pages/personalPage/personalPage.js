@@ -1,4 +1,5 @@
 // personalPage.js
+var app = getApp();
 Page({
 
   /**
@@ -6,8 +7,10 @@ Page({
    */
   data: {
     requestUrl:'https://www.biulibiuli.cn/hhlab/userHome',
-    usr : '',
+    followUrl: 'https://www.biulibiuli.cn/hhlab/follow',
+    user : '',
     t: '\n',
+    fan : 0,
     user_name :'',
     user_image:'',
     hiddenLoading: false,
@@ -130,10 +133,10 @@ Page({
 
   },
   processUser: function (owner, hasfollow, hisOwn){
-    var name, follow, fan, hasfollowed, follow,followMsg ,image;
+    var name, follow, hasfollowed, follow,followMsg ,image;
       image = owner.image
       name = owner.name;
-      fan = owner.fan;
+      this.data.fan = owner.fan;
       follow = owner.follow;
 
         if (hisOwn) {
@@ -143,7 +146,7 @@ Page({
             followMsg: '关注',
             hisOwn: true,
             name : name,
-            fan :fan,
+            fan :this.data.fan,
             image : image,
             follow : follow
           })
@@ -151,7 +154,7 @@ Page({
         else{
           if (hasfollow){//已关注
             hasfollowed = true;
-            followMsg = '已关注';//提示关注 
+            followMsg = '取消关注';//提示关注 
             hisOwn = false;
 
           }
@@ -167,13 +170,98 @@ Page({
             hisOwn: hisOwn,
             name: name,
             image: image,
-            fan: fan,
+            fan: this.data.fan,
             follow: follow
           })
         }
 
 
   },
+
+  /*处理关注 */
+  toFollow : function(e) {
+    //先判断用户是否登录
+    if (app.globalData.userInfo == null) {
+      wx.showModal({
+        title: '',
+        content: '您目前还没有登录，尚无法关注',
+        showCancel: false,
+        confirmText: '确定'
+      })
+
+    } else{
+      var Msg = e.currentTarget.dataset.msg;
+      var successMsg;
+      var that = this;
+      var session_id = wx.getStorageSync('sessionID');
+      //mode = add del show
+      var mode;
+      if(Msg == "关注"){
+        mode = "add";
+        successMsg = "取消关注"
+        this.data.fan +=1;
+      }else{
+        mode = "del";
+        successMsg = "关注"
+        this.data.fan -=1;
+      }
+      //请求数据
+      wx.request({
+        url: this.data.followUrl,
+        data: {
+          mode : mode ,
+          userid: this.data.user,
+          session_id : session_id,
+        },
+        header: {},
+        method: 'POST',
+        dataType: '',
+        success: function(res) {
+          console.log(res);
+           if(res.data != "failure"){
+             wx.showToast({
+               title: '操作成功',
+               icon: 'success',
+               image: '',
+               duration: 1500,
+               mask: true,
+               success: function(res) {},
+               fail: function(res) {},
+               complete: function(res) {},
+             });
+             that.setData({
+               followMsg : successMsg,
+               fan : that.data.fan
+             })
+           }
+        },
+        fail: function(res) {
+          wx.showToast({
+            title: '操作失败',
+            icon: 'failure',
+            image: '',
+            duration: 1500,
+            mask: true,
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
+          })
+        },
+        complete: function(res) {},
+      })
+    }
+  },
+  /* 查看关注者or 粉丝 */
+  loadFollow : function(e){
+    var that = this;
+    wx.navigateTo({
+      url: '../followOrfan/followOrfan?mode=' + e.currentTarget.dataset.mode+'&userid=' + that.data.user,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+
 
   /**
   * 处理时间函数

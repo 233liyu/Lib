@@ -1,25 +1,31 @@
 /* personalPage.wxss */
 
 .per_bg{
- width: 376px;
+ width: 100%;
 }
 
 .userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10rpx;
+  text-shadow: 2rpx 2rpx 2rpx 2rpx #ededed;
 }
  
 .userinfo-avatar {
-  width: 180rpx;
-  height: 180rpx;
-  margin: 30rpx;
+  width: 160rpx;
+  height: 160rpx;
+  margin: 10rpx;
   border-radius: 50%;
   border-width: 3rpx;
   border-color: #ffffff;
 }
 .userinfo-nickname {
     color: #000;
+}
+.follow_btn{
+  height: 35px;
+  font-size: 30rpx;
 }
 
 /*comment*/
@@ -31,7 +37,7 @@
  border-right: 1px solid black;*/
  padding: 15rpx 25rpx 15rpx 25rpx;
  font-size: 30rpx;
- border-bottom: 1rpx solid #edecee;
+ border-bottom: 1rpx solid #edeced;
 }
 
 .c_time{
@@ -60,7 +66,7 @@
   height: 120px; 
   min-height: 120rpx;
   margin: auto;
-  border: 1rpx solid #ededed;
+  border: 1rpx solid #dedede;
   padding: 10rpx;
 }
 

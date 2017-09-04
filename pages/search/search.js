@@ -112,7 +112,11 @@ Page({
       });
     }
   },
-
+  History:function(e){
+    var his = e.currentTarget.dataset.his;
+    console.log(his);
+    //this.bindKeyFinish(his);
+  },
 
   processData : function(res){
        var books=[];

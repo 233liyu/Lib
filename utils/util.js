@@ -169,6 +169,7 @@ function updateUserInfo() {
 module.exports = {
   updateUserInfo: updateUserInfo,
   formatTime: formatTime,
-  http: http
+  http: http,
+  checkLogIn : checkLogIn
 }
 

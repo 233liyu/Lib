@@ -38,7 +38,7 @@ function requestUserInfo(that) {
 }
 Page({
   data:{
-   userInfo:null,
+   user:null,
    afterLogin:false,
   },
   
@@ -53,13 +53,9 @@ Page({
 
     } else {
       console.log("user:is logged")
-      var user = app.globalData.userInfo;
       this.setData({
-        userInfo: user,
         afterLogin:true,
-      })
-      console.log("user:")
-      console.log(user)
+      });
     }
     
   },
@@ -71,11 +67,29 @@ Page({
   onShow:function(){
     // 生命周期函数--监听页面显示
     if (app.globalData.userInfo != null) {
-      var user = app.globalData.userInfo;
-      this.setData({
-        userInfo: user,
-        afterLogin: true,
-        beforeLogin: false,
+      var uInfo = app.globalData.userInfo;
+      var that = this;
+      var session_id = wx.getStorageSync('sessionID');
+      wx.request({
+        url: 'https://www.biulibiuli.cn/hhlab/getUseridBySession_id',
+        data: {
+          session_id: session_id,
+        },
+        header: {},
+        method: 'POST',
+        dataType: '',
+        success: function (res) {
+          console.log(res.data);
+          that.data.user = res.data[0];
+          that.setData({
+            uInfo : uInfo,
+            userInfo: that.data.user,
+            afterLogin: true,
+            beforeLogin: false,
+          })
+        },
+        fail: function (res) { },
+        complete: function (res) { },
       })
 
     }
@@ -96,7 +110,17 @@ Page({
       url: '../orders/failedOrder/failedOrder',
     })
   },
-
+  toPersonal:function(e){
+    var session_id = wx.getStorageSync('sessionID');
+     wx.navigateTo({
+       url: '../personalPage/personalPage?userid=' + this.data.user.userid,
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+          })
+     
+   
+  },
   //去往登录页面
   toLogin:function(){
 

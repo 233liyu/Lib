@@ -15,7 +15,10 @@
         </view>
       </block>
     </view>
+    <view>
     <image class="book-img" src="{{ImageUrl}}" data-src="{{ImageUrl}}" catchtap="viewBookPostImg" />
+    </view>
+     <text class="grade" >{{grade_ave_f}}分</text>
   </view>
   <view class="buttonMenu">
     <button plain="true" class="opts" style=" color: #fdc441; border-color:#fdc441; margin:15rpx 0rpx 5rpx 20rpx; " bindtap="StorageInfo" data-vis="{{Storagevisible}}">
