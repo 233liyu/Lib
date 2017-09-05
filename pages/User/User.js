@@ -128,6 +128,25 @@ Page({
        url: '/pages/Login/LoginMain',
      })
   },
+
+//登出
+  toExit : function(){
+    var session_id = wx.getStorageSync('sessionID');
+    wx.request({
+      url: 'https://www.biulibiuli.cn/hhlab/user/logout',
+      data: {
+        session_id : session_id,
+      },
+      header: {},
+      method: 'POST',
+      dataType: '',
+      success: function(res) {
+        console.log(res);
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    }) 
+  },
   onShareAppMessage: function() {
     // 用户点击右上角分享
     return {

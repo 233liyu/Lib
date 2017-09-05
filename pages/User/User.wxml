@@ -6,7 +6,7 @@
     <view style="margin-top:-5rpx; text-align: center" >
     <text class="userinfo-nickname" wx:if="{{userInfo.name.length != 0}}">{{userInfo.name}}</text>
     <text wx:else class="userinfo-nickname">{{uInfo.nickName}}</text>
-    <button class="exit"  catchtap="toExit">退出</button>
+    <button wx:if="{{afterLogin}}" class="exit"  catchtap="toExit">退出</button>
     </view>
   </view>
 </view>

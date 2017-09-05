@@ -122,14 +122,15 @@ Page({
       comments = comments;
       this.data.isEmpty = false;
     }
-    wx.hideNavigationBarLoading();
-    wx.stopPullDownRefresh();
+    // wx.hideNavigationBarLoading();
+    // wx.stopPullDownRefresh();
 
     this.setData({
-      username : comments[0].user.name,
       comments: comments,
       hiddenLoading: true
     })
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
 
   },
   processUser: function (owner, hasfollow, hisOwn){

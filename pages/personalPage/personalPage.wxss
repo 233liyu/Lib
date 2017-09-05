@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   padding: 10rpx;
-  text-shadow: 2rpx 2rpx 2rpx 2rpx #ededed;
+  text-shadow: 3rpx 3rpx 3rpx #fff;
 }
  
 .userinfo-avatar {

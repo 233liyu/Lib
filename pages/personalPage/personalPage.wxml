@@ -1,7 +1,7 @@
 <!--personalPage.wxml-->
 <view class="Info" style="overflow:hidden">
   <view  bindtap="bindViewTap" class="userinfo">
-   <image src="../../images/index/p2_bg.jpeg" class="per_bg" mode="widthFix"></image>
+   <image src="../../images/index/p2_bg.png" class="per_bg" mode="widthFix"></image>
     <view style="margin-top: -265px;" >
     <image wx:if="{{image.length == 0}}" class="userinfo-avatar" src="../../images/index/temp_user.png" background-size="cover"></image>
     <image wx:else class="userinfo-avatar" src="{{image}}" background-size="cover" ></image> 
